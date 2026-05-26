@@ -1,8 +1,8 @@
 ﻿$ErrorActionPreference = 'Continue'
 $repo = 'D:\code'
 $log = Join-Path $repo '.git-auto-sync.log'
-$pending = $false
-$lastEvent = Get-Date
+$script:pending = $false
+$script:lastEvent = Get-Date
 
 function Write-Log($message) {
     $time = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
@@ -90,11 +90,12 @@ Invoke-GitSync
 
 while ($true) {
     Start-Sleep -Seconds 5
-    if ($pending -and ((Get-Date) - $lastEvent).TotalSeconds -ge 10) {
-        $pending = $false
+    if ($script:pending -and ((Get-Date) - $script:lastEvent).TotalSeconds -ge 10) {
+        $script:pending = $false
         Write-Log '文件变化已稳定，开始自动同步。'
         Invoke-GitSync
     }
 }
+
 
 
