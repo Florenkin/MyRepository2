@@ -1,0 +1,24 @@
+name: flo_assistant
+description: 一个使用 Flutter 编写的最小记事本应用。
+publish_to: "none"
+
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # 用于在 Android 和 Windows 本地保存简单笔记数据。
+  shared_preferences: ^2.5.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
