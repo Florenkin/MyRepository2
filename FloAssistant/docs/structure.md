@@ -4,10 +4,12 @@
 
 ```text
 FloAssistant/
+  .gitignore
   pubspec.yaml
   lib/
     main.dart
   docs/
+    auto-sync-test.txt
     project-requirements.md
     structure.md
 ```
@@ -29,6 +31,10 @@ Flutter 项目的核心配置文件，作用包括：
 - `flutter`：Flutter 应用基础 SDK。
 - `shared_preferences`：用于在 Android 和 Windows 本地保存简单笔记数据。
 - `flutter_lints`：提供 Flutter 推荐的代码规范检查。
+
+### `.gitignore`
+
+Git 忽略配置文件，作用是避免把本地构建产物、IDE 配置、Flutter 临时文件提交到版本库。
 
 ## `lib/`
 
@@ -56,6 +62,10 @@ Flutter 应用源码目录。当前最小版本只有一个入口文件，后续
 ### `docs/project-requirements.md`
 
 项目需求文档，记录完整版本的产品目标、核心功能、AI 接入、同步设计、技术选型和版本规划。
+
+### `docs/auto-sync-test.txt`
+
+当前工作区已有的辅助测试文件，用于记录自动同步观察测试信息。它不是记事本应用的业务代码。
 
 ### `docs/structure.md`
 
