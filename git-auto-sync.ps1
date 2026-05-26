@@ -24,6 +24,8 @@ function Should-IgnorePath($path) {
 }
 
 function Push-CurrentBranch {
+    $env:GIT_TERMINAL_PROMPT = '0'
+    $env:GCM_INTERACTIVE = 'never'
     Set-Location -LiteralPath $repo
     $branch = git branch --show-current
     if ([string]::IsNullOrWhiteSpace($branch)) { $branch = 'master' }
@@ -93,3 +95,4 @@ while ($true) {
         Invoke-GitSync
     }
 }
+
