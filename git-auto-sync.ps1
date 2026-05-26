@@ -13,6 +13,7 @@ function Should-IgnorePath($path) {
     if ([string]::IsNullOrWhiteSpace($path)) { return $true }
     $relative = $path.Substring($repo.Length).TrimStart('\')
     return (
+        $relative -eq '.git' -or
         $relative -like '.git\*' -or
         $relative -like '.vs\*' -or
         $relative -like 'build\*' -or
@@ -95,4 +96,5 @@ while ($true) {
         Invoke-GitSync
     }
 }
+
 
