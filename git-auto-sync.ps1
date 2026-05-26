@@ -1,8 +1,8 @@
 ﻿$ErrorActionPreference = 'Continue'
 $repo = 'D:\code'
 $log = Join-Path $repo '.git-auto-sync.log'
-$script:pending = $false
-$script:lastEvent = Get-Date
+$global:pending = $false
+$global:lastEvent = Get-Date
 
 function Write-Log($message) {
     $time = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'
@@ -75,8 +75,8 @@ $watcher.EnableRaisingEvents = $true
 
 $action = {
     if (-not (Should-IgnorePath $Event.SourceEventArgs.FullPath)) {
-        $script:pending = $true
-        $script:lastEvent = Get-Date
+        $global:pending = $true
+        $global:lastEvent = Get-Date
         Write-Log "检测到文件变化：$($Event.SourceEventArgs.FullPath)"
     }
 }
@@ -90,12 +90,13 @@ Invoke-GitSync
 
 while ($true) {
     Start-Sleep -Seconds 5
-    if ($script:pending -and ((Get-Date) - $script:lastEvent).TotalSeconds -ge 10) {
-        $script:pending = $false
+    if ($global:pending -and ((Get-Date) - $global:lastEvent).TotalSeconds -ge 10) {
+        $global:pending = $false
         Write-Log '文件变化已稳定，开始自动同步。'
         Invoke-GitSync
     }
 }
+
 
 
 
