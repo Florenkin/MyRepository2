@@ -23,18 +23,31 @@ function Should-IgnorePath($path) {
     )
 }
 
+function Push-CurrentBranch {
+    Set-Location -LiteralPath $repo
+    $branch = git branch --show-current
+    if ([string]::IsNullOrWhiteSpace($branch)) { $branch = 'master' }
+
+    git push -u origin $branch | Out-Null
+    if ($LASTEXITCODE -eq 0) {
+        Write-Log "Pushed changes to origin/$branch."
+    } else {
+        Write-Log "Push failed for origin/$branch. GitHub login may be required."
+    }
+}
+
 function Invoke-GitSync {
     Set-Location -LiteralPath $repo
     $status = git status --porcelain
     if (-not $status) {
-        Write-Log 'No changes to sync.'
+        Push-CurrentBranch
         return
     }
 
     git add -A | Out-Null
     $statusAfterAdd = git status --porcelain
     if (-not $statusAfterAdd) {
-        Write-Log 'Only ignored changes detected.'
+        Push-CurrentBranch
         return
     }
 
@@ -45,15 +58,7 @@ function Invoke-GitSync {
         return
     }
 
-    $branch = git branch --show-current
-    if ([string]::IsNullOrWhiteSpace($branch)) { $branch = 'master' }
-
-    git push -u origin $branch | Out-Null
-    if ($LASTEXITCODE -eq 0) {
-        Write-Log "Pushed changes to origin/$branch."
-    } else {
-        Write-Log "Push failed for origin/$branch."
-    }
+    Push-CurrentBranch
 }
 
 Write-Log 'Git auto sync watcher started.'
@@ -73,6 +78,8 @@ Register-ObjectEvent $watcher Created -Action $action | Out-Null
 Register-ObjectEvent $watcher Changed -Action $action | Out-Null
 Register-ObjectEvent $watcher Deleted -Action $action | Out-Null
 Register-ObjectEvent $watcher Renamed -Action $action | Out-Null
+
+Invoke-GitSync
 
 while ($true) {
     Start-Sleep -Seconds 5
