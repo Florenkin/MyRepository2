@@ -1,0 +1,272 @@
+# Multi-view_IpS 项目说明
+
+## 项目概览
+
+该项目是一套基于 C++14、Qt5、CMake 的工业视觉检测桌面软件，项目名为 `Multi-view_IpS`。它不是一个简单的单体程序，而是采用“主程序 + 插件系统 + 多业务模块”的结构，主要面向多相机成像、投影控制、3D 点云处理、Gerber/ROI 配置、元件库管理、算法检测和设备联动。
+
+当前工作区包含源码目录 `multi-view_ips`、已生成的 `build` 目录，以及第三方依赖压缩包 `3rdlibs.rar`。`build/bin/Release` 下已经存在可执行程序和大量 DLL 构建产物。
+
+## 技术栈
+
+- 语言：C++14
+- GUI 框架：Qt5
+- 构建系统：CMake
+- 主要第三方库：OpenCV 3.4.2、VTK 8.2、PCL 1.9.1、Boost 1.69、Eigen、FLANN、QHull、PaddleOCR、ONNX Runtime
+- 平台倾向：Windows/MSVC 环境较完整，README 中也保留了 Ubuntu18.04 的构建说明
+
+## 目录结构
+
+主要源码位于：
+
+```text
+D:\code\20220216\multi-view_ips\src
+```
+
+核心目录如下：
+
+- `src/app`：主程序入口，负责 Qt 应用启动、单实例控制、设置初始化、崩溃处理和插件加载。
+- `src/libs`：基础库层，包含相机、运动控制、插件系统、3D 重建、OCR、工程管理、设备控制、元件库、通用工具等模块。
+- `src/comps`：业务组件和 UI 层，包含 `ribbonui`、`imaging`、`visualization`、`processingui` 等。
+- `src/tools`：工具和测试相关内容。
+- `3rdlibs`：第三方依赖目录。
+- `build`：已经生成的构建目录，包含 Visual Studio 工程、DLL、EXE、PDB 等产物。
+
+## 启动流程
+
+项目主程序本身比较薄，真正的主界面和业务功能通过插件加载。
+
+大致启动链路如下：
+
+```text
+Multi-view_IpS_v1.exe
+  -> 创建 QtSingleApplication
+  -> 初始化 QSettings、崩溃处理、线程池、翻译资源
+  -> 初始化 PluginManager
+  -> 设置插件 IID：com.multi-view.multi-view_ips.ribbon
+  -> 从 applicationDirPath()/pluginsystem/ 查找插件
+  -> 查找核心插件 RibbonUiKernel
+  -> 加载 ribbonui.dll
+  -> 创建并显示 MainWindow
+```
+
+相关关键文件：
+
+- `multi-view_ips/src/app/main.cpp`
+- `multi-view_ips/src/multiviewips_global.h`
+- `multi-view_ips/src/comps/ribbonui/UiKernelPlugin.cpp`
+- `multi-view_ips/src/comps/ribbonui/MainWindow.cpp`
+
+其中 `multiviewips_global.h` 中定义了核心插件名：
+
+```cpp
+#define KERNELPLUGIN_NAME "RibbonUiKernel"
+```
+
+主程序通过 `PluginManager::setPluginIID()` 只加载符合指定 IID 的核心 UI 插件：
+
+```cpp
+PluginManager::setPluginIID(QLatin1String("com.multi-view.multi-view_ips.ribbon"));
+```
+
+## 插件体系
+
+项目使用 Qt 插件机制和自定义 `pluginsystem` 管理插件。
+
+主要插件类型包括：
+
+- 主 UI 插件：`ribbonui.dll`
+- 相机插件：`virtualcamera`、`hikvisioncamera`、`dahengcamera`、`baslercamera`、`flycapturecamera`、`activesiliconcamera` 等
+- 投影设备插件：`dlp3010projector`、`dlp4710projector`
+- 运动控制插件：`virtualmotioncontrol`、`googlomotioncontrol`
+- 检测算法插件：Bridge、Geometry、Missing、OCR、Polarity、Position、Rotation、Solder、SolderJoint、Tombstone 等
+- 电子元件插件：resistance、capacitance
+
+主程序直接加载 Ribbon UI 插件，其他硬件、算法、元件相关插件通常由各自业务模块继续加载。
+
+## 主业务模块
+
+### 1. Ribbon 主界面
+
+`ribbonui` 是核心 UI 插件。它创建 `MainWindow`，并提供类似 Ribbon 的功能入口。
+
+主窗口初始化流程位于 `MainWindow::Init()`：
+
+```text
+InitImaging()
+InitMainWindow()
+InitRibbon()
+InitWindows()
+InitConnection()
+```
+
+Ribbon 菜单包含项目、FOV、设计、编程、设置、帮助等页面。
+
+### 2. 成像模块
+
+成像模块主要位于 `src/comps/imaging`，负责相机、投影、运动平台等参数初始化，以及采集 3D 数据。
+
+主窗口中通过：
+
+```cpp
+IMGING::Imaging::GetSingalInstance()
+```
+
+获取成像单例，并连接点云采集信号。
+
+### 3. 点云与可视化
+
+点云数据进入 `MainWindow::OnGet3DPointCloud()` 后，会被转换和拆分：
+
+```text
+原始点云
+  -> depth image
+  -> color image
+  -> 2D 背景刷新
+  -> 3D 窗口刷新
+  -> 传给 ProcessingModule
+```
+
+相关模块：
+
+- `src/comps/visualization`
+- `src/libs/reconstruction3d`
+- `src/libs/interactivewindow`
+
+### 4. Gerber / ROI / 元件库
+
+项目包含 Gerber 导入、ROI 绘制、元件库匹配等功能。主窗口会在不同模块之间同步数据：
+
+- 元件库数据更新后同步给 Gerber 模块和 2D 交互窗口
+- Gerber 解析出的元件数据同步给检测模块
+- ROI 新增、修改、删除、聚焦后同步给 `ProcessingModule`
+
+相关模块：
+
+- `automaticroi`
+- `library`
+- `interactivewindow`
+- `processingui`
+
+### 5. 算法检测
+
+检测功能主要由 `ProcessingModule` 和算法插件组成。点云、深度图、彩图传入后，在扫描检测模式下调用：
+
+```cpp
+ProcessingModule::GetInstance()->inspect();
+```
+
+检测结果会写入统计对象，并反馈给设备控制模块。
+
+### 6. 设备联动
+
+设备控制相关模块包括：
+
+- `devicecontrolloer`
+- `motioncontrol`
+- `cameras`
+- `imaging`
+
+扫描检测结束后，主窗口会调用：
+
+```cpp
+DeviceControllerModule::Instance()->scanAndInspectFinished(true);
+```
+
+用于通知设备流程继续或结束。
+
+## 构建与运行
+
+Windows 下 CMake 已经写入大量第三方库路径，主要来自 `multi-view_ips/3rdlibs`。
+
+关键配置包括：
+
+- OpenCV 路径：`3rdlibs/opencv-3.4.2/install`
+- VTK 路径：`3rdlibs/VTK-8.2_MT/Release/lib/cmake/vtk-8.2`
+- PCL 路径：`3rdlibs/pcl-1.9.1_MT/cmake`
+- Qt 预设：`CMakeUserPresets.json` 中配置为 Qt 5.15.2 + MSVC2019 x64 + Ninja
+
+当前已有构建产物：
+
+```text
+D:\code\20220216\build\bin\Release\Multi-view_IpS_v1.exe
+```
+
+主 UI 插件位于：
+
+```text
+D:\code\20220216\build\bin\Release\pluginsystem\ribbonui.dll
+```
+
+算法插件位于：
+
+```text
+D:\code\20220216\build\bin\Release\Algorithm
+```
+
+相机插件位于：
+
+```text
+D:\code\20220216\build\bin\Release\cameras
+```
+
+运动控制插件位于：
+
+```text
+D:\code\20220216\build\bin\Release\motioncontrol
+```
+
+## 当前项目状态
+
+源码规模较大，`src` 下约有 1500 多个 C/C++/Qt 相关源码文件。`libs` 占比较大，其中相机相关代码最多。
+
+从已生成产物看，项目曾经在 Windows Release 环境下成功构建，且输出了完整的 EXE、DLL、插件、PDB 和配置文件。
+
+## 主要风险点
+
+1. 构建环境强耦合
+
+   CMake 中硬编码了大量第三方库路径和版本，换机器或换编译器时容易出现依赖问题。
+
+2. 文档编码异常
+
+   `README.md` 和 `doc/rules/commit_rules.txt` 中存在明显乱码，可能是 GBK 与 UTF-8 混用导致。
+
+3. README 与实际配置不完全一致
+
+   README 中提到 Qt 5.12.3 和 Ubuntu18.04，而当前 CMake preset 使用 Qt 5.15.2、MSVC2019、Ninja。
+
+4. 插件和模块依赖复杂
+
+   主程序依赖 `ribbonui`，而 `ribbonui` 又依赖 imaging、AutomaticROI、processingui、GlobalData、projectmanager、interactivewindow、ManualProgramming、visualization、motioncontrol、DeviceController、DeviceData 等多个模块。
+
+5. CMake 维护成本较高
+
+   项目大量使用 `file(GLOB ...)` 和全局变量传递 include/lib 信息，长期维护时容易出现隐式依赖和构建顺序问题。
+
+6. Release 构建中存在调试配置
+
+   部分模块在 Windows 下对 Release 目标仍设置 `/Od` 和 `/DEBUG`，可能影响最终发布性能。
+
+7. 测试体系不统一
+
+   项目中有多个 demo/test 可执行程序，但没有看到统一的测试入口或自动化测试流程。
+
+8. 硬件依赖明显
+
+   相机、投影、运动平台、采集卡等硬件 SDK 依赖较多。没有真实硬件时，部分功能只能依赖虚拟插件或离线数据测试。
+
+## 建议维护方向
+
+后续如果要继续维护或二次开发，建议优先处理：
+
+1. 整理一份准确的 Windows 构建说明，包括 Qt、CMake、MSVC、Ninja、第三方库版本和环境变量。
+2. 明确插件加载路径、插件 IID、插件 JSON 元数据和运行时目录结构。
+3. 梳理成像到检测的主业务链路，尤其是点云采集、图像转换、ROI 映射、算法检测、设备回调这条路径。
+4. 将硬件插件和虚拟插件的使用方式分开说明，方便无硬件环境下调试。
+5. 修复 README 和规则文档的编码问题。
+6. 检查 Release 构建配置，确认是否确实需要 `/Od` 和调试符号。
+7. 为核心业务模块补充最小化自动测试或离线数据回归测试。
+
+## 一句话总结
+
+`Multi-view_IpS` 是一套插件化的工业多视角检测系统，核心能力围绕“硬件采集 -> 3D 点云/图像处理 -> Gerber/ROI/元件数据管理 -> 算法检测 -> 设备流程控制”展开。项目已经有较完整的 Windows 构建产物，但构建环境、第三方依赖、插件链路和硬件耦合都比较重，后续维护应优先补齐环境文档和主流程说明。

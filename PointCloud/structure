@@ -1,0 +1,75 @@
+PointCloud 项目结构
+
+D:\code\PointCloud
+|-- CMakeLists.txt
+|   |-- CMake 构建配置文件。
+|   |-- 用于查找 Qt5、PCL、VTK，并生成 Visual Studio 工程。
+|
+|-- readme.txt
+|   |-- 项目说明文档。
+|   |-- 包含功能说明、开发环境、构建方式和运行方式。
+|
+|-- structure
+|   |-- 当前项目结构说明文件。
+|
+|-- src
+|   |-- main.cpp
+|   |   |-- Qt 程序入口。
+|   |   |-- 初始化 QVTKOpenGLNativeWidget 所需的 OpenGL 格式。
+|   |
+|   |-- MainWindow.h
+|   |-- MainWindow.cpp
+|   |   |-- 主窗口类。
+|   |   |-- 负责界面布局、文件列表、按钮事件、状态栏和点云信息显示。
+|   |
+|   |-- PointCloudLoader.h
+|   |-- PointCloudLoader.cpp
+|   |   |-- PCD 文件加载模块。
+|   |   |-- 使用 PCL 读取点云文件，并提取 x、y、z 坐标字段。
+|   |   |-- 负责文件存在性、字段完整性和有效点数量检查。
+|   |
+|   |-- PointCloudView.h
+|   |-- PointCloudView.cpp
+|       |-- 点云渲染控件。
+|       |-- 封装 QVTKOpenGLNativeWidget 和 PCLVisualizer。
+|       |-- 负责点云显示、清空画面、重置视角和强制渲染刷新。
+|
+|-- Resource
+|   |-- PCD
+|       |-- 1.pcd
+|       |-- balltest3.pcd
+|       |-- blade.pcd
+|           |-- 示例 PCD 点云数据文件。
+|           |-- 程序启动后默认扫描该目录。
+|
+|-- scripts
+|   |-- build_release.bat
+|   |   |-- Release 版本一键构建脚本。
+|   |
+|   |-- run_release.bat
+|       |-- Release 版本启动脚本。
+|       |-- 自动设置 Qt、PCL、VTK、OpenNI2 运行时 DLL 路径。
+|
+|-- build
+|   |-- CMake 和 Visual Studio 生成的构建目录。
+|   |-- Release\PointCloudViewer.exe 为当前编译出的可执行程序。
+|   |-- 该目录属于生成产物，不是核心源码。
+|
+|-- out
+|   |-- IDE 或构建工具生成的输出目录。
+|   |-- 该目录属于生成产物。
+|
+|-- .vs
+    |-- Visual Studio 本地配置目录。
+    |-- 该目录属于 IDE 生成内容。
+
+核心运行入口：
+
+1. 构建项目：
+   D:\code\PointCloud\scripts\build_release.bat
+
+2. 启动项目：
+   D:\code\PointCloud\scripts\run_release.bat
+
+3. 默认点云资源目录：
+   D:\code\PointCloud\Resource\PCD

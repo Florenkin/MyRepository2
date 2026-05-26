@@ -1,0 +1,54 @@
+﻿# Visual Studio / CMake / Qt build output
+.vs/
+.vscode/.browse.VC.db*
+.vscode/ipch/
+build/
+out/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CPackConfig.cmake
+CPackSourceConfig.cmake
+*.vcxproj.user
+*.suo
+*.user
+*.db
+*.opendb
+*.VC.db
+*.ipch
+*.tlog
+*.lastbuildstate
+*.recipe
+*.obj
+*.iobj
+*.ipdb
+*.pdb
+*.ilk
+*.exe
+*.dll
+*.lib
+*.exp
+*.log
+
+# Large binary packages and firmware images
+*.rar
+*.zip
+*.7z
+*.tar
+*.tar.gz
+*.tar.xz
+*.img
+*.bin
+
+# Nested git repository currently kept out of outer repo
+20220216/multi-view_ips/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.cache
+Thumbs.db
+Desktop.ini
+.git-auto-sync.log

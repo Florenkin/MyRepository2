@@ -1,0 +1,12 @@
+#ifndef DLP_HANDLE_GLOBAL_H
+#define DLP_HANDLE_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(DLPHANDLE_LIBRARY)
+#  define DLPHANDLE_LIBRARY_EXPORT Q_DECL_EXPORT
+#else
+#  define DLPHANDLE_LIBRARY_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // DLP_HANDLE_GLOBAL_H

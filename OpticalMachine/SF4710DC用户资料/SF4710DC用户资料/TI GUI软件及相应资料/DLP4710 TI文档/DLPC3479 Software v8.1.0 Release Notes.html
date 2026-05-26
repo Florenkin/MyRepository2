@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Meta data -->
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+		<title>Release Notes</title>
+		
+		<!-- Bootstrap Components -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<!-- Some TI written CSS to customize the page -->
+		<style>
+			.navbar-inverse {
+				background-color: #c00000;
+				border-color: #c00000;
+			}
+			.navbar-inverse .navbar-brand {
+				color:  white;
+			}
+			.navbar-inverse .navbar-nav li a {
+				color:  white;
+			}
+			footer a {
+				color: black;
+			}
+			hr {
+				margin-top: 0em;
+				margin-bottom: 0em;
+			}
+			table {
+			  font-family: arial, sans-serif;
+			  border-collapse: collapse;
+			  width: 100%;
+			}
+
+			td, th {
+			  border: 1px solid #dddddd;
+			  text-align: left;
+			  padding: 8px;
+			}
+
+			
+		</style>
+
+		
+	</head>
+
+
+	<body>
+		<nav class="navbar navbar-inverse">
+			<div class="container">
+				<div class="navbar-header">
+					<!--<img src="ti_logo.png" alt="" height="32" width="32">-->
+					<a class="navbar-brand" href="http://www.ti.com">Texas Instruments</a> 
+				</div>
+
+				<div class="collapse navbar-collapse" id="myNavbar">
+
+					<ul class="nav navbar-nav navbar-right">
+							<li><a href="http://www.ti.com/dlp-chip/display-and-projection/pico-chipsets/overview.html"> DLP&reg; Pico&trade; Products</a></li>
+
+							<li><a href="http://www.ti.com/dlp-chip/overview.html">DLP Home</a></li>
+					</ul>
+					
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<h2 align="center">DLPC3479 Software v8.1.0 Release Notes</h2>
+			<h3>Table of Contents</h3>
+			<hr>
+			<br>
+			<ul>
+				<li><a href="#overview">Overview</a></li>
+				<li><a href="#supportedfeatures">Supported Features</a></li>
+				<li><a href="#updates">Updates in this release</a></li>
+				<li><a href="#knownissues">Known Limitations</a></li>
+				<li><a href="#techsupport">Technical Support and Product Updates</a></li>
+			</ul>
+			<br>
+
+			<h3 id="overview">Overview</h3>
+			<hr>
+			<br>
+			<p>This release contains 2 firmwares :</p>  
+			<ul>
+				<li>dlpc3479_fw_8.1.0.img - Default firmware.</li>
+				<li>dlpc3479_smaller_limited_fw_8.1.0.img - Firmware with reduced size, the reduction in size comes with some addtional limitations listed in the section of Known Limitations</li>
+			</ul>
+			<p>The firmware are primarily intended for the DLP4710EVM-LC Evaluation Module, but can be used for any DLPC3479 dual ASIC system with the following configuration:</p>
+			<ul>
+				<li>DMD: DLP4710LC</li>
+				<li>Controller: DLPC3479</li>
+				<li>PMIC: DLPA3005</li>
+				<li>Illumination: 3-LED (RGB)
+				<li>I<sup>2</sup>C Address: 0x36</li>
+				<li>DMD Pin Mapping: Option 1</li>
+			</ul>
+			<p></p>
+			<p>Release Information:</p>
+			<ul>
+				<li>Firmware Version: 8.1.0</li>
+				<li>Embedded Software Version: 4.4.0</li>
+				<li>Light Control Sequence Database Version: 0.1.10</li>
+				
+			</ul>
+			<br>
+
+			<h3 id="supportedfeatures">Supported Features</h3>
+			<hr>
+			<br>
+			<ul>
+				<li>Light Control</li>
+					<ul>
+						<li>Internal Pattern Streaming Mode: - Trigger-In/Free-running modes (Mono 1 Bit/8 Bit, RGB 1 Bit/8 Bit, Vertical + Horizontal Pattern Generation, Pattern Invert)</li>
+						<li>External Pattern Streaming Mode (Mono 1 Bit/8Bit, RGB 1 Bit/8Bit)</li>
+						<li>Zero dark time external pattern display for illumination time less than 400 uSec</li>
+						<li>Splash Patterns (Mono 1 Bit/ 8 Bit)</li>
+					</ul>
+				<br>
+				<li>Display</li>
+					<ul>
+						<li>External video input</li>
+						<li>IntelliBright&trade; video processing algorithms</li>
+						<li>Splash Screens</li>
+						<li>Source frame rates supported - 0 to 123 HZ</li>
+						<li>Four 2D looks (cool, medium, warm, and other) and one 3D look</li>						
+					</ul>
+				<br>
+				<li>Supported pattern timings in Sequence Database v0.1.10:</li>
+				<br>
+				<ul>
+					<li><b>Internal Pattern Mode Timings:</b>
+						<br /><br />
+						<table>
+						  <tr>
+							<th><center>Pattern Type</center></th>
+							<th><center>Sequence Index</center></th>
+							<th><center>Exposure Time Range (us)</center></th>
+							<th><center>Sequence Min Pre-Exposure Dark Time (us)</center></th>
+							<th><center>Sequence Min Post-Exposure Dark Time (us)</center></th>
+						  </tr>
+						  <tr>
+							<td rowspan="5"><center>1-bit Monochrome</center></td>
+							<td><center>18</center></td>
+							<td><center>200 - 399</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>17</center></td>
+							<td><center>400 - 799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>16</center></td>
+							<td><center>800 - 799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>15</center></td>
+							<td><center>1800 - 3799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>14</center></td>
+							<td><center>3800 - 7600</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td rowspan="3"><center>1-bit RGB</center></td>
+							<td><center>25</center></td>
+							<td><center>600 - 1799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>24</center></td>
+							<td><center>1800 - 3799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+						  <td><center>23</center></td>
+							<td><center>3800 - 7600</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td rowspan="2"><center>8-bit Monochrome</center></td>
+							<td><center>20</center></td>
+							<td><center>2084 - 4168</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>21*</center></td>
+							<td><center>1677 - 2083</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+						  <td><center>8-bit RGB</center></td>
+							<td><center>22</center></td>
+							<td><center>6512 - 13024</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						</table>
+						<br />
+						<p>*Sequence 21 is a special sequence that displays 7-bit patterns. The least significant bit of the 8-bit pattern data will be ignored.</p>
+						<p>Notes:</p>
+						<ul>
+							<li>For internal patterns, there will be an  additional variable delay of ~3000 us at the beginning of every pattern set.</li>
+							<li>Exposure times shorter than the above values are not possible. Longer exposure times will operate with decreased timing accuracy and behavior is not guaranteed.</li>
+							<li>Shorter dark times are not possible. Longer dark times can be used. The maximum possible dark times for a desired exposure time are:  
+								<ul>
+									<li>T<sub>max pre-exposure dark time</sub>&nbsp; = ( 27306us + t<sub>sequence min pre-exposure dark time</sub>&nbsp;) * (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+									<li>T<sub>max post-exposure dark time</sub>&nbsp;= ( 27306us + t<sub>sequence min post-exposure dark time</sub>&nbsp;) * (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+								</ul>
+							</li>
+						</ul>
+						<br />
+					</li>
+					</li>
+				
+					<li><b>External Pattern Streaming Timings:</b>
+						<br /><br />
+						<table>
+						  <tr>
+							<th><center>Pattern Type</center></th>
+							<th><center>Sequence Index</center></th>
+							<th><center>Exposure Time Range (us)</center></th>
+							<th><center>Sequence Min Pre-Exposure Dark Time (us)</center></th>
+							<th><center>Sequence Min Post-Exposure Dark Time (us)</center></th>
+						  </tr>
+						  <tr>
+							<td rowspan="6"><center>1-bit Monochrome</center></td>
+							<td><center>6</center></td>
+							<td><center>200 - 400</center></td>
+							<td><center>0*</center></td>
+							<td><center>0*</center></td>
+						  </tr>
+							<td><center>5</center></td>
+							<td><center>200 - 399</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>4</center></td>
+							<td><center>400 - 799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>3</center></td>
+							<td><center>800 - 1799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>2</center></td>
+							<td><center>1800 - 3799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>1</center></td>
+							<td><center>3800 - 7600</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td rowspan="4"><center>1-bit RGB</center></td>
+							<td><center>11</center></td>
+							<td><center>451 - 799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>10</center></td>
+							<td><center>800 - 1799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>9</center></td>
+							<td><center>1800 - 3799</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>8</center></td>
+							<td><center>3800 - 7600</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>8-bit Monochrome</center></td>
+							<td><center>7</center></td>
+							<td><center>2555 - 5110</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>8-bit RGB</center></td>
+							<td><center>0</center></td>
+							<td><center>10912 - 21824</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						</table>
+						<br />
+						<p>*Sequence 6 is a special sequence with zero pre-exposure and post-exposure dark times, but there will be a dark time equivalent to the exposure time of one pattern at the beginning of every frame.</p>
+						<p>Notes:</p>
+						<ul>
+							<li>Exposure times shorter than the above values are not possible. Longer exposure times will operate with decreased timing accuracy and behavior is not guaranteed.</li>
+							<li>Shorter dark times are not possible. Longer dark times can be used. The maximum possible dark times for a desired exposure time are:  
+								<ul>
+									<li>T<sub>max pre-exposure dark time</sub>&nbsp; = ( 6553us + t<sub>sequence min pre-exposure dark time</sub>&nbsp;) * (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+									<li>T<sub>max post-exposure dark time</sub>&nbsp;= ( 6553us + t<sub>sequence min post-exposure dark time</sub>&nbsp;) * (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+								</ul>
+							</li>
+						</ul>
+						<br />
+					</li>
+					
+					<li><b>Splash Pattern Mode Timings:</b> 
+						<br /><br />
+						<table>
+						  <tr>
+							<th><center>Pattern Type</center></th>
+							<th><center>Sequence Index</center></th>
+							<th><center>Exposure Time Range (us)</center></th>
+							<th><center>Sequence Min Pre-Exposure Dark Time (us)</center></th>
+							<th><center>Sequence Min Post-Exposure Dark Time (us)</center></th>
+						  </tr>
+						  <tr>
+							<td><center>1	-bit Monochrome</center></td>
+							<td><center>13</center></td>
+							<td><center>793 - 1744</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						  <tr>
+							<td><center>8-bit Monochrome</center></td>
+							<td><center>12</center></td>
+							<td><center>7737 - 17034</center></td>
+							<td><center>171</center></td>
+							<td><center>31</center></td>
+						  </tr>
+						</table>
+						<br />
+						<p>Notes:</p>
+						<ul>
+							<li>The maximum pattern period (pre-exposure + exposure + post-exposure) cannot exceed 2184us for 1-bit splash patterns and 17476us for 8-bit splash patterns.</li>
+						</ul>
+						<br />
+					</li>
+					<li> The listed minimum dark times are applicable for the minimum exposure time of each sequence. The dark times scale along with the exposure time as per the following equation:
+						 <ul>
+							<li>T<sub>min required pre-exposure dark time</sub>&nbsp; = t<sub>sequence min pre-exposure dark time</sub>&nbsp;* (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+							<li>T<sub>min required post-exposure dark time</sub>&nbsp;= t<sub>sequence min post-exposure dark time</sub>&nbsp;* (T<sub>desired exposure</sub>&nbsp;/ t<sub>sequence minimum exposure</sub>)</li>
+						</ul>
+					</li>
+					<br>
+					<li> I<sup>2</sup>C command 0x9D <em>(Read Validate Exposure Time)</em> returns the minimum required pre-exposure and post-exposure dark times for a specific pattern type and given exposure time.</li>
+				</ul>
+			</ul>	
+			<br>
+			<h3 id="updates">Updates in this release</h3>
+			<hr>
+			<br>
+			<ul>
+    		<li>Addition of firmware with reduced size.</li>
+			</ul>
+			<br>
+			<h3 id="knownlimitations">Known Limitations</h3>
+			<hr>
+			<br>
+			<ul>
+				<li>Power Down Risk during Power Up - User need to wait until after HOST_IRQ has been de-asserted to power down the system. </li>
+				<li>External Streaming - Signals/Patterns Incorrect in case of VSYNC jitter.</li>
+				<li>Cycling between Pause and Resume for the pattern streaming leads to artifacts.</li>
+				<li>Unable to operate DLPC3479 projector after sending wrong splash input image size.</li>
+				<li>When switching from internal pattern mode to splash pattern mode make sure that the internal pattern display is stopped.</li>
+				<li>While using the update firmware feature of GUI, make sure that size of splash image are as small as possible and prefer selecting RGB color space if the images are of PNG format.</li>
+				<li>LC splash pattern dispaly is only supported in RGB format.</li>
+				<li>Only RGB888 input source format supported in External Pattern Streaming Mode.</li>
+				<li>Unsupported Features:
+				<ul>
+					<li>Keystone</li>
+					<li>Sub-image position</li>
+					<li>Image rotation</li>
+					<li>Image Freeze on Splash Screen</li>
+					<li>DSI/BT656 Input</li>
+					<li>CPU Interface</li>
+					<li>LABB with Ambient Light Sensor support</li>
+					<li>Shallow Gradient</li>
+					<li>White Point Correction</li>
+					<li>I<sup>2</sup>C at 400KHz</li>
+					<li>Flashless configuration</li>
+					<li>Idle mode</li>
+					<li>Power management, clock gating and scaling</li>
+					<li>CAIC is not supported in LC, system will not boot up in LC mode with CAIC enabled</li>
+				</ul>
+				</li>
+				<li>Additonal limitations of reduced size firmware -
+				<ul>
+				<li>Limited storage capability for internal patterns due to reduced size of pattern binary.</li>
+				<li>Only 1 splash image supported instead of 4.</li>
+				<li>Splash image changes cannot be done via GUI.</li>
+				<li>LC Splash pattern mode not supported as the resolution of default splash image doesn't match with native DMD resolution.</li>
+				</ul>
+			</ul>
+			<br>				
+			<h3 id="techsupport">Technical Support and Product Updates</h3>
+			<hr>
+			<br>
+			<ul>
+				<li><a href="http://www.ti.com/lit/ug/dlpu081/dlpu081.pdf">DLPC3479 Software Programmer's Guide</a></li>
+				<li><a href="http://e2e.ti.com/support/dlp/f/94">DLP Products&reg; E2E Forums</a></li>
+				<li><a href="http://www.ti.com/dlp-chip/getting-started.html">DLP Products&reg; - Getting Started</a></li>
+				<li><a href="http://www.ti.com/dlp-chip/display-and-projection/pico-chipsets/overview.html">DLP Pico Products overview</a></li>
+				<li><a href="http://www.ti.com/product/DLPC3479">DLPC3479 Controller</a></li>
+				<li><a href="http://www.ti.com/product/DLP4710LC">DLP4710LC DMD</a></li>
+			</ul>
+			<br>
+		</div>
+
+		
+	</body>
+	<footer id="tiFooter">
+		<br>
+		<br>
+		<div class="container">
+			<p>TI is a global semiconductor design and manufacturing company. Innovate
+			with 100,000+ analog ICs and embedded processors, along with software, tools
+			and the industry‘s largest sales/support staff.</p>
+			<p>
+			<a href="http://www.ti.com/corp/docs/legal/copyright.shtml">© Copyright 1995-2019</a>, Texas Instruments Incorporated. All rights reserved. <br>
+			<a href="http://www.ti.com/corp/docs/legal/trademark/trademrk.htm">Trademarks</a> | <a href="http://www.ti.com/corp/docs/legal/privacy.shtml">Privacy policy</a> | <a href="http://www.ti.com/corp/docs/legal/termsofuse.shtml">Terms of use</a> | <a href="http://www.ti.com/lsds/ti/legal/termsofsale.page">Terms of sale</a>
+			</p>
+		</div>
+	</footer>
+
+
+</html>

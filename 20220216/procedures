@@ -1,0 +1,460 @@
+# Multi-view_IpS 从零构建流程
+
+本文档用于说明如何在一台新的 Windows 开发机上，从源码开始配置、构建并运行 `Multi-view_IpS` 项目。
+
+项目路径假设为：
+
+```text
+D:\code\20220216
+```
+
+源码路径假设为：
+
+```text
+D:\code\20220216\multi-view_ips
+```
+
+## 1. 准备开发环境
+
+建议使用与当前项目配置最接近的 Windows 环境。
+
+推荐环境：
+
+- Windows 10 或 Windows 11 x64
+- Visual Studio 2019，安装 MSVC v142 x64 工具链
+- CMake 3.15 或更高版本
+- Ninja
+- Qt 5.15.2 MSVC2019 64-bit
+- Git，可选，但建议安装
+- 解压工具，如 7-Zip 或 WinRAR
+
+Qt 默认路径建议与项目 preset 保持一致：
+
+```text
+C:\Qt\Qt5.15.2\5.15.2\msvc2019_64
+```
+
+如果 Qt 安装在其他位置，需要修改：
+
+```text
+D:\code\20220216\multi-view_ips\CMakeUserPresets.json
+```
+
+其中的：
+
+```json
+"QTDIR": "C:/Qt/Qt5.15.2/5.15.2/msvc2019_64"
+```
+
+## 2. 准备源码和第三方依赖
+
+确认当前目录包含：
+
+```text
+D:\code\20220216\multi-view_ips
+D:\code\20220216\3rdlibs.rar
+```
+
+如果 `multi-view_ips\3rdlibs` 不存在，先解压第三方依赖。
+
+目标结构应为：
+
+```text
+D:\code\20220216\multi-view_ips\3rdlibs
+```
+
+该目录下应至少包含：
+
+```text
+Boost_1_69_0
+eigen3
+flann-1.8.5_MT
+gerber
+opencv-3.4.2
+paddleOCR_inference
+pcl-1.9.1_MT
+qhull-8.1_MT
+VTK-8.2_MT
+```
+
+注意：项目顶层 `CMakeLists.txt` 会检查 `multi-view_ips\3rdlibs` 是否存在。如果缺失，CMake 配置会直接失败。
+
+## 3. 检查关键 CMake 配置
+
+进入源码目录：
+
+```powershell
+cd D:\code\20220216\multi-view_ips
+```
+
+检查以下文件：
+
+```text
+CMakeLists.txt
+CMakePresets.json
+CMakeUserPresets.json
+```
+
+Windows 下第三方库路径主要在 `CMakeLists.txt` 中配置，例如：
+
+```cmake
+set(OpenCV_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdlibs/opencv-3.4.2/install)
+set(VTK_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdlibs/VTK-8.2_MT/Release/lib/cmake/vtk-8.2)
+set(PCL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/3rdlibs/pcl-1.9.1_MT/cmake)
+```
+
+如果第三方库目录名称或位置不同，需要同步修改这些路径。
+
+## 4. 配置 CMake
+
+推荐使用项目已有的 preset：
+
+```powershell
+cmake --preset Qt-Release
+```
+
+该 preset 默认使用：
+
+```text
+Generator: Ninja
+Build dir: D:\code\20220216\multi-view_ips\out\build\release
+Qt: C:\Qt\Qt5.15.2\5.15.2\msvc2019_64
+```
+
+如果要构建 Debug：
+
+```powershell
+cmake --preset Qt-Debug
+```
+
+如果 preset 不可用，也可以手动配置：
+
+```powershell
+cmake -S D:\code\20220216\multi-view_ips `
+      -B D:\code\20220216\multi-view_ips\out\build\release `
+      -G Ninja `
+      -DCMAKE_BUILD_TYPE=Release `
+      -DCMAKE_PREFIX_PATH=C:\Qt\Qt5.15.2\5.15.2\msvc2019_64
+```
+
+注意：手动配置前需要确保当前 shell 能找到 MSVC 编译器。推荐从 “x64 Native Tools Command Prompt for VS 2019” 或配置过 MSVC 环境的 PowerShell 中执行。
+
+## 5. 构建项目
+
+使用 preset 构建 Release：
+
+```powershell
+cmake --build --preset Qt-Release
+```
+
+如果没有 build preset，可以直接指定构建目录：
+
+```powershell
+cmake --build D:\code\20220216\multi-view_ips\out\build\release --config Release
+```
+
+或使用 Ninja：
+
+```powershell
+ninja -C D:\code\20220216\multi-view_ips\out\build\release
+```
+
+如果使用 Visual Studio 生成器而不是 Ninja，则构建命令可能类似：
+
+```powershell
+cmake --build D:\code\20220216\multi-view_ips\out\build\release --config Release
+```
+
+## 6. 确认构建产物
+
+构建成功后，重点检查以下文件是否生成。
+
+主程序：
+
+```text
+out\build\release\bin\Release\Multi-view_IpS_v1.exe
+```
+
+或根据生成器不同，可能位于：
+
+```text
+out\build\release\bin\Multi-view_IpS_v1.exe
+```
+
+核心插件：
+
+```text
+out\build\release\bin\Release\pluginsystem\ribbonui.dll
+```
+
+算法插件：
+
+```text
+out\build\release\bin\Release\Algorithm
+```
+
+相机插件：
+
+```text
+out\build\release\bin\Release\cameras
+```
+
+运动控制插件：
+
+```text
+out\build\release\bin\Release\motioncontrol
+```
+
+当前工作区已有一份历史构建产物，路径为：
+
+```text
+D:\code\20220216\build\bin\Release
+```
+
+如果从零构建输出目录不同，需要以实际 CMake binary dir 为准。
+
+## 7. 部署 Qt 运行库
+
+如果运行 exe 时提示缺少 Qt DLL，可以使用 `windeployqt`。
+
+示例：
+
+```powershell
+C:\Qt\Qt5.15.2\5.15.2\msvc2019_64\bin\windeployqt.exe D:\code\20220216\multi-view_ips\out\build\release\bin\Release\Multi-view_IpS_v1.exe
+```
+
+如果实际 exe 路径不同，请替换为真实路径。
+
+项目的 `src/app/CMakeLists.txt` 中也有 install 阶段调用 `windeployqt` 的逻辑，但从零构建时建议先手动确认运行目录是否完整。
+
+## 8. 运行程序
+
+进入 exe 所在目录后运行：
+
+```powershell
+cd D:\code\20220216\multi-view_ips\out\build\release\bin\Release
+.\Multi-view_IpS_v1.exe
+```
+
+运行时需要确保以下目录结构存在：
+
+```text
+pluginsystem\ribbonui.dll
+cameras\*.dll
+motioncontrol\*.dll
+Algorithm\*.dll
+3rd_libs\*.dll
+```
+
+主程序会从：
+
+```text
+applicationDirPath()\pluginsystem\
+```
+
+查找核心 UI 插件 `RibbonUiKernel`。
+
+如果缺少 `pluginsystem\ribbonui.dll`，程序会提示找不到 Core plugin。
+
+## 9. 配置文件
+
+运行目录下常见配置文件包括：
+
+```text
+Multi-view_IpS.ini
+config.ini
+project.ini
+virtualcamera.info
+virtualmotioncontrol.info
+```
+
+其中：
+
+- `Multi-view_IpS.ini`：相机、投影、运动平台、扫描参数等主配置。
+- `config.ini`：ROI、标记点、变换矩阵等交互显示配置。
+- `virtualcamera.info`：虚拟相机设备配置。
+- `virtualmotioncontrol.info`：虚拟运动控制设备配置。
+
+如果没有真实硬件，建议优先使用虚拟插件和离线点云/图像数据进行验证。
+
+## 10. 常见问题
+
+### 10.1 CMake 报 Missing folder 3rdlibs
+
+原因：
+
+```text
+multi-view_ips\3rdlibs
+```
+
+不存在。
+
+处理：
+
+将 `3rdlibs.rar` 解压到：
+
+```text
+D:\code\20220216\multi-view_ips\3rdlibs
+```
+
+### 10.2 找不到 Qt5
+
+原因：
+
+`CMAKE_PREFIX_PATH` 或 `QTDIR` 指向错误。
+
+处理：
+
+检查 `CMakeUserPresets.json` 中的：
+
+```json
+"QTDIR": "C:/Qt/Qt5.15.2/5.15.2/msvc2019_64"
+```
+
+确认该路径下存在：
+
+```text
+bin\qmake.exe
+lib\cmake\Qt5
+```
+
+### 10.3 找不到 OpenCV / VTK / PCL
+
+原因：
+
+第三方库没有解压完整，或目录结构与 CMake 写死路径不一致。
+
+处理：
+
+确认以下路径存在：
+
+```text
+multi-view_ips\3rdlibs\opencv-3.4.2\install
+multi-view_ips\3rdlibs\VTK-8.2_MT\Release\lib\cmake\vtk-8.2
+multi-view_ips\3rdlibs\pcl-1.9.1_MT\cmake
+```
+
+### 10.4 编译器找不到 cl.exe
+
+原因：
+
+当前终端没有加载 MSVC 环境。
+
+处理：
+
+使用 “x64 Native Tools Command Prompt for VS 2019” 打开终端，或先执行 Visual Studio 的 `vcvars64.bat`。
+
+### 10.5 运行时找不到 RibbonUiKernel
+
+原因：
+
+主程序找不到核心 UI 插件。
+
+处理：
+
+确认 exe 同目录下存在：
+
+```text
+pluginsystem\ribbonui.dll
+```
+
+并确认 `ribbonui` 插件元数据中名称为：
+
+```text
+RibbonUiKernel
+```
+
+### 10.6 运行时缺少 DLL
+
+原因：
+
+Qt、OpenCV、VTK、PCL、Paddle、ONNX 或硬件 SDK DLL 没有放到运行目录或 PATH。
+
+处理：
+
+优先检查：
+
+```text
+bin\Release
+bin\Release\3rd_libs
+```
+
+必要时将第三方 DLL 目录加入 PATH，或复制到 exe 同目录。
+
+### 10.7 程序启动后硬件不可用
+
+原因：
+
+真实相机、投影仪、运动平台、采集卡未连接，或对应 SDK/驱动未安装。
+
+处理：
+
+先验证虚拟插件：
+
+```text
+cameras\virtualcamera.dll
+motioncontrol\virtualmotioncontrol.dll
+```
+
+再逐步接入真实硬件插件。
+
+## 11. 推荐验证顺序
+
+从零构建后，建议按以下顺序验证：
+
+1. CMake configure 成功。
+2. 全量 build 成功。
+3. `Multi-view_IpS_v1.exe` 能启动。
+4. `pluginsystem\ribbonui.dll` 能被加载。
+5. 主窗口能显示 Ribbon 菜单。
+6. 设置页能打开。
+7. 虚拟相机和虚拟运动控制插件能被识别。
+8. 离线点云或图像数据能导入。
+9. 2D/3D 可视化能刷新。
+10. ROI/Gerber/元件库相关功能能打开。
+11. 算法插件能加载。
+12. 离线检测流程能跑通。
+13. 最后再接入真实硬件测试扫描和检测流程。
+
+## 12. 后续维护建议
+
+建议在后续维护中补充：
+
+- 准确的 Windows 构建环境清单
+- 第三方依赖下载或解压说明
+- 插件目录结构说明
+- 无硬件环境下的离线测试流程
+- 真实硬件接入流程
+- 常用配置文件字段说明
+- Debug / Release 构建差异说明
+- 一键构建脚本
+
+## 13. 快速命令参考
+
+以下命令以 Qt 5.15.2、MSVC2019、Ninja 为例。
+
+```powershell
+cd D:\code\20220216\multi-view_ips
+cmake --preset Qt-Release
+cmake --build --preset Qt-Release
+```
+
+如果 build preset 不存在：
+
+```powershell
+cmake --build D:\code\20220216\multi-view_ips\out\build\release --config Release
+```
+
+运行：
+
+```powershell
+cd D:\code\20220216\multi-view_ips\out\build\release\bin\Release
+.\Multi-view_IpS_v1.exe
+```
+
+如果使用当前已有历史构建产物运行：
+
+```powershell
+cd D:\code\20220216\build\bin\Release
+.\Multi-view_IpS_v1.exe
+```

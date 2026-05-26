@@ -1,0 +1,1043 @@
+# 光机控制代码整理
+
+本文档整理 `Multi-view_IpS` 项目中控制光机的关键代码。项目中的光机主要是 TI DLP 系列投影器，按相机插件接口接入，具体实现位于：
+
+```text
+D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp3010
+D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp4710
+```
+
+整体调用链如下：
+
+```text
+WindowProjector UI
+  -> ProjectorData / ImagingConfigs 保存参数
+  -> ImagingControlPlugin 使用 cs_projector 调用光机
+  -> Cameras 统一接口分发到具体插件
+  -> DLP3010ControlPlugin / DLP4710ControlPlugin
+  -> TI DLPC34xx API
+  -> Cypress USB-I2C
+  -> 光机硬件
+```
+
+## 1. UI 层：读取并保存光机参数
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\comps\ribbonui\funcwindows\src\WindowProjector.cpp:66
+```
+
+这段代码来自设置界面的 Projector 页面。用户在界面里填写帧率、曝光时间、前后暗场时间、蓝光电流、触发参数后，点击 Set，会把这些值写入项目配置，并尝试校验光机可接受的曝光和电流范围。
+
+```cpp
+void WindowProjector::OnClickedSet()
+{
+    // 保存 HDR 开关。当前底层实现中 HDR 多处仍是 TODO，主要是配置占位。
+    mProjectorDataPtr->SetHdrEnable(ui->checkBoxHdr->isChecked());
+
+    // 读取 Trigger In 设置：是否启用、极性。
+    // 注意：ImagingConfigs 中 TriggerIn.Enable 当前也是 TODO，占位意义大于实际下发。
+    ProjectorTriggerIn triggerIn;
+    triggerIn.Enable = ui->checkBoxTriggerIn->isChecked();
+    triggerIn.Polar = (Polarity)ui->comboBoxTriggerInPolarity->currentIndex();
+    mProjectorDataPtr->SetTriggerIn(triggerIn);
+
+    // 读取 Pattern Ready 设置。当前项目中这部分同样偏配置占位。
+    ProjectorPatternReady patternReady;
+    patternReady.Enable = ui->checkBoxPatternReady->isChecked();
+    patternReady.Polar = (Polarity)ui->comboBoxPatternReadyPolarity->currentIndex();
+    mProjectorDataPtr->SetPatternReady(patternReady);
+
+    // 读取 Trigger Out 设置。
+    // 真正下发到光机的是 TriggerOut2Enable / TriggerOut2Inverted / TriggerOut2Delay。
+    ProjectorTriggerOut triggerOut;
+    triggerOut.Enable = ui->checkBoxTriggerOut->isChecked();
+    triggerOut.Invert = ui->checkBoxTriggerOutInvert->isChecked();
+    triggerOut.DelayUs = ui->labelTriggerOutDelay->text().toUInt();
+    mProjectorDataPtr->SetTriggerOut(triggerOut);
+
+    // 从 UI 读取光机核心参数：
+    // - frameRate：帧率
+    // - illuminationTime：投影曝光时间，单位 us
+    // - preIlluminationDarkTime：曝光前暗场时间，单位 us
+    // - postIlluminationDarkTime：曝光后暗场时间，单位 us
+    // - lightBlueCurrentValue：蓝光 LED 电流
+    IMGING::Imaging::ParamForCamAndProj param;
+    param.projSetParam.lightBlueCurrentValue = ui->lineEditLedCurrentB->text().toUInt();
+    param.projSetParam.frameRate = ui->lineEditFrameRate->text().toUInt();
+    param.projSetParam.preIlluminationDarkTime = ui->lineEditPreTime->text().toUInt();
+    param.projSetParam.illuminationTime = ui->lineEditExposureTime->text().toUInt();
+    param.projSetParam.postIlluminationDarkTime = ui->lineEditPostTime->text().toUInt();
+
+    // 调用成像控制模块校验并修正光机参数。
+    // 例如：曝光时间太长时会降低有效帧率，蓝光电流超过上限时会回落到有效值。
+    WindowSensor::GetInstance()->getSensorContrl()->updateCamAndProjParameters(&param);
+
+    // 将校验后的帧率和曝光相关参数写回 UI。
+    ui->lineEditFrameRate->setText(QString::number(param.projSetParam.frameRate));
+    mProjectorDataPtr->SetFrameRateFs(ui->lineEditFrameRate->text().toUInt());
+
+    ui->lineEditPreTime->setText(QString::number(param.projSetParam.preIlluminationDarkTime));
+    ui->lineEditExposureTime->setText(QString::number(param.projSetParam.illuminationTime));
+    ui->lineEditPostTime->setText(QString::number(param.projSetParam.postIlluminationDarkTime));
+
+    // 保存曝光时间结构。
+    ProjectorIlluminationTime proIllumTime;
+    proIllumTime.PreDarkTimeUs = ui->lineEditPreTime->text().toUInt();
+    proIllumTime.ExposureTimeUs = ui->lineEditExposureTime->text().toUInt();
+    proIllumTime.PostDarkTimeUs = ui->lineEditPostTime->text().toUInt();
+    mProjectorDataPtr->SetIlluminationTime(proIllumTime);
+
+    // 保存 RGB LED 电流。实际 DLP 插件里主要使用 BlueCurrMa。
+    ui->lineEditLedCurrentB->setText(QString::number(param.projSetParam.lightBlueCurrentValue));
+    ProjectorRgbLedCurrent rgbLedCurrent;
+    rgbLedCurrent.RedCurrMa = ui->lineEditLedCurrentR->text().toUInt();
+    rgbLedCurrent.GreenCurrMa = ui->lineEditLedCurrentG->text().toUInt();
+    rgbLedCurrent.BlueCurrMa = ui->lineEditLedCurrentB->text().toUInt();
+    mProjectorDataPtr->SetRgbLedCurrent(rgbLedCurrent);
+
+    // 写入 Multi-view_IpS.ini。
+    this->mProjectorDataPtr->SaveConfig();
+}
+```
+
+## 2. 成像控制层：打开光机
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:245
+```
+
+`ImagingControlPlugin::openCamAndProj()` 会同时打开相机和光机。光机通过 `Cameras` 统一接口打开，所以在项目里光机也被抽象成一种 `Cameras` 插件设备。
+
+```cpp
+bool ImagingControlPlugin::openCamAndProj()
+{
+    // 省略相机数量和相机 ID 校验代码。
+
+    // 创建光机控制对象。这里使用 Cameras 统一接口，不直接依赖 DLP3010 或 DLP4710。
+    bool proj_is_virtual = true;
+    cs_projector = new Cameras();
+
+    // 根据配置文件中的 projector_ID 打开光机。
+    // projector_ID 通常类似：
+    // - dlp3010-xxxx
+    // - dlp4710-xxxx
+    if (cs_projector->open(cs_paramForCP->projector_ID, Cameras::PixelFormat::GRAY8, 0)) {
+        // 开启或关闭底层调试输出。
+        cs_projector->setParameter("EnableDebug", QVariant::fromValue(cs_isDebug));
+
+        // 设置蓝光最大电流上限。底层插件会调用 DLPC34XX_WriteRgbLedMaxCurrent。
+        cs_projector->setParameter("LightBlueCurrentValueMax", QVariant::fromValue(850));
+
+        // 记录当前光机 ID，用于后续标定、几何文件和日志。
+        cs_projectorID = cs_projector->deviceInfo().toStdString();
+        proj_is_virtual = false;
+    } else {
+        // 如果配置为 no device，则走虚拟模式；否则认为光机打开失败。
+        delete cs_projector;
+        cs_projector = nullptr;
+        if (cs_paramForCP->projector_ID == NOCAMERAORPROJECTORDEVICE) {
+            cs_projectorID = "dlp3010-20221101";
+            proj_is_virtual = true;
+        } else {
+            closeCamAndProj();
+            emit printSignal("Projector was opened failed...");
+            return false;
+        }
+    }
+
+    // 省略后续打开侧相机、中心相机和状态设置代码。
+    return true;
+}
+```
+
+## 3. 成像控制层：配置投影图案、曝光、电流和触发
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2368
+```
+
+`loadPatterns()` 是上层配置光机最关键的函数。它会根据当前流程是标定、扫描还是无标定扫描，决定投影图案数量、方向、相移次数、灰码数量，然后把曝光、电流和触发配置下发给光机插件。
+
+```cpp
+bool ImagingControlPlugin::loadPatterns()
+{
+    // 未打开设备或虚拟模式时，不真正加载光机图案。
+    if (!cs_isOpenCandP || isVirtualMode()) {
+        emit printSignal("Have not opened the camera and projector");
+        return false;
+    }
+
+    // 如果正在扫描，禁止重新配置图案。
+    if (cs_isWoring) {
+        emit printSignal("It's working, please waiting to be finished...");
+        return false;
+    }
+
+    // 配置图案前先停止光机。
+    if (!cs_projector->stop()) {
+        return false;
+    }
+
+    // 根据不同流程设置结构光 pattern 参数。
+    switch (cs_patternsType) {
+    case ProjectPatternType::NoCalibNoScan:
+        // 只投垂直方向图案，通常用于简单测试或未标定流程。
+        cs_projector->setParameter("InvertIncluded", QVariant::fromValue(false));
+        cs_projector->setParameter("CentreCameraIncluded", QVariant::fromValue(hasCentreCamera()));
+        cs_projector->setParameter("PhaseVerticalRepeatNum", QVariant::fromValue(1));
+        cs_projector->setParameter("PhaseHorizontalRepeatNum", QVariant::fromValue(0));
+        cs_projector->setParameter("GrayCodeVerticalNum", QVariant::fromValue(10));
+        cs_projector->setParameter("GrayCodeHorizontalNum", QVariant::fromValue(0));
+        cs_projector->setParameter("PhaseVerticalPixelPeriod", QVariant::fromValue(32));
+        cs_projector->setParameter("PhaseHorizontalPixelPeriod", QVariant::fromValue(32));
+        break;
+
+    case ProjectPatternType::Calibration:
+        // 标定模式下，图案参数来自 dlp::Calibration::Projector。
+        cs_projector->setParameter("InvertIncluded", QVariant::fromValue(true));
+        cs_projector->setParameter("CentreCameraIncluded", QVariant::fromValue(hasCentreCamera()));
+        cs_projector->setParameter("PhaseVerticalRepeatNum", QVariant::fromValue(cs_projector_calib->phase_repeat_num_v_h_[0]));
+        cs_projector->setParameter("PhaseHorizontalRepeatNum", QVariant::fromValue(cs_projector_calib->phase_repeat_num_v_h_[1]));
+        cs_projector->setParameter("GrayCodeVerticalNum", QVariant::fromValue(cs_projector_calib->gray_code_pic_num_v_h_[0]));
+        cs_projector->setParameter("GrayCodeHorizontalNum", QVariant::fromValue(cs_projector_calib->gray_code_pic_num_v_h_[1]));
+        break;
+
+    case ProjectPatternType::Scan:
+        // 扫描模式下，图案参数来自已加载的几何配置 cs_geometry。
+        cs_projector->setParameter("InvertIncluded", QVariant::fromValue(cs_geometry.gray_code_invert_included_));
+        cs_projector->setParameter("CentreCameraIncluded", QVariant::fromValue(hasCentreCamera()));
+        cs_projector->setParameter("PhaseVerticalRepeatNum", QVariant::fromValue(cs_geometry.phase_repeat_num_v_h_[0]));
+        cs_projector->setParameter("PhaseHorizontalRepeatNum", QVariant::fromValue(cs_geometry.phase_repeat_num_v_h_[1]));
+        cs_projector->setParameter("GrayCodeVerticalNum", QVariant::fromValue(cs_geometry.gray_code_pic_num_v_h_[0]));
+        cs_projector->setParameter("GrayCodeHorizontalNum", QVariant::fromValue(cs_geometry.gray_code_pic_num_v_h_[1]));
+        cs_projector->setParameter("PhaseVerticalPixelPeriod", QVariant::fromValue(cs_geometry.phase_pixels_per_period_v_h_[0]));
+        cs_projector->setParameter("PhaseHorizontalPixelPeriod", QVariant::fromValue(cs_geometry.phase_pixels_per_period_v_h_[1]));
+        break;
+    }
+
+    // 是否从预生成文件加载 pattern。
+    // DLP4710 支持 LoadPatternFromFile，DLP3010 代码中没有这个参数。
+    cs_projector->setParameter("LoadPatternFromFile", QVariant::fromValue(cs_paramForCP->projSetParam.patternFromFile));
+
+    // 设置曝光时间和暗场时间。
+    cs_projector->setParameter("IlluminationTime", QVariant::fromValue(cs_paramForCP->projSetParam.illuminationTime));
+    cs_projector->setParameter("PreIlluminationDarkTime", QVariant::fromValue(cs_paramForCP->projSetParam.preIlluminationDarkTime));
+    cs_projector->setParameter("PostIlluminationDarkTime", QVariant::fromValue(cs_paramForCP->projSetParam.postIlluminationDarkTime));
+
+    // 设置蓝光 LED 电流。
+    cs_projector->setParameter("LightBlueCurrentValue", QVariant::fromValue(cs_paramForCP->projSetParam.lightBlueCurrentValue));
+
+    // 触发底层插件生成、写入或加载 pattern。
+    if (!cs_projector->setParameter("UploadPatternSet", QVariant())) {
+        return false;
+    }
+
+    // 设置触发输入输出。
+    // 当前逻辑关闭 TriggerIn，打开 TriggerOut2，通常用于同步相机曝光。
+    cs_projector->setParameter("TriggerInEnable", QVariant::fromValue(false));
+    cs_projector->setParameter("TriggerInPolarity", QVariant::fromValue(cs_paramForCP->projSetParam.triggerInPolarity));
+    cs_projector->setParameter("TriggerOut1Enable", QVariant::fromValue(false));
+    cs_projector->setParameter("TriggerOut2Enable", QVariant::fromValue(true));
+    cs_projector->setParameter("TriggerOut2Inverted", QVariant::fromValue(cs_paramForCP->projSetParam.triggerOut2Invert));
+    cs_projector->setParameter("TriggerOut2Delay", QVariant::fromValue(cs_paramForCP->projSetParam.triggerOut2Delay));
+
+    return true;
+}
+```
+
+## 4. 成像控制层：启动和触发光机
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2427
+D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2515
+```
+
+启动设备时，上层调用 `cs_projector->start()`。这会进入 DLP 插件的 `start()`，下发触发配置、LED 电流和内部 Pattern 模式。
+
+```cpp
+bool ImagingControlPlugin::startAllDevices()
+{
+    switch (cs_device_state) {
+    case DeviceState::RealHasCentreCamera:
+        // DisplayRepeatTime 为 0，表示 pattern 显示重复次数由底层定义或连续模式处理。
+        cs_projector->setParameter("DisplayRepeatTime", QVariant::fromValue(0));
+
+        // start() 不立即开始投影图案序列，而是把光机设置到可投影状态：
+        // - 配置 TriggerOut
+        // - 配置 TriggerIn
+        // - 配置蓝光电流
+        // - 切到 Internal Pattern 模式
+        if (!cs_projector->start()) {
+            emit printSignal("Error in starting projector");
+            return false;
+        }
+        break;
+
+    case DeviceState::RealNoCentreCamera:
+        cs_projector->setParameter("DisplayRepeatTime", QVariant::fromValue(0));
+        if (!cs_projector->start()) {
+            emit printSignal("Error in starting projector");
+            return false;
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    return true;
+}
+```
+
+真正触发一次投影图案序列的是 `grab()`：
+
+```cpp
+bool ImagingControlPlugin::devicesGrabOnce()
+{
+    // 先触发侧相机准备采图。
+    for (uint32_t i = 0; i < cs_paramForCP->sideCameraNum; i++) {
+        cs_sideCamera_vec[i]->grab();
+    }
+
+    switch (cs_device_state) {
+    case DeviceState::RealHasCentreCamera:
+        // 有中心相机时，先抓中心相机，再等待中心相机曝光完成，然后触发光机。
+        cs_centreCamera->grab();
+        timer.start();
+        while (!timer.hasExpired(int(QVariant(cs_paramForCP->centreCamSetParam.exposureTime).toDouble() / 1000) + 5)) {
+            QCoreApplication::processEvents();
+        }
+        cs_projector->grab();
+        break;
+
+    case DeviceState::RealNoCentreCamera:
+        // 没有中心相机时，直接触发光机投影图案序列。
+        cs_projector->grab();
+        break;
+
+    default:
+        break;
+    }
+
+    return true;
+}
+```
+
+## 5. Cameras 统一接口：把调用分发给具体 DLP 插件
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\libs\cameras\src\cameras.cpp:150
+```
+
+`Cameras` 是项目里的统一设备接口。相机和光机都通过它打开、启动、停止和触发。
+
+```cpp
+bool CMS::Cameras::open(const QByteArray &deviceInfo, CMS::Cameras::PixelFormat pixformat, uint32_t bufferSize)
+{
+    Q_D(Cameras);
+
+    // 保存设备 ID，例如 dlp3010-xxx 或 dlp4710-xxx。
+    if (d->p_deviceInfo.isEmpty()) {
+        d->p_deviceInfo = deviceInfo;
+        if (d->p_deviceInfo == "") {
+            return false;
+        }
+    } else {
+        return true;
+    }
+
+    // 保存像素格式和一次采集的 buffer 数量。
+    d->p_pixelFormat = pixformat;
+    d->p_bufferSize = bufferSize;
+
+    // init() 会遍历 cameras 插件，根据 deviceInfo 找到 DLP3010 或 DLP4710 插件。
+    return d->init();
+}
+
+bool CMS::Cameras::start()
+{
+    Q_D(Cameras);
+    // 切换到 ActiveState，最终调用 DLP 插件的 start()。
+    return d->setState(CMS::Cameras::State::ActiveState);
+}
+
+bool CMS::Cameras::stop()
+{
+    Q_D(Cameras);
+    // 回到 LoadedState，最终调用 DLP 插件的 stop()。
+    return d->setState(CMS::Cameras::LoadedState);
+}
+
+bool CMS::Cameras::grab()
+{
+    Q_D(Cameras);
+    // 直接转发到 DLP 插件的 grab()，触发投影图案序列。
+    if (d->p_control)
+        return d->p_control->grab();
+    return false;
+}
+
+bool CMS::Cameras::setParameter(const QString key, const QVariant &value)
+{
+    Q_D(Cameras);
+    // 所有光机参数都通过字符串 key 下发。
+    // 例如 IlluminationTime、LightBlueCurrentValue、TriggerOut2Delay。
+    if (d->p_control)
+        return d->p_control->setParameter(key, value);
+    return false;
+}
+```
+
+## 6. DLP3010 底层：参数处理、启动、投影和停止
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp3010\dlp3010controlplugin.cpp
+```
+
+### 6.1 触发投影图案序列
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:233
+```
+
+```cpp
+bool DLP3010ControlPlugin::grab()
+{
+    // 必须先 start()，光机进入 ActiveState 后才能投影。
+    if (m_state != Cameras::State::ActiveState) {
+        return false;
+    }
+
+    // 先 reset 内部 pattern 控制器。
+    DLPC34XX_WriteInternalPatternControl(DLPC34XX_PC_RESET, 0);
+
+    // 启动内部 pattern 序列。
+    // DISPLAYREPEATTIME 控制显示重复次数。
+    DLPC34XX_WriteInternalPatternControl(
+        DLPC34XX_PC_START,
+        uint8_t(m_parameters[DISPLAYREPEATTIME].toUInt())
+    );
+
+    return true;
+}
+```
+
+### 6.2 设置曝光、电流、Pattern 上传等参数
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:259
+```
+
+```cpp
+bool DLP3010ControlPlugin::setParameter(const QString key, const QVariant &value)
+{
+    // 光机必须处于 LoadedState 才允许设置参数。
+    if (m_state != Cameras::State::LoadedState) {
+        return false;
+    }
+
+    // 不支持的参数直接失败。
+    if (!m_parameters.contains(key)) {
+        return false;
+    }
+
+    // 先把参数写入内存 map。
+    m_parameters[key] = value;
+
+    if (key == UPLOADPATTERNSET) {
+        // 生成结构光图案，写入或加载到光机。
+        if (!generatePatterns()) {
+            return false;
+        }
+        m_uploadedPatternSet = true;
+    }
+
+    if (key == UPGRADEPATTERNTABLEDATA) {
+        // 图案已经上传后，更新 pattern table 中的曝光和暗场时间等信息。
+        if (m_uploadedPatternSet) {
+            UpgradePatternTableData();
+        }
+    }
+
+    if (key == ILLUMINATIONTIME) {
+        // 校验曝光时间，读取光机要求的最小前后暗场时间。
+        DLPC34XX_ValidateExposureTime_s validateExposureTime;
+        if (DLPC34XX_ReadValidateExposureTime(
+                DLPC34XX_PM_INTERNAL,
+                DLPC34XX_ST_EIGHT_BIT_MONO,
+                m_parameters[ILLUMINATIONTIME].toUInt(),
+                &validateExposureTime)) {
+            return false;
+        }
+
+        m_parameters[PREILLUMINATIONDARKTIMEMIN] =
+            QVariant::fromValue(uint32_t(validateExposureTime.PreExposureDarkTime));
+        m_parameters[POSTILLUMINATIONDARKTIMEMIN] =
+            QVariant::fromValue(uint32_t(validateExposureTime.PostExposureDarkTime));
+    }
+
+    if (key == LIGHTBLUECURRENTVALUE) {
+        // 限制蓝光电流不能超过光机支持的最大值。
+        uint16_t redValue, greenValue, blueValue;
+        DLPC34XX_ReadRgbLedMaxCurrent(&redValue, &greenValue, &blueValue);
+        if (blueValue < value.toUInt()) {
+            m_parameters[key] = QVariant::fromValue(uint32_t(blueValue));
+        }
+    }
+
+    if (key == LIGHTBLUECURRENTVALUEMAX) {
+        // 设置 RGB LED 最大电流，这里红绿为 0，仅设置蓝光最大值。
+        uint16_t redValue = 0, greenValue = 0;
+        if (DLPC34XX_WriteRgbLedMaxCurrent(redValue, greenValue, uint16_t(value.toUInt()))) {
+            return false;
+        }
+    }
+
+    // 这些参数变更后，在下一次 start() 中重新下发到硬件。
+    if (key.contains("TriggerOut1")) {
+        m_changed_triggerOut1Config = false;
+    } else if (key.contains("TriggerOut2")) {
+        m_changed_triggerOut2Config = false;
+    } else if (key.contains("TriggerIn")) {
+        m_changed_triggerInConfig = false;
+    } else if (key.contains("CurrentValue")) {
+        m_changed_writeRgbLedCurrent = false;
+    }
+
+    return true;
+}
+```
+
+### 6.3 加载光机并获取 I2C 总线
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:415
+```
+
+```cpp
+bool DLP3010ControlPlugin::load(Cameras::PixelFormat pixformat, uint32_t bufferSize)
+{
+    // 先卸载旧状态，确保干净加载。
+    if (!unload()) {
+        return false;
+    }
+
+    try {
+        // 初始化 TI DLPC 命令库，并连接 Cypress I2C。
+        InitConnectionAndCommandLayer();
+
+        // 请求 I2C 总线访问权。
+        bool Status = CYPRESS_I2C_RequestI2CBusAccess();
+        if (Status != true) {
+            return false;
+        }
+
+        // 加载时先停止当前 pattern 投影。
+        DLPC34XX_WriteInternalPatternControl(DLPC34XX_PC_STOP, 0);
+
+        // 从设备或内部状态加载参数。
+        loadParameters();
+    } catch (...) {
+        return false;
+    }
+
+    // 保存像素格式和重复显示次数。
+    m_pixformat = pixformat;
+    m_parameters[DISPLAYREPEATTIME] = QVariant::fromValue(bufferSize);
+
+    return true;
+}
+```
+
+### 6.4 启动光机，配置触发、亮度和内部 Pattern 模式
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:490
+```
+
+```cpp
+bool DLP3010ControlPlugin::start()
+{
+    // 只有 LoadedState 才能 start。
+    if (m_state != Cameras::State::LoadedState) {
+        return false;
+    }
+
+    // 配置 TriggerOut1。
+    if (!m_changed_triggerOut1Config) {
+        DLPC34XX_WriteTriggerOutConfiguration(
+            DLPC34XX_TT_TRIGGER1,
+            m_parameters[TRIGGEROUT1ENABLE].toBool() ? DLPC34XX_TE_ENABLE : DLPC34XX_TE_DISABLE,
+            m_parameters[TRIGGEROUT1INVERTED].toBool() ? DLPC34XX_TI_INVERTED : DLPC34XX_TI_NOT_INVERTED,
+            m_parameters[TRIGGEROUT1DELAY].toInt()
+        );
+        m_changed_triggerOut1Config = true;
+    }
+
+    // 配置 TriggerOut2。项目上层主要启用 TriggerOut2，用于同步相机。
+    if (!m_changed_triggerOut2Config) {
+        DLPC34XX_WriteTriggerOutConfiguration(
+            DLPC34XX_TT_TRIGGER2,
+            m_parameters[TRIGGEROUT2ENABLE].toBool() ? DLPC34XX_TE_ENABLE : DLPC34XX_TE_DISABLE,
+            m_parameters[TRIGGEROUT2INVERTED].toBool() ? DLPC34XX_TI_INVERTED : DLPC34XX_TI_NOT_INVERTED,
+            m_parameters[TRIGGEROUT2DELAY].toInt()
+        );
+        m_changed_triggerOut2Config = true;
+    }
+
+    // 配置 TriggerIn。
+    if (!m_changed_triggerInConfig) {
+        DLPC34XX_WriteTriggerInConfiguration(
+            m_parameters[TRIGGERINENABLE].toBool() ? DLPC34XX_TE_ENABLE : DLPC34XX_TE_DISABLE,
+            m_parameters[TRIGGERINPOLARITY].toBool() ? DLPC34XX_TP_ACTIVE_HI : DLPC34XX_TP_ACTIVE_LOW
+        );
+        m_changed_triggerInConfig = true;
+    }
+
+    // 配置 LED。这里只打开蓝光通道，并设置蓝光电流。
+    if (!m_changed_writeRgbLedCurrent) {
+        DLPC34XX_WriteRgbLedEnable(false, false, true);
+        DLPC34XX_WriteRgbLedCurrent(
+            0x03E8,
+            0x03E8,
+            uint16_t(m_parameters[LIGHTBLUECURRENTVALUE].toUInt())
+        );
+        m_changed_writeRgbLedCurrent = true;
+    }
+
+    // 切换到内部 Pattern 投影模式。
+    if (!m_changed_writeOperatingModeSelect) {
+        DLPC34XX_WriteOperatingModeSelect(DLPC34XX_OM_SENS_INTERNAL_PATTERN);
+        m_changed_writeOperatingModeSelect = true;
+    }
+
+    // 当前项目只使用软件触发内部 pattern。
+    m_grapLoop = Cameras::GrapLoop::UserGrabLoop;
+    m_triggerMode = Cameras::TriggerMode::SoftwareTrigger;
+
+    return true;
+}
+```
+
+### 6.5 停止投影
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:541
+```
+
+```cpp
+bool DLP3010ControlPlugin::stop()
+{
+    // 如果不是 ActiveState，认为已经停止。
+    if (m_state != Cameras::State::ActiveState) {
+        return true;
+    }
+
+    // 停止内部 pattern。
+    DLPC34XX_WriteInternalPatternControl(DLPC34XX_PC_STOP, 0);
+    return true;
+}
+```
+
+### 6.6 I2C 通讯桥接
+
+位置：
+
+```text
+dlp3010controlplugin.cpp:590
+```
+
+```cpp
+uint32_t DLP3010ControlPlugin::WriteI2C(
+    uint16_t WriteDataLength,
+    uint8_t *WriteData,
+    DLPC_COMMON_CommandProtocolData_s *ProtocolData)
+{
+    Q_UNUSED(ProtocolData);
+
+    // 通过 Cypress USB-I2C 往 DLPC 控制器写数据。
+    bool Status = CYPRESS_I2C_WriteI2C(WriteDataLength, WriteData);
+    if (Status != true) {
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
+uint32_t DLP3010ControlPlugin::ReadI2C(
+    uint16_t WriteDataLength,
+    uint8_t *WriteData,
+    uint16_t ReadDataLength,
+    uint8_t *ReadData,
+    DLPC_COMMON_CommandProtocolData_s *ProtocolData)
+{
+    Q_UNUSED(ProtocolData);
+
+    // 先写命令。
+    bool Status = CYPRESS_I2C_WriteI2C(WriteDataLength, WriteData);
+    if (Status != true) {
+        return FAIL;
+    }
+
+    // 再读响应。
+    Status = CYPRESS_I2C_ReadI2C(ReadDataLength, ReadData);
+    if (Status != true) {
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
+void DLP3010ControlPlugin::InitConnectionAndCommandLayer()
+{
+    // 把上面的 WriteI2C / ReadI2C 注册给 TI DLPC 命令库。
+    DLPC_COMMON_InitCommandLibrary(
+        s_WriteBuffer,
+        sizeof(s_WriteBuffer),
+        s_ReadBuffer,
+        sizeof(s_ReadBuffer),
+        WriteI2C,
+        ReadI2C
+    );
+
+    // 连接 Cypress USB-I2C 设备。
+    CYPRESS_I2C_ConnectToCyI2C();
+}
+```
+
+## 7. DLP4710 底层：与 DLP3010 对应的双控制器版本
+
+原始位置：
+
+```text
+D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp4710\dlp4710controlplugin.cpp
+```
+
+DLP4710 与 DLP3010 结构基本一致，区别是调用 `DLPC34XX_DUAL_*` API。
+
+### 7.1 触发投影图案序列
+
+位置：
+
+```text
+dlp4710controlplugin.cpp:231
+```
+
+```cpp
+bool DLP4710ControlPlugin::grab()
+{
+    // 必须先 start()。
+    if (m_state != Cameras::State::ActiveState) {
+        return false;
+    }
+
+    // Reset 内部 pattern 控制器。
+    DLPC34XX_DUAL_WriteInternalPatternControl(DLPC34XX_DUAL_PC_RESET, 0);
+
+    // 启动内部 pattern 序列。
+    DLPC34XX_DUAL_WriteInternalPatternControl(
+        DLPC34XX_DUAL_PC_START,
+        uint8_t(m_parameters[DISPLAYREPEATTIME].toUInt())
+    );
+
+    return true;
+}
+```
+
+### 7.2 设置参数
+
+位置：
+
+```text
+dlp4710controlplugin.cpp:257
+```
+
+```cpp
+bool DLP4710ControlPlugin::setParameter(const QString key, const QVariant &value)
+{
+    if (m_state != Cameras::State::LoadedState) {
+        return false;
+    }
+
+    if (!m_parameters.contains(key)) {
+        return false;
+    }
+
+    m_parameters[key] = value;
+
+    if (key == UPLOADPATTERNSET) {
+        // DLP4710 支持从预生成 bin 文件加载 pattern，也支持实时生成。
+        if (m_parameters[LOADPATTERNFROMFILE].toBool()) {
+            QString patternName = "pattern_" + QString::number(m_parameters[INVERTINCLUDED].toBool()) +
+                    "_" + QString::number(m_parameters[CENTRECAMERAINCLUDED].toBool()) +
+                    "_" + QString::number(m_parameters[PHASEVERTICALREPEATNUM].toInt()) +
+                    "_" + QString::number(m_parameters[PHASEHORIZONTALREPEATNUM].toInt()) +
+                    "_" + QString::number(m_parameters[GRAYCODEVERTICALNUM].toInt()) +
+                    "_" + QString::number(m_parameters[GRAYCODEHORIZONTALNUM].toInt()) +
+                    ".bin";
+
+            if (!LoadPreBuildPatternData(patternName.toUtf8().data())) {
+                PopulatePatternSetData2File();
+                return false;
+            }
+            LoadPatternOrderTableEntryfromFlash();
+        } else {
+            if (!generatePatterns()) {
+                return false;
+            }
+        }
+        m_uploadedPatternSet = true;
+    }
+
+    if (key == UPGRADEPATTERNTABLEDATA) {
+        if (m_uploadedPatternSet) {
+            UpgradePatternTableData();
+        }
+    }
+
+    if (key == ILLUMINATIONTIME) {
+        // 校验曝光时间，并读取最小前后暗场时间。
+        DLPC34XX_DUAL_ValidateExposureTime_s validateExposureTime;
+        if (DLPC34XX_DUAL_ReadValidateExposureTime(
+                DLPC34XX_DUAL_PM_INTERNAL,
+                DLPC34XX_DUAL_ST_EIGHT_BIT_MONO,
+                m_parameters[ILLUMINATIONTIME].toUInt(),
+                &validateExposureTime)) {
+            return false;
+        }
+
+        m_parameters[PREILLUMINATIONDARKTIMEMIN] =
+            QVariant::fromValue(uint32_t(validateExposureTime.PreExposureDarkTime));
+        m_parameters[POSTILLUMINATIONDARKTIMEMIN] =
+            QVariant::fromValue(uint32_t(validateExposureTime.PostExposureDarkTime));
+    }
+
+    if (key == LIGHTBLUECURRENTVALUE) {
+        // 限制蓝光电流不超过硬件最大值。
+        uint16_t redValue, greenValue, blueValue;
+        DLPC34XX_DUAL_ReadRgbLedMaxCurrent(&redValue, &greenValue, &blueValue);
+        if (blueValue < value.toUInt()) {
+            m_parameters[key] = QVariant::fromValue(uint32_t(blueValue));
+        }
+    }
+
+    if (key == LIGHTBLUECURRENTVALUEMAX) {
+        uint16_t redValue = 0, greenValue = 0;
+        if (DLPC34XX_DUAL_WriteRgbLedMaxCurrent(redValue, greenValue, uint16_t(value.toUInt()))) {
+            return false;
+        }
+    }
+
+    // 标记对应配置需要在 start() 时重新写入硬件。
+    if (key.contains("TriggerOut1")) {
+        m_changed_triggerOut1Config = false;
+    } else if (key.contains("TriggerOut2")) {
+        m_changed_triggerOut2Config = false;
+    } else if (key.contains("TriggerIn")) {
+        m_changed_triggerInConfig = false;
+    } else if (key.contains("CurrentValue")) {
+        m_changed_writeRgbLedCurrent = false;
+    }
+
+    return true;
+}
+```
+
+### 7.3 启动光机
+
+位置：
+
+```text
+dlp4710controlplugin.cpp:482
+```
+
+```cpp
+bool DLP4710ControlPlugin::start()
+{
+    if (m_state != Cameras::State::LoadedState) {
+        return false;
+    }
+
+    // 配置 TriggerOut1。
+    if (!m_changed_triggerOut1Config) {
+        DLPC34XX_DUAL_WriteTriggerOutConfiguration(
+            DLPC34XX_DUAL_TT_TRIGGER1,
+            m_parameters[TRIGGEROUT1ENABLE].toBool() ? DLPC34XX_DUAL_TE_ENABLE : DLPC34XX_DUAL_TE_DISABLE,
+            m_parameters[TRIGGEROUT1INVERTED].toBool() ? DLPC34XX_DUAL_TI_INVERTED : DLPC34XX_DUAL_TI_NOT_INVERTED,
+            m_parameters[TRIGGEROUT1DELAY].toInt()
+        );
+        m_changed_triggerOut1Config = true;
+    }
+
+    // 配置 TriggerOut2。
+    if (!m_changed_triggerOut2Config) {
+        DLPC34XX_DUAL_WriteTriggerOutConfiguration(
+            DLPC34XX_DUAL_TT_TRIGGER2,
+            m_parameters[TRIGGEROUT2ENABLE].toBool() ? DLPC34XX_DUAL_TE_ENABLE : DLPC34XX_DUAL_TE_DISABLE,
+            m_parameters[TRIGGEROUT2INVERTED].toBool() ? DLPC34XX_DUAL_TI_INVERTED : DLPC34XX_DUAL_TI_NOT_INVERTED,
+            m_parameters[TRIGGEROUT2DELAY].toInt()
+        );
+        m_changed_triggerOut2Config = true;
+    }
+
+    // 配置 TriggerIn。
+    if (!m_changed_triggerInConfig) {
+        DLPC34XX_DUAL_WriteTriggerInConfiguration(
+            m_parameters[TRIGGERINENABLE].toBool() ? DLPC34XX_DUAL_TE_ENABLE : DLPC34XX_DUAL_TE_DISABLE,
+            m_parameters[TRIGGERINPOLARITY].toBool() ? DLPC34XX_DUAL_TP_ACTIVE_HI : DLPC34XX_DUAL_TP_ACTIVE_LOW
+        );
+        m_changed_triggerInConfig = true;
+    }
+
+    // 只启用蓝光 LED，并写入蓝光电流。
+    if (!m_changed_writeRgbLedCurrent) {
+        DLPC34XX_DUAL_WriteRgbLedEnable(false, false, true);
+        DLPC34XX_DUAL_WriteRgbLedCurrent(
+            0x03E8,
+            0x03E8,
+            uint16_t(m_parameters[LIGHTBLUECURRENTVALUE].toUInt())
+        );
+        m_changed_writeRgbLedCurrent = true;
+    }
+
+    // 切换到内部 Pattern 模式。
+    if (!m_changed_writeOperatingModeSelect) {
+        DLPC34XX_DUAL_WriteOperatingModeSelect(DLPC34XX_DUAL_OM_SENS_INTERNAL_PATTERN);
+        m_changed_writeOperatingModeSelect = true;
+    }
+
+    m_grapLoop = Cameras::GrapLoop::UserGrabLoop;
+    m_triggerMode = Cameras::TriggerMode::SoftwareTrigger;
+
+    return true;
+}
+```
+
+### 7.4 I2C 通讯桥接
+
+位置：
+
+```text
+dlp4710controlplugin.cpp:599
+```
+
+```cpp
+uint32_t DLP4710ControlPlugin::ReadI2C(
+    uint16_t WriteDataLength,
+    uint8_t *WriteData,
+    uint16_t ReadDataLength,
+    uint8_t *ReadData,
+    DLPC_COMMON_CommandProtocolData_s *ProtocolData)
+{
+    Q_UNUSED(ProtocolData);
+
+    // 先通过 Cypress USB-I2C 写命令。
+    bool Status = CYPRESS_I2C_WriteI2C(WriteDataLength, WriteData);
+    if (Status != true) {
+        return FAIL;
+    }
+
+    // 再读取 DLPC 控制器返回的数据。
+    Status = CYPRESS_I2C_ReadI2C(ReadDataLength, ReadData);
+    if (Status != true) {
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
+void DLP4710ControlPlugin::InitConnectionAndCommandLayer()
+{
+    // 将 I2C 读写函数注册到 TI DLPC 命令库。
+    DLPC_COMMON_InitCommandLibrary(
+        s_WriteBuffer,
+        sizeof(s_WriteBuffer),
+        s_ReadBuffer,
+        sizeof(s_ReadBuffer),
+        WriteI2C,
+        ReadI2C
+    );
+
+    // 连接 Cypress USB-I2C 设备。
+    CYPRESS_I2C_ConnectToCyI2C();
+}
+```
+
+## 8. 关键参数说明
+
+这些字符串参数通过 `Cameras::setParameter()` 传递到底层 DLP 插件：
+
+```text
+IlluminationTime             投影曝光时间，单位 us
+PreIlluminationDarkTime      曝光前暗场时间，单位 us
+PostIlluminationDarkTime     曝光后暗场时间，单位 us
+LightBlueCurrentValue        蓝光 LED 电流
+LightBlueCurrentValueMax     蓝光 LED 最大电流限制
+DisplayRepeatTime            图案序列重复显示次数
+UploadPatternSet             生成/加载 pattern，并写入光机
+UpgradePatternTableData      更新 pattern table，通常用于改曝光和暗场时间
+TriggerInEnable              是否启用 Trigger In
+TriggerInPolarity            Trigger In 极性
+TriggerOut1Enable            是否启用 Trigger Out 1
+TriggerOut1Inverted          Trigger Out 1 是否反相
+TriggerOut1Delay             Trigger Out 1 延迟
+TriggerOut2Enable            是否启用 Trigger Out 2
+TriggerOut2Inverted          Trigger Out 2 是否反相
+TriggerOut2Delay             Trigger Out 2 延迟
+InvertIncluded               图案是否包含反码
+CentreCameraIncluded         图案是否兼容中心相机流程
+PhaseVerticalRepeatNum       垂直相移重复次数
+PhaseHorizontalRepeatNum     水平相移重复次数
+GrayCodeVerticalNum          垂直灰码数量
+GrayCodeHorizontalNum        水平灰码数量
+PhaseVerticalPixelPeriod     垂直相移周期像素数
+PhaseHorizontalPixelPeriod   水平相移周期像素数
+```
+
+## 9. 最重要的修改入口
+
+如果要改光机行为，优先看这些位置：
+
+```text
+1. 上层怎么配置光机：
+   D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2368
+
+2. 上层什么时候启动光机：
+   D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2427
+
+3. 上层什么时候触发投影：
+   D:\code\20220216\multi-view_ips\src\comps\imaging\plugin\imagingcontrolplugin.cpp:2515
+
+4. DLP3010 底层硬件控制：
+   D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp3010\dlp3010controlplugin.cpp:490
+
+5. DLP4710 底层硬件控制：
+   D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp4710\dlp4710controlplugin.cpp:482
+
+6. I2C 通讯桥接：
+   D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp3010\dlp3010controlplugin.cpp:590
+   D:\code\20220216\multi-view_ips\src\libs\cameras\plugins\dlp4710\dlp4710controlplugin.cpp:599
+```
+
