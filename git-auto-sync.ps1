@@ -30,9 +30,9 @@ function Push-CurrentBranch {
 
     git push -u origin $branch | Out-Null
     if ($LASTEXITCODE -eq 0) {
-        Write-Log "Pushed changes to origin/$branch."
+        Write-Log "已成功推送到 origin/$branch。"
     } else {
-        Write-Log "Push failed for origin/$branch. GitHub login may be required."
+        Write-Log "推送到 origin/$branch 失败，可能需要先登录 GitHub。"
     }
 }
 
@@ -40,6 +40,7 @@ function Invoke-GitSync {
     Set-Location -LiteralPath $repo
     $status = git status --porcelain
     if (-not $status) {
+        Write-Log '没有检测到需要提交的文件，准备检查是否有未推送的提交。'
         Push-CurrentBranch
         return
     }
@@ -47,21 +48,23 @@ function Invoke-GitSync {
     git add -A | Out-Null
     $statusAfterAdd = git status --porcelain
     if (-not $statusAfterAdd) {
+        Write-Log '只检测到被忽略的文件变化，无需提交。'
         Push-CurrentBranch
         return
     }
 
-    $message = 'Auto sync ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+    $message = '自动同步 ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
     git commit -m $message | Out-Null
     if ($LASTEXITCODE -ne 0) {
-        Write-Log 'Commit failed.'
+        Write-Log '提交失败。'
         return
     }
 
+    Write-Log "已创建提交：$message"
     Push-CurrentBranch
 }
 
-Write-Log 'Git auto sync watcher started.'
+Write-Log 'Git 自动同步监听脚本已启动。'
 $watcher = New-Object System.IO.FileSystemWatcher
 $watcher.Path = $repo
 $watcher.IncludeSubdirectories = $true
@@ -71,6 +74,7 @@ $action = {
     if (-not (Should-IgnorePath $Event.SourceEventArgs.FullPath)) {
         $script:pending = $true
         $script:lastEvent = Get-Date
+        Write-Log "检测到文件变化：$($Event.SourceEventArgs.FullPath)"
     }
 }
 
@@ -85,6 +89,7 @@ while ($true) {
     Start-Sleep -Seconds 5
     if ($pending -and ((Get-Date) - $lastEvent).TotalSeconds -ge 10) {
         $pending = $false
+        Write-Log '文件变化已稳定，开始自动同步。'
         Invoke-GitSync
     }
 }
