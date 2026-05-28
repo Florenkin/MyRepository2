@@ -1,0 +1,45 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Hierarchical Index}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Class Hierarchy}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Class Index}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Class List}{3}{section.2.1}%
+\contentsline {chapter}{\numberline {3}File Index}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}File List}{5}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Class Documentation}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}LConfig\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Param Struct Reference}{7}{section.4.1}%
+\contentsline {section}{\numberline {4.2}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}LEye\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}CBInfo Struct Reference}{7}{section.4.2}%
+\contentsline {section}{\numberline {4.3}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Point3f Struct Reference}{7}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Rz\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Camera\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test Class Reference}{8}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Rz\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Fpga\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test Class Reference}{8}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Rz\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Syncab\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Camera\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test Class Reference}{9}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Rz\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Top\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}KCamera\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test Class Reference}{9}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Single\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Module\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Test Class Reference}{10}{section.4.8}%
+\contentsline {section}{\numberline {4.9}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Point\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Attachment Struct Reference}{10}{section.4.9}%
+\contentsline {subsection}{\numberline {4.9.1}Detailed Description}{10}{subsection.4.9.1}%
+\contentsline {section}{\numberline {4.10}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Pointcloud Struct Reference}{11}{section.4.10}%
+\contentsline {subsection}{\numberline {4.10.1}Detailed Description}{11}{subsection.4.10.1}%
+\contentsline {section}{\numberline {4.11}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Pointcloud\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Attachment Struct Reference}{11}{section.4.11}%
+\contentsline {subsection}{\numberline {4.11.1}Detailed Description}{11}{subsection.4.11.1}%
+\contentsline {section}{\numberline {4.12}SMt\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Scan\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Config Struct Reference}{12}{section.4.12}%
+\contentsline {subsection}{\numberline {4.12.1}Detailed Description}{12}{subsection.4.12.1}%
+\contentsline {chapter}{\numberline {5}File Documentation}{13}{chapter.5}%
+\contentsline {section}{\numberline {5.1}mtblc.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{13}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Detailed Description}{15}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Function Documentation}{15}{subsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.1}MtL\_CloseDevice()}{15}{subsubsection.5.1.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.2.2}MtL\_DestroyPointcloud()}{15}{subsubsection.5.1.2.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.3}MtL\_DestroyPointcloudAttachment()}{16}{subsubsection.5.1.2.3}%
+\contentsline {subsubsection}{\numberline {5.1.2.4}MtL\_EnableLaser()}{16}{subsubsection.5.1.2.4}%
+\contentsline {subsubsection}{\numberline {5.1.2.5}MtL\_GetDeviceInfo()}{17}{subsubsection.5.1.2.5}%
+\contentsline {subsubsection}{\numberline {5.1.2.6}MtL\_GetFilteredPointcloud()}{17}{subsubsection.5.1.2.6}%
+\contentsline {subsubsection}{\numberline {5.1.2.7}MtL\_GetMotorPosition()}{18}{subsubsection.5.1.2.7}%
+\contentsline {subsubsection}{\numberline {5.1.2.8}MtL\_Init()}{18}{subsubsection.5.1.2.8}%
+\contentsline {subsubsection}{\numberline {5.1.2.9}MtL\_Lidflip()}{19}{subsubsection.5.1.2.9}%
+\contentsline {subsubsection}{\numberline {5.1.2.10}MtL\_MapTexture()}{19}{subsubsection.5.1.2.10}%
+\contentsline {subsubsection}{\numberline {5.1.2.11}MtL\_OpenDevice()}{20}{subsubsection.5.1.2.11}%
+\contentsline {subsubsection}{\numberline {5.1.2.12}MtL\_Scan()}{20}{subsubsection.5.1.2.12}%
+\contentsline {subsubsection}{\numberline {5.1.2.13}MtL\_ScanAsyncStart()}{21}{subsubsection.5.1.2.13}%
+\contentsline {subsubsection}{\numberline {5.1.2.14}MtL\_ScanAsyncStop()}{21}{subsubsection.5.1.2.14}%
+\contentsline {subsubsection}{\numberline {5.1.2.15}MtL\_SearchDevices()}{22}{subsubsection.5.1.2.15}%
+\contentsline {section}{\numberline {5.2}mtblc.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{22}{section.5.2}%
+\contentsline {chapter}{Index}{25}{section*.26}%

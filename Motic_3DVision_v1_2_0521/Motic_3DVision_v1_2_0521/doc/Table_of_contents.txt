@@ -1,0 +1,3 @@
+SDK documents: 
+	Functions: doxygen/html/mtblc_8h.html, or doxygen/latex/refman.pdf [Section 5]
+	Sample code: doxygen/test_mtblc.cc

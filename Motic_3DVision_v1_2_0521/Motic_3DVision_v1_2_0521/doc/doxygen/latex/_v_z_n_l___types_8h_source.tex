@@ -1,0 +1,1882 @@
+\doxysection{VZNL\+\_\+\+Types.\+h}
+\hypertarget{_v_z_n_l___types_8h_source}{}\label{_v_z_n_l___types_8h_source}\index{VZNL\_Types.h@{VZNL\_Types.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Header:\ vizum\_type.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Description:当前文件为双目相机(Vizum)研发的EyeCB板提供所有类型的定义。}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Author:\ Mjw}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Date:\ \ \ 2018/08/28}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Update:\ 2023/04/27}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#ifndef\ \_\_VIZUM\_TYPES\_HEADER\_\_}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ \_\_VIZUM\_TYPES\_HEADER\_\_}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ VZNL\_SDK\_NETWORK\_IPv4\_LENGTH\ 16}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ VZNL\_SDK\_NETWORK\_MAC\_LENGTH\ 18}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ VZNL\_VERSION\_LENGTH\ 64}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ VZNL\_DEVICE\_NAME\_LENGTH\ 64}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ VZNL\_GUID\_LENGTH\ 64}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ VZ\_DEVICE\_NAME\ 64}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ VZ\_DEVICE\_DESC\ 256}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ VZNL\_DEVICEID\_LENGTH\ 64}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ VZNL\_DEVICE\_ADDR\_LENGTH\ 64}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ VZ\_MAXPATH\ 256}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ VZ\_USERPROFILE\_MAX\_COUNT\ 10}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ VZ\_USERPROFILE\_NAME\_LENGTH\ 64}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLHANDLE;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00067\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLFILE;}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00071\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLDETECTHANDLE;}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLPOINTCLOUDHANDLE;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLIMAGEGENERATOR;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{void}*\ VZNLRGBCLOUDPOINTTOOL;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ VzFalse\ =\ 0,}
+\DoxyCodeLine{00088\ \ \ \ \ VzTrue\ =\ 1,}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ VzBool;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ VzColorRGB;\ \ \ \ \textcolor{comment}{//RGB}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#ifdef\ \_WIN64}}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ VzParam;}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ VzParam;}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shYear;}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shMonth;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shDay;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shHour;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shMinute;}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shSecond;}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ \ shWeek;}
+\DoxyCodeLine{00113\ \}\ \doxymbox{\hyperlink{struct_s_vz_date_time}{SVzDateTime}};}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{comment}{//\ 设备搜索标志}}
+\DoxyCodeLine{00116\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ keSearchDeviceFlagNone\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0000,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 不搜索}}
+\DoxyCodeLine{00119\ \ \ \ \ keSearchDeviceFlag\_EyeCB\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x0001,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 搜索控制器}}
+\DoxyCodeLine{00120\ \ \ \ \ keSearchDeviceFlag\_USBLargeEye\ \ \ \ \ \ =\ 0x0002,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 搜索USB极光眼}}
+\DoxyCodeLine{00121\ \ \ \ \ keSearchDeviceFlag\_EthLargeEye\ \ \ \ \ \ =\ 0x0004,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 搜索网络星光眼:激光}}
+\DoxyCodeLine{00122\ \ \ \ \ keSearchDeviceFlag\_EthSmallEye\ \ \ \ \ \ =\ 0x0008,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 搜索网络星光眼:智能}}
+\DoxyCodeLine{00123\ \ \ \ \ keSearchDeviceFlag\_EthLaserRobotEye\ =\ 0x0010,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 搜索网络智光眼:激光}}
+\DoxyCodeLine{00124\ \ \ \ \ keSearchDeviceFlagAll\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ keSearchDeviceFlag\_EthLaserRobotEye,\ \ \ \ \ \ \textcolor{comment}{//<\ 搜索全部支持的设备}}
+\DoxyCodeLine{00125\ \};}
+\DoxyCodeLine{00126\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzSearchDeviceFlag;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00130\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00131\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ keVzNLEyeResolution\_Unknown\ =\ 0,}
+\DoxyCodeLine{00133\ \ \ \ \ keVzNLEyeResolution\_130WH,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ keVzNLEyeResolution\_130WV,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00135\ \ \ \ \ keVzNLEyeResolution\_300WH,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00136\ \ \ \ \ keVzNLEyeResolution\_300WV,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ keVzNLEyeResolution\_1300W,\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00138\ \ \ \ \ keVzNLEyeResolutionLast}
+\DoxyCodeLine{00139\ \}\ EVzNLEyeResolution;}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00143\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00144\ \{}
+\DoxyCodeLine{00145\ \ \ \ \ keDeviceType\_Unknown\ =\ 0,}
+\DoxyCodeLine{00146\ \ \ \ \ keDeviceType\_EyeCB,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ EyeCB控制器}}
+\DoxyCodeLine{00147\ \ \ \ \ keDeviceType\_LaserEye,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 星光眼:激光}}
+\DoxyCodeLine{00148\ \ \ \ \ keDeviceType\_SmartEye,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 星光眼:智能}}
+\DoxyCodeLine{00149\ \ \ \ \ keDeviceType\_LaserRobotEye,\ \ \ \ \ \textcolor{comment}{//\ 智光眼:激光}}
+\DoxyCodeLine{00150\ \ \ \ \ keDeviceType\_SmartRobotEye,\ \ \ \ \ \textcolor{comment}{//\ 智光眼:智能}}
+\DoxyCodeLine{00151\ \}\ EVzDeviceType;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00155\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00156\ \{}
+\DoxyCodeLine{00157\ \ \ \ \ keEyeTypeFlag\_Unknown\ =\ 0x00,}
+\DoxyCodeLine{00158\ \ \ \ \ keEyeTypeFlag\_USB\ =\ 0x01,\ \ \ \ \ \ \ \textcolor{comment}{//<\ USB}}
+\DoxyCodeLine{00159\ \ \ \ \ keEyeTypeFlag\_Eth\ =\ 0x02,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 网络}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ keEyeTypeFlag\_Color\ =\ 0x10,\ \ \ \ \ \textcolor{comment}{//<\ 彩色}}
+\DoxyCodeLine{00162\ \ \ \ \ keEyeTypeFlag\_Gray\ =\ 0x20,\ \ \ \ \ \ \textcolor{comment}{//<\ 黑白}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ keEyeTypeFlag\_Laser\ =\ 0x100,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 极光眼}}
+\DoxyCodeLine{00165\ \ \ \ \ keEyeTypeFlag\_Smart\ =\ 0x200,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 智能眼}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ keEyeTypeFlag\_Product1\ =\ 0x1000,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 小眼睛}}
+\DoxyCodeLine{00168\ \ \ \ \ keEyeTypeFlag\_Product2\ =\ 0x2000,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 大眼睛}}
+\DoxyCodeLine{00169\ \ \ \ \ keEyeTypeFlag\_Product3\ =\ 0x3000,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 大眼睛}}
+\DoxyCodeLine{00170\ \};}
+\DoxyCodeLine{00171\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzEyeTypeFlag;}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00174\ \{}
+\DoxyCodeLine{00175\ \ \ \ \ keEyeSensorType\_Left\ \ \ \ =\ 0x01,}
+\DoxyCodeLine{00176\ \ \ \ \ keEyeSensorType\_Right\ \ \ =\ 0x02,}
+\DoxyCodeLine{00177\ \};}
+\DoxyCodeLine{00178\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzEyeSensorType;}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00182\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00183\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ keEyeImgMode\_Low\ \ \ \ =\ 1,}
+\DoxyCodeLine{00185\ \ \ \ \ keEyeImgMode\_Middle,}
+\DoxyCodeLine{00186\ \ \ \ \ keEyeImgMode\_High,}
+\DoxyCodeLine{00187\ \ \ \ \ keEyeImgMode\_Higher,}
+\DoxyCodeLine{00188\ \ \ \ \ keEyeImgMode\_Hights,}
+\DoxyCodeLine{00189\ \ \ \ \ keEyeImgMode\_Algo}
+\DoxyCodeLine{00190\ \}EVzEyeImgBitMode;}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00194\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00195\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ keObjRunDirect\_Plus\ =\ 0,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 正方向}}
+\DoxyCodeLine{00197\ \ \ \ \ keObjRunDirect\_Minus\ =\ 1,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 反方向}}
+\DoxyCodeLine{00198\ \}\ EVzObjRunDirect;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00202\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00203\ \{}
+\DoxyCodeLine{00204\ \ \ \ \ keEncodeMotorRunDirectNone\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 未知}}
+\DoxyCodeLine{00205\ \ \ \ \ keEncodeMotorRunDirect\_ClockWise,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 顺时针}}
+\DoxyCodeLine{00206\ \ \ \ \ keEncodeMotorRunDirect\_CounterClockWise,\ \ \ \ \textcolor{comment}{//\ 逆时针}}
+\DoxyCodeLine{00207\ \}\ EVzEncodeMotorRunDirect;}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00211\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00212\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ keEyeTriggerMode\_Invalid\ =\ -\/1,\ \ \ \ \ \ \textcolor{comment}{//\ 无效值}}
+\DoxyCodeLine{00214\ \ \ \ \ keEyeTriggerMode\_Slave\ =\ 0,\ \ \ \ \ \textcolor{comment}{//\ 被动触发}}
+\DoxyCodeLine{00215\ \ \ \ \ keEyeTriggerMode\_Master\ =\ 1,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 主动模式}}
+\DoxyCodeLine{00216\ \ \ \ \ keEyeTriggerMode\_FallingEdge\ =\ 2,\ \ \ \ \ \ \ \textcolor{comment}{//\ 下降沿触发}}
+\DoxyCodeLine{00217\ \ \ \ \ keEyeTriggerMode\_RisingEdge\ =\ 3,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 上升沿触发}}
+\DoxyCodeLine{00218\ \ \ \ \ keEyeTriggerMode\_LowLevelEnable\ =\ 4,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 低电平使能数据输出}}
+\DoxyCodeLine{00219\ \ \ \ \ keEyeTriggerMode\_ManualTrigger\ =\ 6,\ \ \ \ \ \textcolor{comment}{//\ 手动模式}}
+\DoxyCodeLine{00220\ \ \ \ \ keEyeTriggerMode\_Package\ =\ 9,\ \ \ \ \ \ \ \textcolor{comment}{//\ 物流包裹触发模式}}
+\DoxyCodeLine{00221\ \ \ \ \ keEyeTriggerMode\_HighFrequenceFallingEdge\ \ \ \ \ \ \ \ \ \ \ =\ 10,\ \ \ \ \ \ \ \textcolor{comment}{//\ 高帧率下降沿触发}}
+\DoxyCodeLine{00222\ \};}
+\DoxyCodeLine{00223\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzEyeTriggerMode;}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ kePointCloudProcMode\_Invalid\ =\ 0,\ \ \ \textcolor{comment}{//<\ 无效}}
+\DoxyCodeLine{00230\ \ \ \ \ kePointCloudProcMode\_Speed,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 速度偏移模式}}
+\DoxyCodeLine{00231\ \ \ \ \ kePointCloudProcMode\_Encoder,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 编码器模式}}
+\DoxyCodeLine{00232\ \ \ \ \ kePointCloudProcMode\_FixedStep,\ \ \ \ \ \textcolor{comment}{//<\ 固定间隔模式}}
+\DoxyCodeLine{00233\ \}\ EVzPointCloudProcMode;}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00237\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00238\ \{}
+\DoxyCodeLine{00239\ \ \ \ \ keDeviceWorkStatusUnknown\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 未知}}
+\DoxyCodeLine{00240\ \ \ \ \ keDeviceWorkStatus\_Eye\_Comming\ =\ 1,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛连接}}
+\DoxyCodeLine{00241\ \ \ \ \ keDeviceWorkStatus\_Eye\_Reconnect,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛重连}}
+\DoxyCodeLine{00242\ \ \ \ \ keDeviceWorkStatus\_Working,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 工作中}}
+\DoxyCodeLine{00243\ \ \ \ \ keDeviceWorkStatus\_Offline,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 离线}}
+\DoxyCodeLine{00244\ \ \ \ \ keDeviceWorkStatus\_Eye\_TimeOut,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛超时}}
+\DoxyCodeLine{00245\ \ \ \ \ keDeviceWorkStatus\_Eye\_UnStability,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛不稳定}}
+\DoxyCodeLine{00246\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_Mem,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 内存}}
+\DoxyCodeLine{00247\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_TimeStampDiffErr,\ \ \textcolor{comment}{//<\ 时间戳错误}}
+\DoxyCodeLine{00248\ \ \ \ \ keDeviceWorkStatus\_Device\_Swing\_Finish,\ \ \ \ \ \textcolor{comment}{//<\ 摆动模块已完成}}
+\DoxyCodeLine{00249\ \ \ \ \ keDeviceWorkStatus\_Device\_Auto\_Stop,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 设备自动停止}}
+\DoxyCodeLine{00250\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_TaskFull,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 任务饱和}}
+\DoxyCodeLine{00251\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_GetImageErr,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 获取图像错误}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_ObjectCome,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体来了}}
+\DoxyCodeLine{00254\ \ \ \ \ keDeviceWorkStatus\_EyeCB\_ObjectLeave,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体走了}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ keDeviceWorkStatus\_Trigger\_Coming,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Trigger信号来了}}
+\DoxyCodeLine{00257\ \ \ \ \ keDeviceWorkStatus\_Trigger\_Leave,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Trigger信号结束了}}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ keDeviceWorkStatus\_Eye\_StreamResume,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 数据恢复}}
+\DoxyCodeLine{00260\ \ \ \ \ keDeviceWorkStatus\_Eye\_SwingNoResponse,\ \ \ \ \ \textcolor{comment}{//<\ 静态模块无响应}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ keDeviceWorkStatus\_PetaMsg,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Peta\ 消息}}
+\DoxyCodeLine{00263\ \ \ \ \ keDeviceWorkStatus\_PSMsg,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ PS\ \ \ 消息}}
+\DoxyCodeLine{00264\ \ \ \ \ keDeviceWorkStatus\_Eye\_LaserlineErr,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ }}
+\DoxyCodeLine{00265\ \ \ \ \ keDeviceWorkStatus\_Device\_Swing\_Running,\ \ \ \ \textcolor{comment}{//<\ 开流后摆动模块开始运动时给出信号}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ keDeviceWorkStatus\_Eye\_SwingEncodeNoChange,\ \textcolor{comment}{//<\ 摆动编码器值不改变}}
+\DoxyCodeLine{00268\ \ \ \ \ keDeviceWorkStatus\_Eye\_SwingUpdateStatus,\ \ \ \textcolor{comment}{//<\ 发现了摆动模块}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ keDeviceWorkStatus\_Eye\_New\_Client\_Connected,\ \ \ \ \textcolor{comment}{//<\ 有新客户端连接}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \ \ \ \ keDeviceWorkStatus\_Eye\_LinearActuator\_Warning,\ \ \textcolor{comment}{//<\ 推杆电机关闭点可能存在异常}}
+\DoxyCodeLine{00273\ \}\ EVzDeviceWorkStatus;}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00277\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00278\ \{}
+\DoxyCodeLine{00279\ \ \ \ \ keMulDevWorkStatusUnknown\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 未知}}
+\DoxyCodeLine{00280\ \ \ \ \ keMulDevWorkStatus\_Auto\_Stop,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 自动停止}}
+\DoxyCodeLine{00281\ \}\ EVzMulDevWorkStatus;}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00285\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00286\ \{}
+\DoxyCodeLine{00287\ \ \ \ \ keLaserFrameRate\_30\ =\ 0,}
+\DoxyCodeLine{00288\ \ \ \ \ keLaserFrameRate\_100,}
+\DoxyCodeLine{00289\ \ \ \ \ keLaserFrameRate\_220,}
+\DoxyCodeLine{00290\ \ \ \ \ keLaserFrameRate\_400,}
+\DoxyCodeLine{00291\ \ \ \ \ keLaserFrameRate\_630,}
+\DoxyCodeLine{00292\ \ \ \ \ keLaserFrameRate\_50,}
+\DoxyCodeLine{00293\ \ \ \ \ keLaserFrameRate\_120,}
+\DoxyCodeLine{00294\ \ \ \ \ keLaserFrameRate\_320,}
+\DoxyCodeLine{00295\ \ \ \ \ keLaserFrameRate\_550,}
+\DoxyCodeLine{00296\ \ \ \ \ keLaserFrameRate\_830,}
+\DoxyCodeLine{00297\ \ \ \ \ keLaserFrameRate\_80,}
+\DoxyCodeLine{00298\ \ \ \ \ keLaserFrameRate\_210,}
+\DoxyCodeLine{00299\ \ \ \ \ keLaserFrameRate\_530,}
+\DoxyCodeLine{00300\ \ \ \ \ keLaserFrameRate\_840,}
+\DoxyCodeLine{00301\ \ \ \ \ keLaserFrameRate\_1200,}
+\DoxyCodeLine{00302\ \ \ \ \ keLaserFrameRateLast}
+\DoxyCodeLine{00303\ \}\ EVzLaserFrameRate;}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00308\ \{}
+\DoxyCodeLine{00309\ \ \ \ \ keLaserCaptureMode\_LastFrame,}
+\DoxyCodeLine{00310\ \ \ \ \ keLaserCaptureMode\_AllFrame,}
+\DoxyCodeLine{00311\ \ \ \ \ keLaserCaptureMode\_CalcAllFrameWhenStop,}
+\DoxyCodeLine{00312\ \}\ EVzLaserCaptureMode;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00316\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00317\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ keProjectType\_None\ =\ 0,}
+\DoxyCodeLine{00319\ \ \ \ \ keProjectType\_Coal,}
+\DoxyCodeLine{00320\ \ \ \ \ keProjectType\_Logistics,}
+\DoxyCodeLine{00321\ \ \ \ \ keProjectType\_InfraredMark,}
+\DoxyCodeLine{00322\ \ \ \ \ keProjectType\_DivRebar,}
+\DoxyCodeLine{00323\ \ \ \ \ keProjectTypeLast,}
+\DoxyCodeLine{00324\ \};}
+\DoxyCodeLine{00325\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzProjectType;}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00329\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00330\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ keVzNLDetectObjType\_Unknown\ =\ 0,}
+\DoxyCodeLine{00332\ \ \ \ \ keVzNLDetectObjType\_Line\ =\ 1,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 直线}}
+\DoxyCodeLine{00333\ \ \ \ \ keVzNLDetectObjType\_CoplaneCircle\ =\ 2,\ \ \ \ \ \ \textcolor{comment}{//\ 圆/椭圆(共面)}}
+\DoxyCodeLine{00334\ \ \ \ \ keVzNLDetectObjType\_Triangle\ =\ 3,}
+\DoxyCodeLine{00335\ \ \ \ \ keVzNLDetectObjType\_Rect\ =\ 4,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 矩形}}
+\DoxyCodeLine{00336\ \ \ \ \ keVzNLDetectObjType\_Cube\ =\ 5,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 立方体}}
+\DoxyCodeLine{00337\ \ \ \ \ keVzNLDetectObjType\_StickWidth\ =\ 6,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 杆状物}}
+\DoxyCodeLine{00338\ \ \ \ \ keVzNLDetectObjType\_StickLength\ =\ 7,}
+\DoxyCodeLine{00339\ \ \ \ \ keVzNLDetectObjType\_StickVolume\ =\ 8,}
+\DoxyCodeLine{00340\ \ \ \ \ keVzNLDetectObjType\_StickApex\ =\ 9,}
+\DoxyCodeLine{00341\ \ \ \ \ keVzNLDetectObjType\_Laser\ =\ 10,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 激光}}
+\DoxyCodeLine{00342\ \ \ \ \ keVzNLDetectObjType\_Slot\ =\ 11,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 凹槽}}
+\DoxyCodeLine{00343\ \ \ \ \ keVzNLDetectObjType\_SameSizeCircle\ =\ 12,\ \ \ \ \textcolor{comment}{//\ 同大小}}
+\DoxyCodeLine{00344\ \ \ \ \ keVzNLDetectObjType\_3DModel\ =\ 14,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 匹配三维模型}}
+\DoxyCodeLine{00345\ \};}
+\DoxyCodeLine{00346\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzNLDetectObjType;}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00349\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ keSDKType\_Unknown\ =\ 0,}
+\DoxyCodeLine{00351\ \ \ \ \ keSDKType\_DetectShape,}
+\DoxyCodeLine{00352\ \ \ \ \ keSDKType\_DetectLaser,}
+\DoxyCodeLine{00353\ \ \ \ \ keSDKType\_DetectCircle,}
+\DoxyCodeLine{00354\ \ \ \ \ keSDKType\_DetectColorMark,}
+\DoxyCodeLine{00355\ \ \ \ \ keSDKType\_DetectGrains,}
+\DoxyCodeLine{00356\ \};}
+\DoxyCodeLine{00357\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ EVzSDKType;}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00360\ \{}
+\DoxyCodeLine{00361\ \ \ \ \ keVzColorType\_None\ =\ 0,}
+\DoxyCodeLine{00362\ \ \ \ \ keVzColorType\_Red,}
+\DoxyCodeLine{00363\ \ \ \ \ keVzColorType\_Green,}
+\DoxyCodeLine{00364\ \ \ \ \ keVzColorType\_Blue,}
+\DoxyCodeLine{00365\ \ \ \ \ keVzColorType\_Last,}
+\DoxyCodeLine{00366\ \}\ EVzColorType;}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00370\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00371\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ keNLLogLevel\_None\ =\ 0,}
+\DoxyCodeLine{00373\ \ \ \ \ keNLLogLevel\_Error,}
+\DoxyCodeLine{00374\ \ \ \ \ keNLLogLevel\_Warning,}
+\DoxyCodeLine{00375\ \ \ \ \ keNLLogLevel\_Debug,}
+\DoxyCodeLine{00376\ \ \ \ \ keNLLogLevel\_Information,}
+\DoxyCodeLine{00377\ \};}
+\DoxyCodeLine{00378\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ EVzNLLogLevel;}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00382\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00383\ \{}
+\DoxyCodeLine{00384\ \ \ \ \ keNLLogType\_None\ =\ 0,}
+\DoxyCodeLine{00385\ \ \ \ \ keNLLogType\_Console\ =\ 0x01,}
+\DoxyCodeLine{00386\ \ \ \ \ keNLLogType\_File\ \ \ \ =\ 0x02,}
+\DoxyCodeLine{00387\ \ \ \ \ keNLLogType\_LocalPgm=\ 0x04,}
+\DoxyCodeLine{00388\ \ \ \ \ keNLLogType\_Remote\ \ =\ 0x08,}
+\DoxyCodeLine{00389\ \};}
+\DoxyCodeLine{00390\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ EVzNLLogType;}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00392\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00393\ \textcolor{comment}{*\ @brief}}
+\DoxyCodeLine{00394\ \textcolor{comment}{*\ 眼睛配置信息}}
+\DoxyCodeLine{00395\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00396\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00397\ \{}
+\DoxyCodeLine{00398\ \ \ \ \ keNLEthernetEyeIPType\_Unknown\ =\ 0,\ \ \textcolor{comment}{//<\ 未知}}
+\DoxyCodeLine{00399\ \ \ \ \ keNLEthernetEyeIPType\_StaticIP,\ \ \ \ \ \textcolor{comment}{//<\ 静态IP}}
+\DoxyCodeLine{00400\ \ \ \ \ keNLEthernetEyeIPType\_DHCP,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ DHCP}}
+\DoxyCodeLine{00401\ \}\ EVzNLEthernetEyeIPType;}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00405\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00406\ \{}
+\DoxyCodeLine{00407\ \ \ \ \ keVzNLExposeMode\_Fix\ =\ 0,\ \ \ \ \ \ \ }
+\DoxyCodeLine{00408\ \ \ \ \ keVzNLExposeMode\_Auto\ =\ 1,\ \ \ \ \ \ }
+\DoxyCodeLine{00409\ \}\ EVzNLExposeMode;}
+\DoxyCodeLine{00410\ }
+\DoxyCodeLine{00413\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00414\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ keExposeThresType\_Average\ =\ 0,}
+\DoxyCodeLine{00416\ \ \ \ \ keExposeThresType\_Max\ =\ 1,}
+\DoxyCodeLine{00417\ \}\ EVzExposeThresType;}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00421\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00422\ \{}
+\DoxyCodeLine{00423\ \ \ \ \ keVzNLImageCompress\_Unknown\ =\ 0,}
+\DoxyCodeLine{00424\ \ \ \ \ keVzNLImageCompress\_Jpeg\ =\ 1,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Jpeg格式}}
+\DoxyCodeLine{00425\ \ \ \ \ keVzNLImageCompress\_Png\ =\ 2,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ png格式}}
+\DoxyCodeLine{00426\ \ \ \ \ keVzNLImageCompress\_Bmp\ =\ 3\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ bmp格式}}
+\DoxyCodeLine{00427\ \}\ EVzNLImageCompress;}
+\DoxyCodeLine{00428\ }
+\DoxyCodeLine{00431\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00432\ \{}
+\DoxyCodeLine{00433\ \ \ \ \ keVzNLImageType\_None\ =\ 0,}
+\DoxyCodeLine{00434\ \ \ \ \ keVzNLImageType\_RGB888,\ \ \ \ \ \textcolor{comment}{//\ 3\ channel\ 24bit}}
+\DoxyCodeLine{00435\ \ \ \ \ keVzNLImageType\_BGR888,\ \ \ \ \ \textcolor{comment}{//\ 3\ channel\ 24bit}}
+\DoxyCodeLine{00436\ \ \ \ \ keVzNLImageType\_BAYERGR,\ \ \ \ \textcolor{comment}{//\ 1\ channel\ }}
+\DoxyCodeLine{00437\ \ \ \ \ keVzNLImageType\_BAYERRG,\ \ \ \ \textcolor{comment}{//\ 1\ channel\ }}
+\DoxyCodeLine{00438\ \ \ \ \ keVzNLImageType\_BAYERBG,\ \ \ \ \textcolor{comment}{//\ 1\ channel\ }}
+\DoxyCodeLine{00439\ \ \ \ \ keVzNLImageType\_BAYERGB,\ \ \ \ \textcolor{comment}{//\ 1\ channel\ }}
+\DoxyCodeLine{00440\ \ \ \ \ keVzNLImageType\_GRAY,\ \ \ \ \ \ \ \textcolor{comment}{//\ 1\ channel}}
+\DoxyCodeLine{00441\ \ \ \ \ keVzNLImageType\_YUV420,}
+\DoxyCodeLine{00442\ \ \ \ \ keVzNLImageType\_BGRA8888,\ \ \ \textcolor{comment}{//\ 4\ channel\ 32bit}}
+\DoxyCodeLine{00443\ \ \ \ \ keVzNLImageType\_YUYV\_YUV422,\textcolor{comment}{//\ }}
+\DoxyCodeLine{00444\ \ \ \ \ keVzNLImageType\_UNKNOWN\ =\ 0xffff,}
+\DoxyCodeLine{00445\ \}\ EVzNLImageType;}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00449\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00450\ \{}
+\DoxyCodeLine{00451\ \ \ \ \ keNL3DCircleTypeUnknown\ =\ 0,}
+\DoxyCodeLine{00452\ \ \ \ \ keNL3DCircleType\_Circle\ =\ 3,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 单圆}}
+\DoxyCodeLine{00453\ \ \ \ \ keNL3DCircleType\_ConcentricCircle\ =\ 4,\ \ \ \ \ \ \textcolor{comment}{//\ 同心圆}}
+\DoxyCodeLine{00454\ \ \ \ \ keNL3DCircleType\_SteelTube\ =\ 5,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 钢管}}
+\DoxyCodeLine{00455\ \}\ EVzNL3DCircleType;}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00459\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{00460\ \{}
+\DoxyCodeLine{00461\ \ \ \ \ keNLEyeDataWorkMode\_Data\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 数据模式}}
+\DoxyCodeLine{00462\ \ \ \ \ keNLEyeDataWorkMode\_ImageData\ =\ 1,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 图像数据模式}}
+\DoxyCodeLine{00463\ \ \ \ \ keNLEyeDataWorkMode\_Image\ =\ 2,}
+\DoxyCodeLine{00464\ \}\ EVzNLEyeDataWorkMode;}
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00468\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00469\ \{}
+\DoxyCodeLine{00470\ \ \ \ \ keFlipType\_None\ =\ 0x00,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00471\ \ \ \ \ keFlipType\_Vertical\ =\ 0x01,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00472\ \};}
+\DoxyCodeLine{00473\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzFlipType;}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00477\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00478\ \{}
+\DoxyCodeLine{00479\ \ \ \ \ keLaserPointFilterType\_None\ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00480\ \ \ \ \ keLaserPointFilterType\_BetweenYMinMax\ \ \ =\ 0x01,\ \ \ \ \ }
+\DoxyCodeLine{00481\ \ \ \ \ keLaserPointFilterType\_ExceptYRange\ \ \ \ \ =\ 0x02,\ \ \ \ \ }
+\DoxyCodeLine{00482\ \ \ \ \ keLaserPointFilterType\_BetweenZMinMax\ \ \ =\ 0x10,\ \ \ \ \ }
+\DoxyCodeLine{00483\ \ \ \ \ keLaserPointFilterType\_ExceptZRange\ \ \ \ \ =\ 0x20,\ \ \ \ \ }
+\DoxyCodeLine{00484\ \ \ \ \ keLaserPointFilterType\_BetweenXMinMax\ \ \ =\ 0x100,\ \ \ \ }
+\DoxyCodeLine{00485\ \ \ \ \ keLaserPointFilterType\_ExceptXRange\ \ \ \ \ =\ 0x200\ \ \ \ \ }
+\DoxyCodeLine{00486\ \};}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzLaserPointFilterType;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00490\ \textcolor{comment}{//\ @brief}}
+\DoxyCodeLine{00491\ \textcolor{comment}{//\ 摆动机构扫描模式}}
+\DoxyCodeLine{00492\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00493\ \{}
+\DoxyCodeLine{00494\ \ \ \ \ keSwingMotorScanModeNone\ =\ 0,}
+\DoxyCodeLine{00495\ \ \ \ \ keSwingMotorScanMode\_Once,\ \ \ \ \ \ \textcolor{comment}{//<\ 一次}}
+\DoxyCodeLine{00496\ \ \ \ \ keSwingMotorScanMode\_Loop,\ \ \ \ \ \ \textcolor{comment}{//<\ 轮询}}
+\DoxyCodeLine{00497\ \}\ EVzSwingMotorScanMode;}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \textcolor{comment}{//\ @brief}}
+\DoxyCodeLine{00500\ \textcolor{comment}{//\ 灰度值来源}}
+\DoxyCodeLine{00501\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00502\ \{}
+\DoxyCodeLine{00503\ \ \ \ \ keGrayValueSource\_Left\ =\ 0,\ \ \ \ \ \textcolor{comment}{//<\ 左目}}
+\DoxyCodeLine{00504\ \ \ \ \ keGrayValueSource\_Right,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 右目}}
+\DoxyCodeLine{00505\ \ \ \ \ keGrayValueSource\_Both,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 左右}}
+\DoxyCodeLine{00506\ \}\ EVzGrayValueSource;}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ \textcolor{comment}{//\ @brief}}
+\DoxyCodeLine{00509\ \textcolor{comment}{//\ 摆动机构速度}}
+\DoxyCodeLine{00510\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeedMin\ =\ 1.f;}
+\DoxyCodeLine{00511\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_12\ =\ 12.f;}
+\DoxyCodeLine{00512\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_24\ =\ 24.f;}
+\DoxyCodeLine{00513\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_36\ =\ 36.f;}
+\DoxyCodeLine{00514\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_48\ =\ 48.f;}
+\DoxyCodeLine{00515\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_60\ =\ 60.f;}
+\DoxyCodeLine{00516\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_72\ =\ 72.f;}
+\DoxyCodeLine{00517\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_84\ =\ 84.f;}
+\DoxyCodeLine{00518\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeed\_96\ =\ 96.f;}
+\DoxyCodeLine{00519\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ keSwingMotorSpeedMax\ =\ keSwingMotorSpeed\_96;}
+\DoxyCodeLine{00520\ }
+\DoxyCodeLine{00521\ \textcolor{comment}{//\ @brief}}
+\DoxyCodeLine{00522\ \textcolor{comment}{//\ 参考ROI大小}}
+\DoxyCodeLine{00523\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00524\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ keDeviceROIInvalid\ =\ 0,}
+\DoxyCodeLine{00526\ \ \ \ \ keDeviceROI\_128\_1024,\ \ \ \ \ \ \ \textcolor{comment}{//<\ ROI\ 128\ *\ 1024}}
+\DoxyCodeLine{00527\ \ \ \ \ keDeviceROI\_256\_1024,\ \ \ \ \ \ \ \textcolor{comment}{//<\ ROI\ 256\ *\ 1024}}
+\DoxyCodeLine{00528\ \ \ \ \ keDeviceROI\_Full,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ ROI\ Full\ Resolution}}
+\DoxyCodeLine{00529\ \ \ \ \ keDeviceROILast\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ }}
+\DoxyCodeLine{00530\ \}\ EVzDeviceROI;}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00534\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00535\ \{}
+\DoxyCodeLine{00536\ \ \ \ \ keSwingRotateDirect\_Clockwise,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 顺时针旋转}}
+\DoxyCodeLine{00537\ \ \ \ \ keSwingRotateDirect\_Counterclockwise\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 逆时针旋转}}
+\DoxyCodeLine{00538\ \}\ EVzSwingRotateDirect;}
+\DoxyCodeLine{00539\ }
+\DoxyCodeLine{00542\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00543\ \{}
+\DoxyCodeLine{00544\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nFrameWidth;}
+\DoxyCodeLine{00545\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nFrameHeight;}
+\DoxyCodeLine{00546\ \}\ \doxymbox{\hyperlink{struct_s_vz_video_resolution}{SVzVideoResolution}};}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00550\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00551\ \{}
+\DoxyCodeLine{00552\ \ \ \ \ keResultDataType\_Invalid\ =\ -\/1,\ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3D数据类型\ \ \ \ \ \ \ \ \ \ 2D数据类型}}
+\DoxyCodeLine{00553\ \ \ \ \ keResultDataType\_Position,\ \ \ \ \ \ \textcolor{comment}{//<\ Position数据类型\ \ \ \ \ \ \ \ 使用SVzNL3DPosition\ \ \ \ \ \ \ SVzNL2DPosition}}
+\DoxyCodeLine{00554\ \ \ \ \ keResultDataType\_PointF,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ PointF数据类型\ \ \ \ \ \ 使用SVzNL3DPointF\ \ \ \ \ SVzNL2DLRPoint}}
+\DoxyCodeLine{00555\ \ \ \ \ keResultDataType\_PointXYZ,\ \ \ \ \ \ \textcolor{comment}{//<\ PointXYZ数据类型\ \ \ \ \ \ \ \ 使用SVzNLPointXYZ\ \ \ \ \ SVzNL2DLRPoint}}
+\DoxyCodeLine{00556\ \ \ \ \ keResultDataType\_PointXYZRGBA,\ \ \textcolor{comment}{//<\ PointXYZRGB数据\ \ \ \ \ \ \ 使用SVzNLPointXYZRGBA\ SVzNL2DLRPoint}}
+\DoxyCodeLine{00557\ \ \ \ \ keResultDataType\_PointGray,\ \ \ \ \ \textcolor{comment}{//<\ PointXYZGray数据\ \ \ \ \ \ 使用SVzNLPointXYZGray\ SVzNL2DLRPoint}}
+\DoxyCodeLine{00558\ \ \ \ \ keResultDataType\_PointXYZI,\ \ \ \ \ \textcolor{comment}{//<\ PointXYZI数据\ \ \ \ \ 使用SVzNLPointXYZI\ \ \ \ \ \ \ \ SVzNL2DLRPoint}}
+\DoxyCodeLine{00559\ \ \ \ \ keResultDataType\_PointRGBA\_D,\ \ \ \textcolor{comment}{//<\ PointRGBA\_D\ \ \ \ \ \ \ \ \ 使用SVzNLPointRGBA\_D\ \ \ \ \ \ SVzNL2DLRPoint}}
+\DoxyCodeLine{00560\ \}\ EVzResultDataType;}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00563\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00564\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ keDeviceParamType\_Invalid\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 无效}}
+\DoxyCodeLine{00566\ \ \ \ \ keDeviceParamType\_FrameRate,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 帧率参数}}
+\DoxyCodeLine{00567\ \ \ \ \ keDeviceParamType\_Expose,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 曝光参数}}
+\DoxyCodeLine{00568\ \ \ \ \ keDeviceParamType\_Gain,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 增益参数}}
+\DoxyCodeLine{00569\ \ \ \ \ keDeviceParamType\_LaserLight,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 激光亮度参数}}
+\DoxyCodeLine{00570\ \ \ \ \ keDeviceParamType\_FrameRateWithoutColorData,\textcolor{comment}{//<\ 不携带颜色数据的帧率}}
+\DoxyCodeLine{00571\ \ \ \ \ keDeviceParamType\_FrameRateWithColorData,\ \ \ \textcolor{comment}{//<\ 携带颜色数据的帧率}}
+\DoxyCodeLine{00572\ \ \ \ \ keDeviceParamType\_StrobeTimeRatio,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ C版激光器亮度值}}
+\DoxyCodeLine{00573\ \}\ EVzDeviceParamType;}
+\DoxyCodeLine{00574\ }
+\DoxyCodeLine{00576\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{00577\ \{}
+\DoxyCodeLine{00578\ \ \ \ \ keDevChipInfoInvalid\ =\ 0,}
+\DoxyCodeLine{00579\ \ \ \ \ keDevChipInfo\_Temperature,}
+\DoxyCodeLine{00580\ \ \ \ \ keDevChipInfo\_VccPin,}
+\DoxyCodeLine{00581\ \ \ \ \ keDevChipInfo\_VccPaux,}
+\DoxyCodeLine{00582\ \ \ \ \ keDevChipInfo\_VccPdro,}
+\DoxyCodeLine{00583\ \}\ EVzDevChipInfo;}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00587\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00588\ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ nAdapterIndex;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 网络适配器索引}}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ szNetCardName[VZ\_MAXPATH];\ \ \ \ \ \ \textcolor{comment}{//<\ 网卡名称}}
+\DoxyCodeLine{00591\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byLocalIP[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 本机网卡IP}}
+\DoxyCodeLine{00592\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byMacAddress[6];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 本机网卡MAC}}
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ bySubMask[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 子网掩码}}
+\DoxyCodeLine{00594\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byGetWay[4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 网关}}
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ dwSpeed;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 网络速度\ Mbps}}
+\DoxyCodeLine{00596\ \}\ \doxymbox{\hyperlink{struct_s_vz_net_card_info}{SVzNetCardInfo}};}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00600\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00601\ \{}
+\DoxyCodeLine{00602\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nSize;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 结构大小}}
+\DoxyCodeLine{00603\ \ \ \ \ EVzDeviceType\ \ \ \ \ \ \ eDeviceType;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 设备类型\ }}
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szDeviceName[VZNL\_DEVICE\_NAME\_LENGTH];\ \ \ \ \ \ \textcolor{comment}{//\ 名称}}
+\DoxyCodeLine{00605\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ byServerIP[VZNL\_SDK\_NETWORK\_IPv4\_LENGTH];\ \ \ \textcolor{comment}{//\ 服务端IP}}
+\DoxyCodeLine{00606\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ byMAC[VZNL\_SDK\_NETWORK\_MAC\_LENGTH];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ MAC地址}}
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szGUID[VZNL\_GUID\_LENGTH];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 唯一标识}}
+\DoxyCodeLine{00608\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szDeviceID[VZNL\_GUID\_LENGTH];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 设备ID}}
+\DoxyCodeLine{00609\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szDesc[VZ\_DEVICE\_DESC];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 设备描述}}
+\DoxyCodeLine{00610\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ bValidDevice;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Device是否有效}}
+\DoxyCodeLine{00611\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}};}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00615\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00616\ \{}
+\DoxyCodeLine{00617\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}\ \ \ \ \ \ sEyeCBInfo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Base\ Info}}
+\DoxyCodeLine{00618\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nHardwareVersion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Device\ HW\ Version}}
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ chEyeVersion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Device\ Eye\ Version}}
+\DoxyCodeLine{00620\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chEyeName[VZ\_DEVICE\_NAME];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Device\ Eye\ Name}}
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chEyeIPv4[VZNL\_SDK\_NETWORK\_IPv4\_LENGTH];\textcolor{comment}{//<\ Device\ IP\ Address}}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chEyeMAC[VZNL\_SDK\_NETWORK\_MAC\_LENGTH];\ \ \textcolor{comment}{//<\ Device\ Eye\ MAC}}
+\DoxyCodeLine{00623\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szDeviceAddr[VZNL\_DEVICE\_ADDR\_LENGTH];\ \ \textcolor{comment}{//<\ Device\ Address}}
+\DoxyCodeLine{00624\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_video_resolution}{SVzVideoResolution}}\ \ sVideoRes;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Device\ Video\ Resolution}}
+\DoxyCodeLine{00625\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chHwSerialID[VZNL\_DEVICEID\_LENGTH];\ \ \ \ \ \textcolor{comment}{//<\ Device\ ID\ Length}}
+\DoxyCodeLine{00626\ }
+\DoxyCodeLine{00627\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_device_info_ex}{SVzNLEyeCBDeviceInfoEx}};}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00630\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union\ }}
+\DoxyCodeLine{00631\ \{}
+\DoxyCodeLine{00632\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nCapabilityMask;}
+\DoxyCodeLine{00633\ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00634\ \ \ \ \ \{}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bIsSupportRGBSensor\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 是否支持Center\ Sensor}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bSupportSwingMotor\ \ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 是否支持摆动机构}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bIsSupportAsyncRGBD\ :\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 是否支持异步RGBD}}
+\DoxyCodeLine{00638\ \ \ \ \ \};}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ \}\ \doxymbox{\hyperlink{union_s_vz_eth_laser_eye_capability}{SVzEthLaserEyeCapability}};}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00644\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00645\ \{}
+\DoxyCodeLine{00646\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ sEyeCBInfo;}
+\DoxyCodeLine{00647\ \ \ \ \ EVzEyeTypeFlag\ \ \ \ \ \ \ \ \ \ \ \ \ \ eEyeTypeFlag;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛类型标志}}
+\DoxyCodeLine{00648\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_video_resolution}{SVzVideoResolution}}\ \ \ \ \ \ \ \ \ \ sVideoRes;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 眼睛分辨率}}
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nFixDisparity;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 偏心}}
+\DoxyCodeLine{00650\ \ \ \ \ \doxymbox{\hyperlink{union_s_vz_eth_laser_eye_capability}{SVzEthLaserEyeCapability}}\ \ \ \ sCapability;}
+\DoxyCodeLine{00651\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nMaxFrameIdx;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 帧号最大值}}
+\DoxyCodeLine{00652\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nMaxTimeStamp;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 时间戳最大值}}
+\DoxyCodeLine{00653\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nHardwareVersion;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 硬件版本}}
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szDeviceAddr[VZNL\_DEVICE\_ADDR\_LENGTH];\ \ \textcolor{comment}{//<\ Device\ Address\ \ }}
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szVersion[VZNL\_VERSION\_LENGTH];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Version}}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00657\ \ \ \ \ \textcolor{comment}{//\ Ethernet\ Info}}
+\DoxyCodeLine{00658\ \ \ \ \ EVzNLEthernetEyeIPType\ \ \ \ \ \ eEthernetIPType;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 以太网IP类型}}
+\DoxyCodeLine{00659\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chEyeIP[VZNL\_SDK\_NETWORK\_IPv4\_LENGTH];\ \ \textcolor{comment}{//<\ 眼睛IP}}
+\DoxyCodeLine{00660\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chEyeMac[VZNL\_SDK\_NETWORK\_MAC\_LENGTH];\ \ \textcolor{comment}{//<\ 当前眼睛MAC}}
+\DoxyCodeLine{00661\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chLocalIP[VZNL\_SDK\_NETWORK\_IPv4\_LENGTH];\textcolor{comment}{//<\ 网卡IP}}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ chLocalMac[VZNL\_SDK\_NETWORK\_MAC\_LENGTH];\textcolor{comment}{//<\ 网卡MAC}}
+\DoxyCodeLine{00663\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vendor[8];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ }}
+\DoxyCodeLine{00664\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ productName[8];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 产品名}}
+\DoxyCodeLine{00665\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ serialID[8];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 序列号}}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{comment}{//\ Ext\ Data\ }}
+\DoxyCodeLine{00668\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nSDKClientCnt;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ SDK\ Link\ Count}}
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nModbusClientCnt;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Modbus\ Link\ Count}}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nEthernetSpeed;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ xxx\ Mbps}}
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ szHardwareVersion[32];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ HardWareVersion}}
+\DoxyCodeLine{00672\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nUdpFlag;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 用于判断是否可以使用UDP广播修改IP，0表示不可以　1表示可以}}
+\DoxyCodeLine{00673\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPupilDistance;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 瞳距}}
+\DoxyCodeLine{00674\ }
+\DoxyCodeLine{00675\ \ \ \ \ \textcolor{comment}{//\ NetCard\ Info}}
+\DoxyCodeLine{00676\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_net_card_info}{SVzNetCardInfo}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ sNetCardInfo;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 网卡信息}}
+\DoxyCodeLine{00677\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_device_info_ex}{SVzNLEyeDeviceInfoEx}};}
+\DoxyCodeLine{00678\ }
+\DoxyCodeLine{00680\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00681\ \{}
+\DoxyCodeLine{00682\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nDeviceTimeOut;\ \ \ \ \ \textcolor{comment}{//\ 设备超时设置\ \ \ }}
+\DoxyCodeLine{00683\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_config_param}{SVzNLConfigParam}};}
+\DoxyCodeLine{00684\ }
+\DoxyCodeLine{00686\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\_tagSVzNLOpenDeviceParam}
+\DoxyCodeLine{00687\ \{}
+\DoxyCodeLine{00688\ \ \ \ \ EVzNLEyeResolution\ \ eEyeResolution;\ \ \ \ \ \textcolor{comment}{//\ 眼睛的分辨率}}
+\DoxyCodeLine{00689\ \ \ \ \ EVzSDKType\ \ \ \ \ \ \ \ \ \ eSDKType;}
+\DoxyCodeLine{00690\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ bStopStream;}
+\DoxyCodeLine{00691\ \ \ \ \ \_tagSVzNLOpenDeviceParam()}
+\DoxyCodeLine{00692\ \ \ \ \ \{}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ eEyeResolution\ =\ keVzNLEyeResolution\_Unknown;}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ eSDKType\ =\ keSDKType\_Unknown;}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ bStopStream\ =\ VzTrue;}
+\DoxyCodeLine{00696\ \ \ \ \ \}}
+\DoxyCodeLine{00697\ \}\ SVzNLOpenDeviceParam;}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00700\ \{}
+\DoxyCodeLine{00701\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ szPath[256];}
+\DoxyCodeLine{00702\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_test_open_device_param}{SVzNLTestOpenDeviceParam}};}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00706\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00707\ \{}
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordtype}{char}\ szProject[32];}
+\DoxyCodeLine{00709\ \ \ \ \ \textcolor{keywordtype}{char}\ szVersion[32];}
+\DoxyCodeLine{00710\ \}\ \doxymbox{\hyperlink{struct_s_vz_system_project_info}{SVzSystemProjectInfo}};}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00714\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00715\ \{}
+\DoxyCodeLine{00716\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a0ad6d877a30c39342ab19998d95d06fa}{bValidSDKVersion}}:\ 1;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a34edfb5777f8b7cb8d865ad4e7980850}{bValidAppVersion}}:\ 1;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00718\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a0f692f23ec26aef5099c1c4fa8202b50}{bValidCameraVersion}}:\ 1;\ \ \ \ }
+\DoxyCodeLine{00719\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_ada75a50e7260dc87a097a1a26b0d308e}{bValidAlgoVersion}}:\ 1;\ \ \ \ \ \ }
+\DoxyCodeLine{00720\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_adbead33979a0c0d565a87306d60ffdd7}{bValidApkVersion}}:\ 1;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_ad198a4207e0b44845a9e0b3bb2e1764e}{bValidDevIDVersion}}:\ 1;\ \ \ \ \ }
+\DoxyCodeLine{00722\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_af93a2e700c5bc6001864133a10dae9e2}{bValidWifiVersion}}:\ 1;\ \ \ \ \ \ }
+\DoxyCodeLine{00723\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a0413798c7e56e658685d5ee19855fc06}{bValidHDMIVersion}}:\ 1;\ \ \ \ \ \ }
+\DoxyCodeLine{00724\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a79c555051226840d4503017019eab129}{bValidVizumEyeVersion}}\ :\ 1;\ }
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{keywordtype}{long}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group_a8cefceb97df297a1612a727e05a684cf}{bValidFwVersion}}\ :\ 1;\ \ \ }
+\DoxyCodeLine{00726\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group}{SVzNLVersionCapGroup}};}
+\DoxyCodeLine{00727\ }
+\DoxyCodeLine{00728\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union}}
+\DoxyCodeLine{00729\ \{}
+\DoxyCodeLine{00730\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_version_cap_group}{SVzNLVersionCapGroup}}\ sVersionCap;}
+\DoxyCodeLine{00731\ \ \ \ \ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nMaskCap;}
+\DoxyCodeLine{00732\ \}\ \doxymbox{\hyperlink{union_s_vz_n_l_dev_version_cap}{SVzNLDevVersionCap}};}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00736\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{00737\ \{}
+\DoxyCodeLine{00738\ \ \ \ \ \doxymbox{\hyperlink{union_s_vz_n_l_dev_version_cap}{SVzNLDevVersionCap}}\ sCap;}
+\DoxyCodeLine{00739\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a84453985bb8b091e070a4cd31ff7e383}{szSDKVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ \ }
+\DoxyCodeLine{00740\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_ac90be1c2ca834183a54dd1369adccaa8}{szAppVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ \ }
+\DoxyCodeLine{00741\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a49932ff16203030746abce2efe2f98ad}{szCameraVersion}}[VZNL\_VERSION\_LENGTH];\ \ }
+\DoxyCodeLine{00742\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_ae0c4e4081e09ab6617b81e06e82664d6}{szAlgoVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ }
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a6f9d33701f271e94edfddf14b217715e}{szApkVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ \ }
+\DoxyCodeLine{00744\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a3a9010467887085c2d829afd3bc72c0c}{szDevIDVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ }
+\DoxyCodeLine{00745\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a0d053399e58cc5033625264653453e86}{szWifiVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ }
+\DoxyCodeLine{00746\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_a75f2fe8550aed880ba325a75ccde21f0}{szHDMIVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ }
+\DoxyCodeLine{00747\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_ae82092eb8eb6ec4bc6d9bd09e28e581d}{szVizumEyeVersion}}[VZNL\_VERSION\_LENGTH];}
+\DoxyCodeLine{00748\ \ \ \ \ \textcolor{keywordtype}{char}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info_adaa9aa7483d8a3af83be34786dcb1c67}{szFwVersion}}[VZNL\_VERSION\_LENGTH];\ \ \ \ \ \ }
+\DoxyCodeLine{00749\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info}{SVzNLVersionInfo}};}
+\DoxyCodeLine{00750\ }
+\DoxyCodeLine{00753\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00754\ \{}
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \ \ \ \ \ pBuffer;\ \ \ \ \ \textcolor{comment}{//\ 图像buffer信息}}
+\DoxyCodeLine{00756\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nBufferSize;\ \textcolor{comment}{//\ 图像buffer的大小}}
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00758\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nWidth;\ \ \ \ \ \ \textcolor{comment}{//\ 图像宽度}}
+\DoxyCodeLine{00759\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nHeight;\ \ \ \ \ \textcolor{comment}{//\ 图像高度}}
+\DoxyCodeLine{00760\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ nChannels;\ \ \ \textcolor{comment}{//\ 通道数}}
+\DoxyCodeLine{00761\ \ \ \ \ EVzNLImageCompress\ \ eImageCompress;}
+\DoxyCodeLine{00762\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_compress_data}{SVzNLCompressData}};}
+\DoxyCodeLine{00763\ }
+\DoxyCodeLine{00766\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00767\ \{}
+\DoxyCodeLine{00768\ \ \ \ \ \textcolor{keywordtype}{int}\ \ x;}
+\DoxyCodeLine{00769\ \ \ \ \ \textcolor{keywordtype}{int}\ \ y;}
+\DoxyCodeLine{00770\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}};}
+\DoxyCodeLine{00771\ }
+\DoxyCodeLine{00774\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00775\ \{}
+\DoxyCodeLine{00776\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ x;}
+\DoxyCodeLine{00777\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ y;}
+\DoxyCodeLine{00778\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_short_u}{SVzNL2DPointShortU}};}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00782\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00783\ \{}
+\DoxyCodeLine{00784\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ sLeft;}
+\DoxyCodeLine{00785\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ sRight;}
+\DoxyCodeLine{00786\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_l_r_point}{SVzNL2DLRPoint}};}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00790\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00791\ \{}
+\DoxyCodeLine{00792\ \ \ \ \ \textcolor{keywordtype}{float}\ \ x;}
+\DoxyCodeLine{00793\ \ \ \ \ \textcolor{keywordtype}{float}\ \ y;}
+\DoxyCodeLine{00794\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_f}{SVzNL2DPointF}};}
+\DoxyCodeLine{00795\ }
+\DoxyCodeLine{00796\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00797\ \{}
+\DoxyCodeLine{00798\ \ \ \ \ \textcolor{keywordtype}{double}\ \ x;}
+\DoxyCodeLine{00799\ \ \ \ \ \textcolor{keywordtype}{double}\ \ y;}
+\DoxyCodeLine{00800\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_d}{SVzNL2DPointD}};}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00802\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00803\ \{}
+\DoxyCodeLine{00804\ \ \ \ \ \textcolor{keywordtype}{double}\ x;}
+\DoxyCodeLine{00805\ \ \ \ \ \textcolor{keywordtype}{double}\ y;}
+\DoxyCodeLine{00806\ \ \ \ \ \textcolor{keywordtype}{double}\ z;}
+\DoxyCodeLine{00807\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}};}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{00810\ \{}
+\DoxyCodeLine{00811\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{00812\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{00813\ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{00814\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}};}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \textcolor{comment}{//\ 3D\ Point}}
+\DoxyCodeLine{00817\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union}}
+\DoxyCodeLine{00818\ \{}
+\DoxyCodeLine{00819\ \ \ \ \ \textcolor{keywordtype}{float}\ fData[4];}
+\DoxyCodeLine{00820\ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00821\ \ \ \ \ \{}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{00825\ \ \ \ \ \};}
+\DoxyCodeLine{00826\ \}\ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z}{SVzNLPointXYZ}};}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \textcolor{comment}{//\ 3D\ Point\ +\ RGB}}
+\DoxyCodeLine{00829\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union}}
+\DoxyCodeLine{00830\ \{}
+\DoxyCodeLine{00831\ \ \ \ \ \textcolor{keywordtype}{float}\ fData[4];}
+\DoxyCodeLine{00832\ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00833\ \ \ \ \ \{}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ y;}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ z;}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ VzColorRGB\ \ nRGB;}
+\DoxyCodeLine{00838\ \ \ \ \ \};}
+\DoxyCodeLine{00839\ \}\ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z_r_g_b_a}{SVzNLPointXYZRGBA}};}
+\DoxyCodeLine{00840\ }
+\DoxyCodeLine{00841\ \textcolor{comment}{//\ 3D\ Point\ +\ Gray}}
+\DoxyCodeLine{00842\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{union}}
+\DoxyCodeLine{00843\ \{}
+\DoxyCodeLine{00844\ \ \ \ \ \textcolor{keywordtype}{float}\ fData[4];}
+\DoxyCodeLine{00845\ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00846\ \ \ \ \ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ y;}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ z;}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ nGray;}
+\DoxyCodeLine{00851\ \ \ \ \ \};}
+\DoxyCodeLine{00852\ \}\ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z_gray}{SVzNLPointXYZGray}};}
+\DoxyCodeLine{00853\ }
+\DoxyCodeLine{00854\ \textcolor{comment}{//\ 3D\ Point\ +\ Gray}}
+\DoxyCodeLine{00855\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00856\ \{}
+\DoxyCodeLine{00857\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00858\ \ \ \ \ \{}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fData[4];}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ y;}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ z;}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00866\ \ \ \ \ \};}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00869\ \ \ \ \ \{}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ fData\_c[4];}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ intensity;}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00875\ \ \ \ \ \};}
+\DoxyCodeLine{00876\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_point_x_y_z_i}{SVzNLPointXYZI}};}
+\DoxyCodeLine{00877\ }
+\DoxyCodeLine{00878\ \textcolor{comment}{//\ 3D\ Point\ +\ Gray}}
+\DoxyCodeLine{00879\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00880\ \{}
+\DoxyCodeLine{00881\ \ \ \ \ \textcolor{keyword}{union}}
+\DoxyCodeLine{00882\ \ \ \ \ \{}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dData[4];}
+\DoxyCodeLine{00884\ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00885\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00886\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ y;}
+\DoxyCodeLine{00888\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ z;}
+\DoxyCodeLine{00889\ \ \ \ \ \ \ \ \ \ \ \ \ VzColorRGB\ \ \ \ \ \ nRGB;}
+\DoxyCodeLine{00890\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00891\ \ \ \ \ \};}
+\DoxyCodeLine{00892\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_point_r_g_b_a___d}{SVzNLPointRGBA\_D}};}
+\DoxyCodeLine{00893\ }
+\DoxyCodeLine{00894\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00895\ \{}
+\DoxyCodeLine{00896\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
+\DoxyCodeLine{00897\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
+\DoxyCodeLine{00898\ \ \ \ \ \textcolor{keywordtype}{int}\ z;}
+\DoxyCodeLine{00899\ \ \ \ \ \textcolor{keywordtype}{int}\ flag;}
+\DoxyCodeLine{00900\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_logistics_point}{SVzNLLogisticsPoint}};}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00903\ \{}
+\DoxyCodeLine{00904\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{00905\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{00906\ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{00907\ \ \ \ \ \textcolor{keywordtype}{float}\ reserve;}
+\DoxyCodeLine{00908\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_align3_d_point_f}{SVzNLAlign3DPointF}};}
+\DoxyCodeLine{00909\ }
+\DoxyCodeLine{00910\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00911\ \{}
+\DoxyCodeLine{00912\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
+\DoxyCodeLine{00913\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
+\DoxyCodeLine{00914\ \ \ \ \ \textcolor{keywordtype}{int}\ z;}
+\DoxyCodeLine{00915\ \ \ \ \ \textcolor{keywordtype}{int}\ reserve;}
+\DoxyCodeLine{00916\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_align3_d_point_i}{SVzNLAlign3DPointI}};}
+\DoxyCodeLine{00917\ }
+\DoxyCodeLine{00918\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_vz3_d_point_f_with_pixel}{SVz3DPointFWithPixel}}}
+\DoxyCodeLine{00919\ \{}
+\DoxyCodeLine{00920\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ x;}
+\DoxyCodeLine{00921\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ y;}
+\DoxyCodeLine{00922\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ z;}
+\DoxyCodeLine{00923\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byPixelL;}
+\DoxyCodeLine{00924\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byPixelR;}
+\DoxyCodeLine{00925\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ byReserve[2];}
+\DoxyCodeLine{00926\ \};}
+\DoxyCodeLine{00927\ }
+\DoxyCodeLine{00929\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00930\ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \textcolor{keywordtype}{float}\ min;\ \ \textcolor{comment}{//<\ 最小值}}
+\DoxyCodeLine{00932\ \ \ \ \ \textcolor{keywordtype}{float}\ max;\ \textcolor{comment}{//<\ 最大值}}
+\DoxyCodeLine{00933\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_range_f}{SVzNLRangeF}};}
+\DoxyCodeLine{00934\ }
+\DoxyCodeLine{00936\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00937\ \{}
+\DoxyCodeLine{00938\ \ \ \ \ \textcolor{keywordtype}{double}\ min;\ \textcolor{comment}{//<\ 最小值}}
+\DoxyCodeLine{00939\ \ \ \ \ \textcolor{keywordtype}{double}\ max;\ \textcolor{comment}{//<\ 最大值}}
+\DoxyCodeLine{00940\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_range_d}{SVzNLRangeD}};}
+\DoxyCodeLine{00941\ }
+\DoxyCodeLine{00943\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00944\ \{}
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nMin;\ \ \textcolor{comment}{//<\ 最小值}}
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nMax;\ \ \textcolor{comment}{//<\ 最大值}}
+\DoxyCodeLine{00947\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_range_u}{SVzNLRangeU}};}
+\DoxyCodeLine{00948\ }
+\DoxyCodeLine{00950\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00951\ \{}
+\DoxyCodeLine{00952\ \ \ \ \ \textcolor{keywordtype}{int}\ nMin;\ \ \ \textcolor{comment}{//<\ 最小值}}
+\DoxyCodeLine{00953\ \ \ \ \ \textcolor{keywordtype}{int}\ nMax;\ \ \ \textcolor{comment}{//<\ 最大值}}
+\DoxyCodeLine{00954\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_range}{SVzNLRange}};}
+\DoxyCodeLine{00955\ }
+\DoxyCodeLine{00957\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00958\ \{}
+\DoxyCodeLine{00959\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_d}{SVzNLRangeD}}\ xRange;\ \textcolor{comment}{//<\ X范围}}
+\DoxyCodeLine{00960\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_d}{SVzNLRangeD}}\ yRange;\ \textcolor{comment}{//<\ Y范围}}
+\DoxyCodeLine{00961\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_d}{SVzNLRangeD}}\ zRange;\ \textcolor{comment}{//<\ Z范围}}
+\DoxyCodeLine{00962\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_range_d}{SVzNL3DRangeD}};}
+\DoxyCodeLine{00963\ }
+\DoxyCodeLine{00965\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00966\ \{}
+\DoxyCodeLine{00967\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptStart2D;\ \ \ \ \textcolor{comment}{//\ 2D起始坐标}}
+\DoxyCodeLine{00968\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptEnd2D;\ \ \ \ \ \ \textcolor{comment}{//\ 2D结束坐标}}
+\DoxyCodeLine{00969\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_line}{SVzNL2DLine}};}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00972\ \{}
+\DoxyCodeLine{00973\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_f}{SVzNL2DPointF}}\ \ ptStart2D;\ \ \ \textcolor{comment}{//\ 2D起始坐标}}
+\DoxyCodeLine{00974\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_f}{SVzNL2DPointF}}\ \ ptEnd2D;\ \ \ \ \ \textcolor{comment}{//\ 2D结束坐标}}
+\DoxyCodeLine{00975\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_line_f}{SVzNL2DLineF}};}
+\DoxyCodeLine{00976\ }
+\DoxyCodeLine{00978\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{00979\ \{}
+\DoxyCodeLine{00980\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ ptStart3D;\ \ \ \ \textcolor{comment}{//\ 3D起始坐标}}
+\DoxyCodeLine{00981\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ ptEnd3D;\ \ \ \ \ \ \textcolor{comment}{//\ 3D结束坐标}}
+\DoxyCodeLine{00982\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_line}{SVzNL3DLine}};}
+\DoxyCodeLine{00983\ }
+\DoxyCodeLine{00985\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{00986\ \{}
+\DoxyCodeLine{00987\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptLT;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 左上}}
+\DoxyCodeLine{00988\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptRT;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 右上}}
+\DoxyCodeLine{00989\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptRB;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 右下}}
+\DoxyCodeLine{00990\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptLB;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 左下}}
+\DoxyCodeLine{00991\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_rect}{SVzNL2DRect}};}
+\DoxyCodeLine{00992\ }
+\DoxyCodeLine{00994\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{00995\ \{}
+\DoxyCodeLine{00996\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptLT;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 左上}}
+\DoxyCodeLine{00997\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptRT;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 右上}}
+\DoxyCodeLine{00998\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptRB;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 右下}}
+\DoxyCodeLine{00999\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptLB;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 左下}}
+\DoxyCodeLine{01000\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_rect}{SVzNL3DRect}};}
+\DoxyCodeLine{01001\ }
+\DoxyCodeLine{01003\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01004\ \{}
+\DoxyCodeLine{01005\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptVertexA;}
+\DoxyCodeLine{01006\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptVertexB;}
+\DoxyCodeLine{01007\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptVertexC;}
+\DoxyCodeLine{01008\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_triangle}{SVzNL3DTriangle}};}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01011\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01012\ \{}
+\DoxyCodeLine{01013\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptVertexA;}
+\DoxyCodeLine{01014\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptVertexB;}
+\DoxyCodeLine{01015\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptVertexC;}
+\DoxyCodeLine{01016\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_triangle}{SVzNL2DTriangle}};}
+\DoxyCodeLine{01017\ }
+\DoxyCodeLine{01019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01020\ \{}
+\DoxyCodeLine{01021\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01022\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptLeft2D;\ \ \ \textcolor{comment}{//\ 2D左图坐标}}
+\DoxyCodeLine{01023\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptRight2D;\ \ \textcolor{comment}{//\ 2D右图坐标}}
+\DoxyCodeLine{01024\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ pt3D;\ \ \ \ \ \ \ \textcolor{comment}{//\ 3D坐标}}
+\DoxyCodeLine{01025\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_position}{SVzNLPosition}};}
+\DoxyCodeLine{01026\ }
+\DoxyCodeLine{01028\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01029\ \{}
+\DoxyCodeLine{01030\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01031\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_d}{SVzNL2DPointD}}\ \ \ ptLeft2D;\ \ \ \textcolor{comment}{//\ 2D左图坐标}}
+\DoxyCodeLine{01032\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point_d}{SVzNL2DPointD}}\ \ \ ptRight2D;\ \ \textcolor{comment}{//\ 2D右图坐标}}
+\DoxyCodeLine{01033\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ pt3D;\ \ \ \ \ \ \ \textcolor{comment}{//\ 3D坐标}}
+\DoxyCodeLine{01034\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_position_d}{SVzNLPositionD}};}
+\DoxyCodeLine{01035\ }
+\DoxyCodeLine{01037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01038\ \{}
+\DoxyCodeLine{01039\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01040\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptLeft2D;\ \ \ \textcolor{comment}{//\ 2D左图坐标}}
+\DoxyCodeLine{01041\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ ptRight2D;\ \ \textcolor{comment}{//\ 2D右图坐标}}
+\DoxyCodeLine{01042\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_position}{SVzNL2DPosition}};}
+\DoxyCodeLine{01043\ }
+\DoxyCodeLine{01045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01046\ \{}
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01048\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ pt3D;\ \ \ \ \ \ \ \textcolor{comment}{//\ 3D坐标}}
+\DoxyCodeLine{01049\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}};}
+\DoxyCodeLine{01050\ }
+\DoxyCodeLine{01052\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01053\ \{}
+\DoxyCodeLine{01054\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}*\ \ \ \ \ \ \ \ p3DPosition;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 3D点(数组)}}
+\DoxyCodeLine{01055\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPositionCnt;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 3D点个数}}
+\DoxyCodeLine{01056\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ nTimeStamp;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 时间戳}}
+\DoxyCodeLine{01057\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_laser_line}{SVzNL3DLaserLine}};}
+\DoxyCodeLine{01058\ }
+\DoxyCodeLine{01060\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01061\ \{}
+\DoxyCodeLine{01062\ \ \ \ \ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z_r_g_b_a}{SVzNLPointXYZRGBA}}*\ \ \ \ \ \ p3DPoint;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 3D点(数组)}}
+\DoxyCodeLine{01063\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointCnt;\ \ \ \ \ \ \textcolor{comment}{//<\ 3D点个数}}
+\DoxyCodeLine{01064\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ nTimeStamp;\ \ \ \ \ \textcolor{comment}{//<\ 时间戳}}
+\DoxyCodeLine{01065\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_x_y_z_r_g_b_d_laser_line}{SVzNLXYZRGBDLaserLine}};}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01069\ \{}
+\DoxyCodeLine{01070\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//<\ 点索引}}
+\DoxyCodeLine{01071\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ pt3D;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 点值}}
+\DoxyCodeLine{01072\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position_f}{SVzNL3DPositionF}};}
+\DoxyCodeLine{01073\ }
+\DoxyCodeLine{01075\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01076\ \{}
+\DoxyCodeLine{01077\ \ \ \ \ \textcolor{keywordtype}{int}\ left;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 左}}
+\DoxyCodeLine{01078\ \ \ \ \ \textcolor{keywordtype}{int}\ right;\ \ \ \ \ \ \textcolor{comment}{//<\ 右}}
+\DoxyCodeLine{01079\ \ \ \ \ \textcolor{keywordtype}{int}\ top;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 上}}
+\DoxyCodeLine{01080\ \ \ \ \ \textcolor{keywordtype}{int}\ bottom;\ \ \ \ \ \textcolor{comment}{//<\ 下}}
+\DoxyCodeLine{01081\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}};}
+\DoxyCodeLine{01082\ }
+\DoxyCodeLine{01084\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01085\ \{}
+\DoxyCodeLine{01086\ \ \ \ \ \textcolor{keywordtype}{int}\ nWidth;\ \ \ \ \ \textcolor{comment}{//<\ 宽}}
+\DoxyCodeLine{01087\ \ \ \ \ \textcolor{keywordtype}{int}\ nHeight;\ \ \ \ \textcolor{comment}{//<\ 高}}
+\DoxyCodeLine{01088\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_size}{SVzNLSize}};}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01091\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01092\ \{}
+\DoxyCodeLine{01093\ \ \ \ \ \textcolor{keywordtype}{short}\ shWidth;\ \ \ \ \ \ \textcolor{comment}{//<\ 宽}}
+\DoxyCodeLine{01094\ \ \ \ \ \textcolor{keywordtype}{short}\ shHeight;\ \textcolor{comment}{//<\ 高}}
+\DoxyCodeLine{01095\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_size_sh}{SVzNLSizeSh}};}
+\DoxyCodeLine{01096\ }
+\DoxyCodeLine{01098\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01099\ \{}
+\DoxyCodeLine{01100\ \ \ \ \ \textcolor{keywordtype}{float}\ fWidth;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 宽}}
+\DoxyCodeLine{01101\ \ \ \ \ \textcolor{keywordtype}{float}\ fHeight;\ \ \textcolor{comment}{//<\ 高}}
+\DoxyCodeLine{01102\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_size_f}{SVzNLSizeF}};}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01105\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01106\ \{}
+\DoxyCodeLine{01107\ \ \ \ \ \textcolor{keywordtype}{double}\ dWidth;\ \ \textcolor{comment}{//<\ 宽}}
+\DoxyCodeLine{01108\ \ \ \ \ \textcolor{keywordtype}{double}\ dHeight;\ \textcolor{comment}{//<\ 高}}
+\DoxyCodeLine{01109\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_size_d}{SVzNLSizeD}};}
+\DoxyCodeLine{01110\ }
+\DoxyCodeLine{01112\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01113\ \{}
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{keywordtype}{double}\ dSideA;}
+\DoxyCodeLine{01115\ \ \ \ \ \textcolor{keywordtype}{double}\ dSideB;}
+\DoxyCodeLine{01116\ \ \ \ \ \textcolor{keywordtype}{double}\ dSideC;}
+\DoxyCodeLine{01117\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_triangle_info}{SVzNLTriangleInfo}};}
+\DoxyCodeLine{01118\ }
+\DoxyCodeLine{01131\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{01132\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{keywordtype}{int}\ left;\ \ \ \ \ \ \ \textcolor{comment}{//\ 左}}
+\DoxyCodeLine{01134\ \ \ \ \ \textcolor{keywordtype}{int}\ right;\ \ \ \ \ \ \textcolor{comment}{//\ 右}}
+\DoxyCodeLine{01135\ \ \ \ \ \textcolor{keywordtype}{int}\ top;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 上}}
+\DoxyCodeLine{01136\ \ \ \ \ \textcolor{keywordtype}{int}\ bottom;\ \ \ \ \ \textcolor{comment}{//\ 下}}
+\DoxyCodeLine{01137\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_r_o_i_rect}{SVzNLROIRect}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01138\ }
+\DoxyCodeLine{01140\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01141\ \{}
+\DoxyCodeLine{01142\ \ \ \ \ \textcolor{keywordtype}{double}\ x;\ \ \ \ \ \ \ \textcolor{comment}{//<\ X}}
+\DoxyCodeLine{01143\ \ \ \ \ \textcolor{keywordtype}{double}\ y;\ \ \ \ \ \ \ \textcolor{comment}{//<\ Y}}
+\DoxyCodeLine{01144\ \ \ \ \ \textcolor{keywordtype}{double}\ value;\ \ \ \textcolor{comment}{//<\ None}}
+\DoxyCodeLine{01145\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_value_d}{SVzNL2DValueD}};}
+\DoxyCodeLine{01146\ }
+\DoxyCodeLine{01148\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01149\ \{}
+\DoxyCodeLine{01150\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_u}{SVzNLRangeU}}\ sFrameRate;\ \ \ \ \ \textcolor{comment}{//<\ 帧率范围}}
+\DoxyCodeLine{01151\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_u}{SVzNLRangeU}}\ sExpose;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 曝光范围}}
+\DoxyCodeLine{01152\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_range_u}{SVzNLRangeU}}\ sGain;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 增益范围}}
+\DoxyCodeLine{01153\ \}\ \doxymbox{\hyperlink{struct_s_vz_device_limit_info}{SVzDeviceLimitInfo}};}
+\DoxyCodeLine{01154\ }
+\DoxyCodeLine{01156\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01157\ \{}
+\DoxyCodeLine{01158\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}*\ \ \ \ \ \ pBuffer;\ \ \ \ \ \textcolor{comment}{//\ 图像buffer信息}}
+\DoxyCodeLine{01159\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nBufferSize;\ \textcolor{comment}{//\ 图像buffer的大小}}
+\DoxyCodeLine{01160\ }
+\DoxyCodeLine{01161\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ ptOriPos;\ \ \ \ \textcolor{comment}{//\ 原始位置(顶点)}}
+\DoxyCodeLine{01162\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nWidth;\ \ \ \ \ \ \textcolor{comment}{//\ 图像宽度}}
+\DoxyCodeLine{01163\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nHeight;\ \ \ \ \ \textcolor{comment}{//\ 图像高度}}
+\DoxyCodeLine{01164\ \ \ \ \ EVzNLImageType\ \ \ \ \ \ eImageType;\ \ \textcolor{comment}{//\ 图像格式}}
+\DoxyCodeLine{01165\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ byBitDepth;\ \ \textcolor{comment}{//\ 位图深度}}
+\DoxyCodeLine{01166\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ nChannels;\ \ \ \textcolor{comment}{//\ 通道数}}
+\DoxyCodeLine{01167\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}};}
+\DoxyCodeLine{01168\ }
+\DoxyCodeLine{01169\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01170\ \textcolor{comment}{//\ @brief\ 3D数据二维索引表}}
+\DoxyCodeLine{01171\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{01172\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01173\ \{}
+\DoxyCodeLine{01174\ \ \ \ \ EVzResultDataType\ \ \ ePointType;\ \ \ \ \ \textcolor{comment}{//\ 3D点类型}}
+\DoxyCodeLine{01175\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pPointPtr;\ \ \ \ \ \ \textcolor{comment}{//\ 3D点指针}}
+\DoxyCodeLine{01176\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nWidth;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 二维表宽}}
+\DoxyCodeLine{01177\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nHeight;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 二维表高}}
+\DoxyCodeLine{01178\ \}\ \doxymbox{\hyperlink{struct_s_vz3_d_point_map_table}{SVz3DPointMapTable}};}
+\DoxyCodeLine{01179\ }
+\DoxyCodeLine{01181\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01182\ \{}
+\DoxyCodeLine{01183\ \ \ \ \ EVzNLDetectObjType\ eDetectType;\ \ \ \ }
+\DoxyCodeLine{01184\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nReserve[2];\textcolor{comment}{//<\ 保留指针，可能是内部的一个对象？\ \ \ \ }}
+\DoxyCodeLine{01185\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_object_result}{SVzNLDetectObjectResult}};}
+\DoxyCodeLine{01186\ }
+\DoxyCodeLine{01188\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01189\ \{}
+\DoxyCodeLine{01190\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_line}{SVzNL2DLine}}\ sLeftLine;}
+\DoxyCodeLine{01191\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_line}{SVzNL2DLine}}\ sRightLine;}
+\DoxyCodeLine{01192\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ dLineLength;\ \ \ \ \textcolor{comment}{//\ 线长}}
+\DoxyCodeLine{01193\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_line_result}{SVzNL2DLineResult}};}
+\DoxyCodeLine{01194\ }
+\DoxyCodeLine{01196\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01197\ \{}
+\DoxyCodeLine{01198\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_line}{SVzNL3DLine}}\ sLine;}
+\DoxyCodeLine{01199\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ dLineLength;\ \ \ \ \textcolor{comment}{//\ 线长}}
+\DoxyCodeLine{01200\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_line_result}{SVzNL3DLineResult}};}
+\DoxyCodeLine{01201\ }
+\DoxyCodeLine{01203\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01204\ \{}
+\DoxyCodeLine{01205\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_rect}{SVzNL2DRect}}\ \ \ \ \ sLeftRect;}
+\DoxyCodeLine{01206\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_rect}{SVzNL2DRect}}\ \ \ \ \ sRightRect;}
+\DoxyCodeLine{01207\ \ \ \ \ }
+\DoxyCodeLine{01208\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dTopDistance;}
+\DoxyCodeLine{01209\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dRightDistance;}
+\DoxyCodeLine{01210\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dBottomDistance;}
+\DoxyCodeLine{01211\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dLeftDistance;}
+\DoxyCodeLine{01212\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_rect_result}{SVzNL2DRectResult}};}
+\DoxyCodeLine{01213\ }
+\DoxyCodeLine{01215\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01216\ \{}
+\DoxyCodeLine{01217\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_rect}{SVzNL3DRect}}\ \ \ \ \ sRect;}
+\DoxyCodeLine{01218\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dTopDistance;}
+\DoxyCodeLine{01219\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dRightDistance;}
+\DoxyCodeLine{01220\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dBottomDistance;}
+\DoxyCodeLine{01221\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dLeftDistance;}
+\DoxyCodeLine{01222\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_rect_result}{SVzNL3DRectResult}};}
+\DoxyCodeLine{01223\ }
+\DoxyCodeLine{01225\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01226\ \{}
+\DoxyCodeLine{01227\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_triangle}{SVzNL2DTriangle}}\ sLeftTriangle;}
+\DoxyCodeLine{01228\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_triangle}{SVzNL2DTriangle}}\ sRightTriangle;}
+\DoxyCodeLine{01229\ }
+\DoxyCodeLine{01230\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dABDistance;}
+\DoxyCodeLine{01231\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dBCDistance;}
+\DoxyCodeLine{01232\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dACDistance;}
+\DoxyCodeLine{01233\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_triangle_result}{SVzNL2DTriangleResult}};}
+\DoxyCodeLine{01234\ }
+\DoxyCodeLine{01235\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01236\ \{}
+\DoxyCodeLine{01237\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_triangle}{SVzNL3DTriangle}}\ sTriangle;}
+\DoxyCodeLine{01238\ }
+\DoxyCodeLine{01239\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dABDistance;}
+\DoxyCodeLine{01240\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dBCDistance;}
+\DoxyCodeLine{01241\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dACDistance;}
+\DoxyCodeLine{01242\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_triangle_result}{SVzNL3DTriangleResult}};}
+\DoxyCodeLine{01243\ }
+\DoxyCodeLine{01245\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01246\ \{}
+\DoxyCodeLine{01247\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_object_result}{SVzNLDetectObjectResult}}\ \ \ sDetectObj;}
+\DoxyCodeLine{01248\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ s2DPoint;}
+\DoxyCodeLine{01249\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_ellipse_result}{SVzNLDetectEllipseResult}};}
+\DoxyCodeLine{01250\ }
+\DoxyCodeLine{01251\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01252\ \{}
+\DoxyCodeLine{01253\ \ \ \ \ \textcolor{keywordtype}{int}\ nSize;}
+\DoxyCodeLine{01254\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_cube_param}{SVzNLDetectCubeParam}};}
+\DoxyCodeLine{01255\ }
+\DoxyCodeLine{01256\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01257\ \{}
+\DoxyCodeLine{01258\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_object_result}{SVzNLDetectObjectResult}}\ \ \ sDetectObj;}
+\DoxyCodeLine{01259\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_detect_cube_result}{SVzNLDetectCubeResult}};}
+\DoxyCodeLine{01260\ }
+\DoxyCodeLine{01262\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{01263\ \{}
+\DoxyCodeLine{01264\ \ \ \ \ \textcolor{keywordtype}{int}\ nLineStart;}
+\DoxyCodeLine{01265\ \ \ \ \ \textcolor{keywordtype}{int}\ nLineEnd;}
+\DoxyCodeLine{01266\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_line}{SVzNL3DObjectLine}};}
+\DoxyCodeLine{01267\ }
+\DoxyCodeLine{01269\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01270\ \{}
+\DoxyCodeLine{01271\ \ \ \ \ keDepthNormalizingMode\_None\ \ \ \ \ \ \ \ \ =\ 0,\ \textcolor{comment}{//不使用归一化}}
+\DoxyCodeLine{01272\ \ \ \ \ keDepthNormalizingMode\_Indicated\ \ \ \ =\ 1,\ \textcolor{comment}{//指定固定归一化范围}}
+\DoxyCodeLine{01273\ \ \ \ \ keDepthNormalizingMode\_Auto\ \ \ \ \ \ \ \ \ =\ 2\ \ \textcolor{comment}{//自动检测归一化范围}}
+\DoxyCodeLine{01274\ \}\ EVzDepthNormalizingMode;}
+\DoxyCodeLine{01275\ }
+\DoxyCodeLine{01277\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01278\ \{}
+\DoxyCodeLine{01279\ \ \ \ \ keImageBitDepthTypeNone\ =\ 0,}
+\DoxyCodeLine{01280\ \ \ \ \ keImageBitDepthType\_8bit\ =\ 8,}
+\DoxyCodeLine{01281\ \ \ \ \ keImageBitDepthType\_16bit\ =\ 16,}
+\DoxyCodeLine{01282\ \}\ EVzImageBitDepthType;}
+\DoxyCodeLine{01283\ }
+\DoxyCodeLine{01285\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01286\ \{}
+\DoxyCodeLine{01287\ \ \ \ \ EVzDepthNormalizingMode\ eDepthNormalizingMode;\ \ \ \ \ \ \textcolor{comment}{//\ 像素深度值归一化模式}}
+\DoxyCodeLine{01288\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ nImageMargin;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 输出深度图边缘预留空白区域宽度（单位：像素值）}}
+\DoxyCodeLine{01289\ \ \ \ \ EVzImageBitDepthType\ \ \ \ eBitDepth;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 输出深度图的位深度：}}
+\DoxyCodeLine{01290\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fDepthResolution;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 深度图中深度值精度，例如：0.1\ 表示1个像素值对应0.1mm\ 实际距离}}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01292\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fWHPixelResolution;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 深度图中每个像素的精度，例如：0.1\ 表示1个像素点对应0.1mm实际距离，eDepthNormalizingMode\ =\ eDepthNormalizingMode\_Indicated\ 时有效}}
+\DoxyCodeLine{01293\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fNormalizingStartVal;\ \ \ \ \ \ \ \textcolor{comment}{//\ 客户指定的归一化范围的起始值(mm)：eDepthNormalizingMode\ =\ keDepthNormalizingMode\_Indicated\ 时有效}}
+\DoxyCodeLine{01294\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fNormalizingEndVal;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 客户指定的归一化范围的结束值(mm)：eDepthNormalizingMode\ =\ keDepthNormalizingMode\_Indicated\ \ 时有效}}
+\DoxyCodeLine{01295\ }
+\DoxyCodeLine{01296\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fNormalizingMargin;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ eDepthNormalizingMode\ =\ keDepthNormalizingMode\_Auto\ 时，在自动检测到的归一化区间上下预留的空白空间高度（单位mm）上下各预留指定高度空间}}
+\DoxyCodeLine{01297\ }
+\DoxyCodeLine{01298\ \}\ \doxymbox{\hyperlink{struct_s_vz_depth_map_img_ctl_para}{SVzDepthMapImgCtlPara}};}
+\DoxyCodeLine{01299\ }
+\DoxyCodeLine{01301\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01302\ \{}
+\DoxyCodeLine{01303\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nPointCount;}
+\DoxyCodeLine{01304\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}*\ \ \ pArryPointIdx;}
+\DoxyCodeLine{01305\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_panel}{SVzNL3DObjectPanel}};}
+\DoxyCodeLine{01306\ }
+\DoxyCodeLine{01308\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01309\ \{}
+\DoxyCodeLine{01310\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nType;}
+\DoxyCodeLine{01311\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc_a183548e82665d07ba4a50ebd653d1b40}{pGrabPoint}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01312\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nGrabPointCount;}
+\DoxyCodeLine{01313\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc_a852dee3a01881f59c9a1c49248fcde46}{p3DPoint}};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01314\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc_ae13251bf81017c342beba903f2eaa739}{n3DPointCount}};\ \ \ \ \ \ }
+\DoxyCodeLine{01315\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_line}{SVzNL3DObjectLine}}*\ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc_a644230ca38326c5ed42a7a914deb6bd7}{p3DObjLine}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01316\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc_a0addab3f37a2a9562bd6b8013180bd7f}{n3DObjLineCount}};\ \ \ \ }
+\DoxyCodeLine{01317\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_panel}{SVzNL3DObjectPanel}}*\ p3DObjPanel;}
+\DoxyCodeLine{01318\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n3DObjPanelCount;}
+\DoxyCodeLine{01319\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_desc}{SVzNL3DObjectDesc}};}
+\DoxyCodeLine{01320\ }
+\DoxyCodeLine{01322\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01323\ \{}
+\DoxyCodeLine{01324\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_a160c4d990c82bb26b15e2f463257d335}{pLeftGrabPoint}};\ \ \ \ \ }
+\DoxyCodeLine{01325\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_adfa5cdcf6c1f7b8223d8ed751c785e81}{pRightGrabPoint}};\ \ \ \ }
+\DoxyCodeLine{01326\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nGrabPointCount;}
+\DoxyCodeLine{01327\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_abb232df7663c683b8ee5e50bdfa228d7}{pLeft2DPoint}};\ \ \ \ \ \ \ }
+\DoxyCodeLine{01328\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_a3c6461712ed8bfa5bc1cdf8826e3b957}{pRight2DPoint}};\ \ \ \ \ \ }
+\DoxyCodeLine{01329\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_ae98168a4c73b68dc7623569870f8b8eb}{n2DPointCount}};\ \ \ \ \ \ }
+\DoxyCodeLine{01330\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_line}{SVzNL3DObjectLine}}*\ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_ab7f9baa5979549f3cd622b759466f171}{p3DObjLine}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01331\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result_ac02e0e9df2ada0b9577dae37ce9c8b18}{n3DObjLineCount}};\ \ \ \ }
+\DoxyCodeLine{01332\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object_panel}{SVzNL3DObjectPanel}}*\ p3DObjPanel;}
+\DoxyCodeLine{01333\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ n3DObjPanelCount;}
+\DoxyCodeLine{01334\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_object2_d_result}{SVzNL3DObject2DResult}};}
+\DoxyCodeLine{01335\ }
+\DoxyCodeLine{01337\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01338\ \{}
+\DoxyCodeLine{01339\ \ \ \ \ keVzNLColorMarkType\_Unknown\ =\ 0,}
+\DoxyCodeLine{01340\ \ \ \ \ keVzNLColorMarkType\_Rect,}
+\DoxyCodeLine{01341\ \ \ \ \ keVzNLColorMarkType\_Triangle,}
+\DoxyCodeLine{01342\ \ \ \ \ keVzNLColorMarkType\_Circle,}
+\DoxyCodeLine{01343\ \}\ EVzNLColorMarkType;}
+\DoxyCodeLine{01344\ }
+\DoxyCodeLine{01346\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01347\ \{}
+\DoxyCodeLine{01348\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01349\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ pt3D;\ \ \ \ \ \ \ \textcolor{comment}{//\ 3D坐标}}
+\DoxyCodeLine{01350\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_color_mark3_d_result}{SVzNLColorMark3DResult}};}
+\DoxyCodeLine{01351\ }
+\DoxyCodeLine{01353\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01354\ \{}
+\DoxyCodeLine{01355\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01356\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptLeft2D;\ \ \ \textcolor{comment}{//\ 2D左图坐标}}
+\DoxyCodeLine{01357\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ ptRight2D;\ \ \textcolor{comment}{//\ 2D右图坐标}}
+\DoxyCodeLine{01358\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}}\ \ \ \ \ \ \ sLeftBox;}
+\DoxyCodeLine{01359\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}}\ \ \ \ \ \ \ sRightBox;}
+\DoxyCodeLine{01360\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_color_mark2_d_result}{SVzNLColorMark2DResult}};}
+\DoxyCodeLine{01361\ }
+\DoxyCodeLine{01363\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01364\ \{}
+\DoxyCodeLine{01365\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointIdx;\ \ \textcolor{comment}{//\ 点序}}
+\DoxyCodeLine{01366\ \ \ \ \ EVzNLColorMarkType\ \ \ \ \ \ eType;}
+\DoxyCodeLine{01367\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ pt3D;}
+\DoxyCodeLine{01368\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ ptLeft2D;\ \ \ \textcolor{comment}{//\ 2D左图坐标}}
+\DoxyCodeLine{01369\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ ptRight2D;\ \ \textcolor{comment}{//\ 2D右图坐标}}
+\DoxyCodeLine{01370\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sLeftBox;}
+\DoxyCodeLine{01371\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sRightBox;}
+\DoxyCodeLine{01372\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_color_mark_result}{SVzNLColorMarkResult}};}
+\DoxyCodeLine{01373\ }
+\DoxyCodeLine{01374\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01375\ \{}
+\DoxyCodeLine{01376\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}*\ p3DPoint;}
+\DoxyCodeLine{01377\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ nCount;}
+\DoxyCodeLine{01378\ \}\doxymbox{\hyperlink{struct_s_vz_detect_grains_laser_result}{SVzDetectGrainsLaserResult}};}
+\DoxyCodeLine{01379\ }
+\DoxyCodeLine{01380\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01381\ \{}
+\DoxyCodeLine{01382\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nIndex;}
+\DoxyCodeLine{01383\ \ \ \ \ \textcolor{keywordtype}{float}\ fLength;}
+\DoxyCodeLine{01384\ \ \ \ \ \textcolor{keywordtype}{float}\ fWidth;}
+\DoxyCodeLine{01385\ \ \ \ \ \textcolor{keywordtype}{float}\ fHeight;}
+\DoxyCodeLine{01386\ }
+\DoxyCodeLine{01387\ \ \ \ \ \textcolor{keywordtype}{float}\ fVolume;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//until\ mm}}
+\DoxyCodeLine{01388\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ sObjCenter;}
+\DoxyCodeLine{01389\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ sBoxGoundTop[4];}
+\DoxyCodeLine{01390\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ sBoxGoundBottom[4];}
+\DoxyCodeLine{01391\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_grains_data}{SVzLaserGrainsData}};}
+\DoxyCodeLine{01392\ }
+\DoxyCodeLine{01393\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01394\ \{}
+\DoxyCodeLine{01395\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_grains_data}{SVzLaserGrainsData}}*\ pGrainData;}
+\DoxyCodeLine{01396\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nCount;}
+\DoxyCodeLine{01397\ \}\ \doxymbox{\hyperlink{struct_s_vz_detect_grain_result}{SVzDetectGrainResult}};}
+\DoxyCodeLine{01398\ }
+\DoxyCodeLine{01399\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{01400\ \{}
+\DoxyCodeLine{01401\ \ \ \ \ keGrainLaserStatus\_Unknown\ =\ 0,}
+\DoxyCodeLine{01402\ \ \ \ \ keGrainLaserStatus\_BeginWork,}
+\DoxyCodeLine{01403\ \ \ \ \ keGrainLaserStatus\_Working,}
+\DoxyCodeLine{01404\ \ \ \ \ keGrainLaserStatus\_EndWork,}
+\DoxyCodeLine{01405\ \}\ EVzGrainLaserStatus;}
+\DoxyCodeLine{01406\ }
+\DoxyCodeLine{01408\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01409\ \{}
+\DoxyCodeLine{01410\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ index\_;}
+\DoxyCodeLine{01411\ \ \ \ \ \textcolor{keywordtype}{char}\ \ lithology[128];\ \ \ \textcolor{comment}{//岩性}}
+\DoxyCodeLine{01412\ \ \ \ \ \textcolor{keywordtype}{char}\ \ origin\_[128];\ \ \ \ \ \textcolor{comment}{//产地}}
+\DoxyCodeLine{01413\ \ \ \ \ \textcolor{keywordtype}{double}\ length\_;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//长}}
+\DoxyCodeLine{01414\ \ \ \ \ \textcolor{keywordtype}{double}\ width\_;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//宽}}
+\DoxyCodeLine{01415\ \ \ \ \ \textcolor{keywordtype}{double}\ height\_;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//高}}
+\DoxyCodeLine{01416\ \ \ \ \ \textcolor{keywordtype}{double}\ vol\_;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//体积}}
+\DoxyCodeLine{01417\ \ \ \ \ \textcolor{keywordtype}{double}\ area\_;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//面积}}
+\DoxyCodeLine{01418\ \ \ \ \ \textcolor{keywordtype}{double}\ perimeter\_;\ \ \ \ \ \ \textcolor{comment}{//周长}}
+\DoxyCodeLine{01419\ \ \ \ \ \textcolor{keywordtype}{float}\ \ A\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Axial\ factor\ 轴向系数}}
+\DoxyCodeLine{01420\ \ \ \ \ \textcolor{keywordtype}{float}\ \ CR\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Convexity\ 凸度}}
+\DoxyCodeLine{01421\ \ \ \ \ \textcolor{keywordtype}{float}\ \ AP\_;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//棱角参数}}
+\DoxyCodeLine{01422\ \ \ \ \ VzBool\ isNeedle\_;\ \ \ \ \ \ \ \textcolor{comment}{//是否针片状}}
+\DoxyCodeLine{01423\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_rect}{SVzNLRect}}\ rcPos;}
+\DoxyCodeLine{01424\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_data}{SVzLaserAggregateData}};}
+\DoxyCodeLine{01425\ }
+\DoxyCodeLine{01427\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{01428\ \{}
+\DoxyCodeLine{01429\ \ \ \ \ \textcolor{keywordtype}{int}\ index\_;\ \ \ \ \ \ \textcolor{comment}{//\ 级配级别\ 6\ 7\ 8\ 9\ 10\ 11\ 12\ 13}}
+\DoxyCodeLine{01430\ \ \ \ \ \textcolor{keywordtype}{int}\ num\_;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 数量}}
+\DoxyCodeLine{01431\ \ \ \ \ \textcolor{keywordtype}{float}\ pi\_;\ \ \ \ \ \ \ \textcolor{comment}{//\ pi}}
+\DoxyCodeLine{01432\ \ \ \ \ \textcolor{keywordtype}{float}\ passRate\_;\ \textcolor{comment}{//\ 通过率}}
+\DoxyCodeLine{01433\ \ \ \ \ \textcolor{keywordtype}{float}\ top\_;\ \ \ \ \ \ \textcolor{comment}{//\ 上限}}
+\DoxyCodeLine{01434\ \ \ \ \ \textcolor{keywordtype}{float}\ bottom\_;\ \ \ \textcolor{comment}{//\ 下限}}
+\DoxyCodeLine{01435\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_level_data}{SVzLaserAggregateLevelData}};}
+\DoxyCodeLine{01436\ }
+\DoxyCodeLine{01438\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01439\ \{}
+\DoxyCodeLine{01440\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_a8b547f06770d68aeabc95ae80145ae3c}{chLithology}}[128];\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01441\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_a24931002d8fcfa0032bc612122cdd2c3}{chOrigin}}[128];\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01442\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_ab35fa31685fc15f876fed3286dbae1c3}{fNeedleRate}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01443\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_a43578d23710035ec519c083b14f9a85a}{fMeanAP}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01444\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_a24d85e9ea7ab79d3ab20de8228e01c85}{fMeanA}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01445\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info_a6cf857007585e232ee54788444d9d0f4}{fMeanCR}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01446\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_aggregate_mean_info}{SVzLaserAggregateMeanInfo}};}
+\DoxyCodeLine{01447\ }
+\DoxyCodeLine{01449\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01450\ \{}
+\DoxyCodeLine{01451\ \ \ \ \ keAggerateLaserStatus\_Unknown\ =\ 0,}
+\DoxyCodeLine{01452\ \ \ \ \ keAggerateLaserStatus\_BeginWork,\ \ \ \ }
+\DoxyCodeLine{01453\ \ \ \ \ keAggerateLaserStatus\_Working,\ \ \ \ \ \ }
+\DoxyCodeLine{01454\ \ \ \ \ keAggerateLaserStatus\_EndWork,\ \ \ \ \ \ }
+\DoxyCodeLine{01455\ \}\ EVzAggerateLaserStatus;}
+\DoxyCodeLine{01456\ }
+\DoxyCodeLine{01459\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01460\ \{}
+\DoxyCodeLine{01461\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nFlag;}
+\DoxyCodeLine{01462\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nRadius;}
+\DoxyCodeLine{01463\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ fPhyRadius;}
+\DoxyCodeLine{01464\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ nPoint;}
+\DoxyCodeLine{01465\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nLineIndex;}
+\DoxyCodeLine{01466\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ nTimeStamp;}
+\DoxyCodeLine{01467\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ n3DPoint;}
+\DoxyCodeLine{01468\ \}\doxymbox{\hyperlink{struct_s_vz_n_l_counter_item}{SVzNLCounterItem}};}
+\DoxyCodeLine{01469\ }
+\DoxyCodeLine{01472\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01473\ \{}
+\DoxyCodeLine{01474\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nNum;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 总数}}
+\DoxyCodeLine{01475\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_counter_item}{SVzNLCounterItem}}*\ \ \ pPointArr;\ \ \ \ \ \ \textcolor{comment}{//\ 二维扫描图坐标}}
+\DoxyCodeLine{01476\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ nStartTimeStamp;\textcolor{comment}{//\ 起始线的时间戳}}
+\DoxyCodeLine{01477\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_position}{SVzNLPosition}}\ \ \ \ \ \ \ sTopPoint;\ \ \ \ \ \ \textcolor{comment}{//\ 最突出点数据}}
+\DoxyCodeLine{01478\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_counter_item}{SVzNLCounterItem}}\ \ \ \ sMarkPoint;\ \ \ \ \ \textcolor{comment}{//\ mark信息}}
+\DoxyCodeLine{01479\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}\ \ \ \ \ \ sImage;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 生成的二维图像}}
+\DoxyCodeLine{01480\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_counter}{SVzNLCounter}};}
+\DoxyCodeLine{01481\ }
+\DoxyCodeLine{01483\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01484\ \{}
+\DoxyCodeLine{01485\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ nSize;}
+\DoxyCodeLine{01486\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ szName[64];}
+\DoxyCodeLine{01487\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ szVersion[64];}
+\DoxyCodeLine{01488\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ pVoid;}
+\DoxyCodeLine{01489\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nVersionCode;}
+\DoxyCodeLine{01490\ \}\ \doxymbox{\hyperlink{struct_s_vz_a_i_create_param}{SVzAICreateParam}};}
+\DoxyCodeLine{01491\ \ }
+\DoxyCodeLine{01496\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01497\ \{}
+\DoxyCodeLine{01498\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ nFrameIdx;\ \ \textcolor{comment}{//<\ 帧号}}
+\DoxyCodeLine{01499\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ nTimeStamp;\ \textcolor{comment}{//<\ 时间戳}}
+\DoxyCodeLine{01500\ \}\ \doxymbox{\hyperlink{struct_s_vz_output_frame_props}{SVzOutputFrameProps}};}
+\DoxyCodeLine{01501\ }
+\DoxyCodeLine{01506\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01507\ \{}
+\DoxyCodeLine{01508\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nMarkID;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ Mark\ 标志}}
+\DoxyCodeLine{01509\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}\ ptCenterPos;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 中心点}}
+\DoxyCodeLine{01510\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}\ ptLeftPos;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 左}}
+\DoxyCodeLine{01511\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}\ ptTopPos;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 上}}
+\DoxyCodeLine{01512\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}\ ptRightPos;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 右}}
+\DoxyCodeLine{01513\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}\ ptBottomPos;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 下}}
+\DoxyCodeLine{01514\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ nGray;}
+\DoxyCodeLine{01515\ \}\ \doxymbox{\hyperlink{struct_s_vz_circle_mark_pos_info}{SVzCircleMarkPosInfo}};}
+\DoxyCodeLine{01516\ }
+\DoxyCodeLine{01519\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{01520\ \{}
+\DoxyCodeLine{01521\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fR;}
+\DoxyCodeLine{01522\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptCenter;}
+\DoxyCodeLine{01523\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptWordCenter;}
+\DoxyCodeLine{01524\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptNormalVector;}
+\DoxyCodeLine{01525\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ pArray3DPoint;}
+\DoxyCodeLine{01526\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ pArrayWorld3DPoint;}
+\DoxyCodeLine{01527\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointCount;}
+\DoxyCodeLine{01528\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_circle_result}{SVzNL3DCircleResult}};}
+\DoxyCodeLine{01529\ }
+\DoxyCodeLine{01532\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01533\ \{}
+\DoxyCodeLine{01534\ \ \ \ \ EVzNL3DCircleType\ \ \ \ \ \ \ \ \ \ \ eType;\ \ \ \ \ \ \textcolor{comment}{//\ 圆类型}}
+\DoxyCodeLine{01535\ }
+\DoxyCodeLine{01536\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_r_o_i_rect}{SVzNLROIRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box2dLeft;\ \ \textcolor{comment}{//\ 包围盒左图}}
+\DoxyCodeLine{01537\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_r_o_i_rect}{SVzNLROIRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box2dRight;\ \textcolor{comment}{//\ 包围盒右图}}
+\DoxyCodeLine{01538\ }
+\DoxyCodeLine{01539\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_circle_result}{SVzNL3DCircleResult}}*\ \ \ \ \ \ \ \ pArrayCircle;}
+\DoxyCodeLine{01540\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nCircleCount;}
+\DoxyCodeLine{01541\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_circle_object_result}{SVzNL3DCircleObjectResult}};}
+\DoxyCodeLine{01542\ }
+\DoxyCodeLine{01545\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01546\ \{}
+\DoxyCodeLine{01547\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dR;}
+\DoxyCodeLine{01548\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptLeftCenter;}
+\DoxyCodeLine{01549\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ptRightCenter;}
+\DoxyCodeLine{01550\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pArray2DLeftPoint;}
+\DoxyCodeLine{01551\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_point}{SVzNL2DPoint}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pArray2DRightPoint;}
+\DoxyCodeLine{01552\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointCount;}
+\DoxyCodeLine{01553\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_circle_result}{SVzNL2DCircleResult}};}
+\DoxyCodeLine{01554\ }
+\DoxyCodeLine{01557\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01558\ \{}
+\DoxyCodeLine{01559\ \ \ \ \ EVzNL3DCircleType\ \ \ \ \ \ \ \ \ \ \ eType;\ \ \ \ \ \ \textcolor{comment}{//\ 圆类型}}
+\DoxyCodeLine{01560\ }
+\DoxyCodeLine{01561\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_r_o_i_rect}{SVzNLROIRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box2dLeft;\ \ \textcolor{comment}{//\ 包围盒左图}}
+\DoxyCodeLine{01562\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_r_o_i_rect}{SVzNLROIRect}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ box2dRight;\ \textcolor{comment}{//\ 包围盒右图}}
+\DoxyCodeLine{01563\ }
+\DoxyCodeLine{01564\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_circle_result}{SVzNL2DCircleResult}}*\ \ \ \ \ \ \ \ pArrayCircle;}
+\DoxyCodeLine{01565\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nCircleCount;}
+\DoxyCodeLine{01566\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_circle_object_result}{SVzNL2DCircleObjectResult}};}
+\DoxyCodeLine{01567\ }
+\DoxyCodeLine{01568\ \textcolor{comment}{/*}}
+\DoxyCodeLine{01569\ \textcolor{comment}{\ *\ @brief\ 眼睛配置信息}}
+\DoxyCodeLine{01570\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{01571\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01572\ \{}
+\DoxyCodeLine{01573\ \ \ \ \ EVzNLEthernetEyeIPType\ \ eEthernetIPType;}
+\DoxyCodeLine{01574\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ byEyeIP[4];}
+\DoxyCodeLine{01575\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ byEyeMac[6];}
+\DoxyCodeLine{01576\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ byLocalIP[4];}
+\DoxyCodeLine{01577\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ byLocalMac[6];}
+\DoxyCodeLine{01578\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vendor[8];}
+\DoxyCodeLine{01579\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ productName[8];}
+\DoxyCodeLine{01580\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ serialID[8];}
+\DoxyCodeLine{01581\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bIsSupportUDPFilter;}
+\DoxyCodeLine{01582\ }
+\DoxyCodeLine{01583\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_net_card_info}{SVzNetCardInfo}}\ \ \ \ \ \ \ \ \ \ sNetCardInfo;}
+\DoxyCodeLine{01584\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_ethernet_eye_config_info}{SVzNLEthernetEyeConfigInfo}};}
+\DoxyCodeLine{01585\ }
+\DoxyCodeLine{01586\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }}
+\DoxyCodeLine{01587\ \{}
+\DoxyCodeLine{01588\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dWhiteCheckPercent;}
+\DoxyCodeLine{01589\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ chRgbMax[3];}
+\DoxyCodeLine{01590\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dBlockEffectiveTh;}
+\DoxyCodeLine{01591\ \ \ \ \ \textcolor{keywordtype}{short}\ \ \ \ \ \ \ \ \ \ \ shMinBlockNumber;}
+\DoxyCodeLine{01592\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dGainRange[2];}
+\DoxyCodeLine{01593\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ chHistStartAddr;}
+\DoxyCodeLine{01594\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nBlockWidth;}
+\DoxyCodeLine{01595\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nBlockHeight;}
+\DoxyCodeLine{01596\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_a_w_b_info}{SVzNLAWBInfo}};}
+\DoxyCodeLine{01597\ }
+\DoxyCodeLine{01598\ \textcolor{comment}{//\ 钢筋检测模式}}
+\DoxyCodeLine{01599\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01600\ \{}
+\DoxyCodeLine{01601\ \ \ \ \ keEyeCBDetectCounterMode\_All\ =\ 1,}
+\DoxyCodeLine{01602\ \ \ \ \ keEyeCBDetectCounterMode\_Center\ =\ 2,}
+\DoxyCodeLine{01603\ \};}
+\DoxyCodeLine{01604\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzEyeCBDetectMode;}
+\DoxyCodeLine{01605\ }
+\DoxyCodeLine{01606\ \textcolor{comment}{//\ @brief\ 摆动机构信息}}
+\DoxyCodeLine{01607\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_vz_swing_motor_dev_info}{SVzSwingMotorDevInfo}}}
+\DoxyCodeLine{01608\ \{}
+\DoxyCodeLine{01609\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nMotorMaxAngle;\ \ \ \ \ \textcolor{comment}{//<\ 电机最大旋转角度}}
+\DoxyCodeLine{01610\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nMaxAngle;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 最大旋转角度}}
+\DoxyCodeLine{01611\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nMinSpeed;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 最小角速度}}
+\DoxyCodeLine{01612\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nMaxSpeed;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 最大角速度}}
+\DoxyCodeLine{01613\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nStartAngle;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 起始位置}}
+\DoxyCodeLine{01614\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nEndAngle;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 结束位置}}
+\DoxyCodeLine{01615\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nSpeed;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 速度}}
+\DoxyCodeLine{01616\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ nStopAngle;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 停止角度}}
+\DoxyCodeLine{01617\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ fEndAngleThres;\ \ \ \ \ \textcolor{comment}{//<\ 结束角度判断阈值}}
+\DoxyCodeLine{01618\ \};}
+\DoxyCodeLine{01619\ }
+\DoxyCodeLine{01621\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01622\ \{}
+\DoxyCodeLine{01623\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nAirforceCount;\ \ \ \ \textcolor{comment}{//<\ 气枪数}}
+\DoxyCodeLine{01624\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nStartAddress;\ \ \ \ \ \textcolor{comment}{//<\ 起始位置}}
+\DoxyCodeLine{01625\ \ \ \ \ \textcolor{keywordtype}{double}\ dVolumeThres;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 体积阈值}}
+\DoxyCodeLine{01626\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nMaxAirTimes;\ \ \ \ \ \ \textcolor{comment}{//<\ 最大喷气次数}}
+\DoxyCodeLine{01627\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nTimePerAir;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 单次喷气时间\ ms}}
+\DoxyCodeLine{01628\ \}\ \doxymbox{\hyperlink{struct_s_vz_detect_gangue_param}{SVzDetectGangueParam}};}
+\DoxyCodeLine{01629\ }
+\DoxyCodeLine{01631\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01632\ \{}
+\DoxyCodeLine{01633\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ dArea;}
+\DoxyCodeLine{01634\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ ptPos[8];}
+\DoxyCodeLine{01635\ \}\ \doxymbox{\hyperlink{struct_s_vz_gangue_object_result}{SVzGangueObjectResult}};}
+\DoxyCodeLine{01636\ }
+\DoxyCodeLine{01640\ \textcolor{keyword}{typedef}\ void(*VzNL\_CrashCallBack)(\textcolor{keywordtype}{char}\ szCrashFile[VZ\_MAXPATH]);}
+\DoxyCodeLine{01641\ }
+\DoxyCodeLine{01644\ }
+\DoxyCodeLine{01656\ \textcolor{keyword}{typedef}\ int(*VzNL\_GetAutoDetectResultCB)(\doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}*\ p3DPoint,\ \doxymbox{\hyperlink{struct_s_vz_n_l2_d_position}{SVzNL2DPosition}}*\ p2DPoint,\ \textcolor{keywordtype}{int}\ nCount,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ nTimeStamp,\ \textcolor{keywordtype}{double}\ dTotleOffset,\ \textcolor{keywordtype}{double}\ dStep,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ pLeftImage,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ pRightImage,\ \textcolor{keywordtype}{void}*\ pParam);}
+\DoxyCodeLine{01657\ }
+\DoxyCodeLine{01659\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01660\ \{}
+\DoxyCodeLine{01661\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p3DPoint;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 3D点\ 根据ResultDataType使用不同的数据结构}}
+\DoxyCodeLine{01662\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ p2DPoint;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 2D点\ 根据ResultDataType使用不同的数据结构}}
+\DoxyCodeLine{01663\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointCount;\ \ \ \ \textcolor{comment}{//<\ 2D\ 3D\ 数据个数}}
+\DoxyCodeLine{01664\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ dTotleOffset;\ \ \ \textcolor{comment}{//<\ 总偏移}}
+\DoxyCodeLine{01665\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ dStep;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 距离上一条线的偏移}}
+\DoxyCodeLine{01666\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ llFrameIdx;\ \ \ \ \ \textcolor{comment}{//<\ 帧号}}
+\DoxyCodeLine{01667\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ llTimeStamp;\ \ \ \ \textcolor{comment}{//<\ 时间戳}}
+\DoxyCodeLine{01668\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nEncodeNo;\ \ \ \ \ \ \textcolor{comment}{//<\ 编码器值}}
+\DoxyCodeLine{01669\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fSwingAngle;\ \ \ \ \textcolor{comment}{//<\ 当前摆动角度}}
+\DoxyCodeLine{01670\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ bEndOnceScan;\ \ \ \textcolor{comment}{//<\ 是否已完成一次扫描}}
+\DoxyCodeLine{01671\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_line_data}{SVzLaserLineData}};}
+\DoxyCodeLine{01672\ }
+\DoxyCodeLine{01673\ \textcolor{keyword}{typedef}\ void(*VzNL\_AutoOutputLaserLineExCB)(EVzResultDataType\ eDataType,\ \doxymbox{\hyperlink{struct_s_vz_laser_line_data}{SVzLaserLineData}}*\ pLaserLinePoint,\ \textcolor{keywordtype}{void}*\ pParam);}
+\DoxyCodeLine{01674\ }
+\DoxyCodeLine{01675\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01676\ \{}
+\DoxyCodeLine{01677\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nCount;}
+\DoxyCodeLine{01678\ \ \ \ \ EVzResultDataType\ eDataType;}
+\DoxyCodeLine{01679\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_line_data}{SVzLaserLineData}}*\ pLaserLineData;}
+\DoxyCodeLine{01680\ \}\doxymbox{\hyperlink{struct_s_vz_laser_line_cache_data}{SVzLaserLineCacheData}};}
+\DoxyCodeLine{01681\ }
+\DoxyCodeLine{01683\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01684\ \{}
+\DoxyCodeLine{01685\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_line_data}{SVzLaserLineData}}\ \ \ \ sLineData;\ \ \ \ \ \ \textcolor{comment}{//<}}
+\DoxyCodeLine{01686\ }
+\DoxyCodeLine{01687\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ \ \ \ \ pImageData[3];\ \ \textcolor{comment}{//<\ 图像数据}}
+\DoxyCodeLine{01688\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pUnknownData;\ \ \ \textcolor{comment}{//<\ 未知数据}}
+\DoxyCodeLine{01689\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_line_data_ex}{SVzLaserLineDataEx}};}
+\DoxyCodeLine{01690\ }
+\DoxyCodeLine{01692\ }
+\DoxyCodeLine{01694\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01695\ \{}
+\DoxyCodeLine{01696\ \ \ \ \ keLogisticsDetectCodeTypeNone\ \ \ \ \ \ \ =\ 0,\ \ \ \ \textcolor{comment}{//<\ 什么都不检测}}
+\DoxyCodeLine{01697\ \ \ \ \ keLogisticsDetectCodeType\_QRCode\ \ \ \ =\ 0x01,\ \textcolor{comment}{//<\ 二维码}}
+\DoxyCodeLine{01698\ \ \ \ \ keLogisticsDetectCodeType\_BarCode\ \ \ =\ 0x02,\ \textcolor{comment}{//<\ 条形码}}
+\DoxyCodeLine{01699\ \};}
+\DoxyCodeLine{01700\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzLogisticsDetectCodeType;}
+\DoxyCodeLine{01701\ }
+\DoxyCodeLine{01703\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01704\ \{}
+\DoxyCodeLine{01705\ \ \ \ \ keLogisticsClipObjModeNone\ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 不做抠图操作}}
+\DoxyCodeLine{01706\ \ \ \ \ keLogisticsClipObjMode\_Object\ \ \ =\ 0x01,\ \ \ \ \ \textcolor{comment}{//<\ 抠物体图}}
+\DoxyCodeLine{01707\ \ \ \ \ keLogisticsClipObjMode\_QRCode\ \ \ =\ 0x02,\ \ \ \ \ \textcolor{comment}{//<\ 抠二维码图}}
+\DoxyCodeLine{01708\ \ \ \ \ keLogisticsClipObjMode\_BarCode\ \ =\ 0x04,\ \ \ \ \ \textcolor{comment}{//<\ 抠条形码图}}
+\DoxyCodeLine{01709\ \};}
+\DoxyCodeLine{01710\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzLogisticsClipObjMode;}
+\DoxyCodeLine{01711\ }
+\DoxyCodeLine{01712\ \textcolor{comment}{//\ 物流触发位置}}
+\DoxyCodeLine{01713\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01714\ \{}
+\DoxyCodeLine{01715\ \ \ \ \ keLogisticsPackageSyncTypeInvalid\ =\ 0,\ \ \ \ \ \ \textcolor{comment}{//<\ 不触发}}
+\DoxyCodeLine{01716\ \ \ \ \ keLogisticsPackageSyncType\_In,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体进入时触发}}
+\DoxyCodeLine{01717\ \ \ \ \ keLogisticsPackageSyncType\_Out,\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体出来时触发}}
+\DoxyCodeLine{01718\ \};}
+\DoxyCodeLine{01719\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzLogisticsPackageSyncType;}
+\DoxyCodeLine{01720\ }
+\DoxyCodeLine{01721\ \textcolor{comment}{//\ 物流相机运行模式}}
+\DoxyCodeLine{01722\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01723\ \{}
+\DoxyCodeLine{01724\ \ \ \ \ keLogisticsRunMode\_None\ =\ 0,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 无}}
+\DoxyCodeLine{01725\ \ \ \ \ keLogisticsRunMode\_SoftSignal\ =\ 1,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 软件使能开始检测}}
+\DoxyCodeLine{01726\ \ \ \ \ keLogisticsRunMode\_ExtSignal,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 外部使能开始检测}}
+\DoxyCodeLine{01727\ \ \ \ \ keLogisticsRunMode\_AutoSignal,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 自动检测}}
+\DoxyCodeLine{01728\ \}\ EVzLogisticsRunMode;}
+\DoxyCodeLine{01729\ }
+\DoxyCodeLine{01730\ \textcolor{comment}{//\ 物流结果状态}}
+\DoxyCodeLine{01731\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{01732\ \{}
+\DoxyCodeLine{01733\ \ \ \ \ keLogisticsResultStatusInvalid\ =\ 0,\ \textcolor{comment}{//<\ 无效}}
+\DoxyCodeLine{01734\ \ \ \ \ keLogisticsResultStatus\_Begin,\ \ \ \ \ \ \textcolor{comment}{//<\ 物体开始}}
+\DoxyCodeLine{01735\ \ \ \ \ keLogisticsResultStatus\_Work,\ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体运动中\ \ \ \ 返回点云数据}}
+\DoxyCodeLine{01736\ \ \ \ \ keLogisticsResultStatus\_End\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 当前物体结束\ \ 返回物体体积}}
+\DoxyCodeLine{01737\ \}\ EVzLogisticsResultStatus;}
+\DoxyCodeLine{01738\ }
+\DoxyCodeLine{01739\ \textcolor{comment}{//\ @brief\ 结果信息掩码}}
+\DoxyCodeLine{01740\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{01741\ \{}
+\DoxyCodeLine{01742\ \ \ \ \ keLogisticsResultMask\_PointCloud\ \ \ \ =\ 0x01,\ \ \ \ \ \textcolor{comment}{//<\ 点云数据}}
+\DoxyCodeLine{01743\ \ \ \ \ keLogisticsResultMask\_ObjectInfo\ \ \ \ =\ 0x02,\ \ \ \ \ \textcolor{comment}{//<\ 物体结果数据}}
+\DoxyCodeLine{01744\ \ \ \ \ keLogisticsResultMask\_ColorImage\ \ \ \ =\ 0x04,\ \ \ \ \ \textcolor{comment}{//<\ 彩色图像}}
+\DoxyCodeLine{01745\ \};}
+\DoxyCodeLine{01746\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzLogisticsResultMask;}
+\DoxyCodeLine{01747\ }
+\DoxyCodeLine{01748\ \textcolor{comment}{//\ @brief\ 硬件使能线信号类型}}
+\DoxyCodeLine{01749\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01750\ \{}
+\DoxyCodeLine{01751\ \ \ \ \ keEnLineInPoint\_None\ \ \ \ \ \ \ \ \ \ \ \ =\ 0x00,\ \ \ \ \ \textcolor{comment}{//<\ 无效}}
+\DoxyCodeLine{01752\ \ \ \ \ keEnLineInPoint\_EnSignal\ \ \ \ \ \ \ \ =\ 0x01,\ \ \ \ \ \textcolor{comment}{//<\ 使能信号}}
+\DoxyCodeLine{01753\ \ \ \ \ keEnLineInPoint\_BiPhaseEncoder\ \ =\ 0x02,\ \ \ \ \ \textcolor{comment}{//<\ 双向编码器}}
+\DoxyCodeLine{01754\ \};}
+\DoxyCodeLine{01755\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzEnLineInPoint;}
+\DoxyCodeLine{01756\ }
+\DoxyCodeLine{01757\ \textcolor{comment}{//\ @brief\ }}
+\DoxyCodeLine{01758\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01759\ \{}
+\DoxyCodeLine{01760\ \ \ \ \ \textcolor{keywordtype}{char}\ \ \ \ \ \ \ \ \ \ \ \ szCode[VZ\_MAXPATH];\ \ \ \ \ \textcolor{comment}{//<\ 码值}}
+\DoxyCodeLine{01761\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ bValidImage;}
+\DoxyCodeLine{01762\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}\ \ sCodeImageData;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 码图像}}
+\DoxyCodeLine{01763\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ pVoid;}
+\DoxyCodeLine{01764\ \}\ \doxymbox{\hyperlink{struct_s_vz_logistics_code_info}{SVzLogisticsCodeInfo}};}
+\DoxyCodeLine{01765\ }
+\DoxyCodeLine{01766\ \textcolor{comment}{//\ @brief\ 物体结果描述}}
+\DoxyCodeLine{01767\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01768\ \{}
+\DoxyCodeLine{01769\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fVolume;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 体积}}
+\DoxyCodeLine{01770\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fLength;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 长}}
+\DoxyCodeLine{01771\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fWidth;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 宽}}
+\DoxyCodeLine{01772\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fHeight;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 高}}
+\DoxyCodeLine{01773\ }
+\DoxyCodeLine{01774\ \ \ \ \ \textcolor{comment}{//\ ①-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/②}}
+\DoxyCodeLine{01775\ \ \ \ \ \textcolor{comment}{//\ /|\ \ \ \ \ \ \ \ \ \ \ \ /|}}
+\DoxyCodeLine{01776\ \ \ \ \ \textcolor{comment}{//③-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/④\ |}}
+\DoxyCodeLine{01777\ \ \ \ \ \textcolor{comment}{//|\ |\ \ \ \ \ \ \ \ \ \ \ |\ |}}
+\DoxyCodeLine{01778\ \ \ \ \ \textcolor{comment}{//|\ |\ \ \ \ \ \ \ \ \ \ \ |\ |}}
+\DoxyCodeLine{01779\ \ \ \ \ \textcolor{comment}{//|\ |\ \ \ \ \ \ \ \ \ \ \ |\ |}}
+\DoxyCodeLine{01780\ \ \ \ \ \textcolor{comment}{//|⑤-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/⑥}}
+\DoxyCodeLine{01781\ \ \ \ \ \textcolor{comment}{//\ /\ \ \ \ \ \ \ \ \ \ \ \ /\ }}
+\DoxyCodeLine{01782\ \ \ \ \ \textcolor{comment}{//⑦-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/⑧}}
+\DoxyCodeLine{01783\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sConnerPoint[8];\ \ \ \ \textcolor{comment}{//<\ 8角点}}
+\DoxyCodeLine{01784\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point}{SVzNL3DPoint}}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pOutlinePoint;\ \ \ \ \ \ \textcolor{comment}{//<\ 轮廓点}}
+\DoxyCodeLine{01785\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nOutlinePointCount;\ \textcolor{comment}{//<\ 轮廓点个数}}
+\DoxyCodeLine{01786\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01787\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_logistics_code_info}{SVzLogisticsCodeInfo}}*\ \ \ \ \ \ \ psQRCodeInfo;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 二维码信息}}
+\DoxyCodeLine{01788\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nQRCodeCount;}
+\DoxyCodeLine{01789\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_logistics_code_info}{SVzLogisticsCodeInfo}}*\ \ \ \ \ \ \ psBarCodeInfo;\ \ \ \ \ \ \textcolor{comment}{//<\ 条形码信息}}
+\DoxyCodeLine{01790\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nBarCodeCount;}
+\DoxyCodeLine{01791\ }
+\DoxyCodeLine{01792\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bValidObjImage;\ \ \ \ \ \textcolor{comment}{//<\ 物体图像有效}}
+\DoxyCodeLine{01793\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ sObjImageData;\ \ \ \ \ \ \textcolor{comment}{//<\ 物体图像}}
+\DoxyCodeLine{01794\ \ \ \ \ \textcolor{keywordtype}{void}*\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pVoidObjData;}
+\DoxyCodeLine{01795\ \}\ \doxymbox{\hyperlink{struct_s_vz_logistics_obj_info}{SVzLogisticsObjInfo}};}
+\DoxyCodeLine{01796\ }
+\DoxyCodeLine{01797\ \textcolor{comment}{//\ 物流结果信息}}
+\DoxyCodeLine{01798\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ \ }}
+\DoxyCodeLine{01799\ \{}
+\DoxyCodeLine{01800\ \ \ \ \ EVzLogisticsResultMask\ \ \ \ \ \ eMask;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 结果标志}}
+\DoxyCodeLine{01801\ }
+\DoxyCodeLine{01802\ \ \ \ \ \textcolor{comment}{//\ @name\ PointClound}}
+\DoxyCodeLine{01803\ \ \ \ \ \textcolor{comment}{//\ @\{}}
+\DoxyCodeLine{01804\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ ullTimeStamp;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 时间戳}}
+\DoxyCodeLine{01805\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{long}\ \ \ \ \ \ \ \ \ \ ullEncodeNo;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 编码器值}}
+\DoxyCodeLine{01806\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_position}{SVzNL3DPosition}}*\ \ \ \ \ \ \ \ \ \ \ \ p3DPoint;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 3D点}}
+\DoxyCodeLine{01807\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nPointCount;\ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 点数}}
+\DoxyCodeLine{01808\ \ \ \ \ \textcolor{keywordtype}{double}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dOffset;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 偏移}}
+\DoxyCodeLine{01809\ \ \ \ \ \textcolor{comment}{//\ @\}}}
+\DoxyCodeLine{01810\ }
+\DoxyCodeLine{01811\ \ \ \ \ \textcolor{comment}{//\ @name\ ObjectInfo}}
+\DoxyCodeLine{01812\ \ \ \ \ \textcolor{comment}{//\ @\{}}
+\DoxyCodeLine{01813\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nObjectCount;\ \ \ \ \ \ \ \textcolor{comment}{//<\ 物体个数}}
+\DoxyCodeLine{01814\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_logistics_obj_info}{SVzLogisticsObjInfo}}*\ \ \ \ \ \ \ \ pArrayObjectInfo;\ \ \ \textcolor{comment}{//<\ 物体数组}}
+\DoxyCodeLine{01815\ \ \ \ \ }
+\DoxyCodeLine{01816\ \ \ \ \ VzBool\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ bIsResetOffset;\ \ \ \ \ \textcolor{comment}{//<\ 当前帧开始X值被重置}}
+\DoxyCodeLine{01817\ \ \ \ \ \textcolor{comment}{//\ @\}}}
+\DoxyCodeLine{01818\ }
+\DoxyCodeLine{01819\ \ \ \ \ \textcolor{comment}{//\ @name\ ColorImage}}
+\DoxyCodeLine{01820\ \ \ \ \ \textcolor{comment}{//\ @\{}}
+\DoxyCodeLine{01821\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ \ \ \ \ \ \ \ \ \ \ \ \ psCenterImage;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 图像}}
+\DoxyCodeLine{01822\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nCenterImageTimeStamp;\ \ \textcolor{comment}{//<\ 图像时间}}
+\DoxyCodeLine{01823\ \ \ \ \ \textcolor{comment}{//\ @\}}}
+\DoxyCodeLine{01824\ \}\ \doxymbox{\hyperlink{struct_s_vz_logistics_result_data}{SVzLogisticsResultData}};}
+\DoxyCodeLine{01825\ }
+\DoxyCodeLine{01826\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01827\ \{}
+\DoxyCodeLine{01828\ \ \ \ \ keLaserFileType\_Invalid\ =\ 0,}
+\DoxyCodeLine{01829\ \ \ \ \ keLaserFileType\_PureTxt\ =\ 1,\ \ \ \ \textcolor{comment}{//<\ 纯文本}}
+\DoxyCodeLine{01830\ \ \ \ \ keLaserFileType\_Txt,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 本公司自用}}
+\DoxyCodeLine{01831\ \ \ \ \ keLaserFileType\_Pcd,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ PCD}}
+\DoxyCodeLine{01832\ \ \ \ \ keLaserFileType\_Las,\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ LAS}}
+\DoxyCodeLine{01833\ \ \ \ \ keLaserFileType\_VzBinaryData,\ \ \ \textcolor{comment}{//<\ Binary\ File}}
+\DoxyCodeLine{01834\ \ \ \ \ keLaserFileType\_Ply,}
+\DoxyCodeLine{01835\ \}\ EVzLaserFileType;}
+\DoxyCodeLine{01836\ }
+\DoxyCodeLine{01838\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01839\ \{}
+\DoxyCodeLine{01840\ \ \ \ \ keFileModeInvalid\ =\ 0,}
+\DoxyCodeLine{01841\ \ \ \ \ keFileModeRead\ =\ 0x01,}
+\DoxyCodeLine{01842\ \ \ \ \ keFileModeWrite\ =\ 0x02,}
+\DoxyCodeLine{01843\ \};}
+\DoxyCodeLine{01844\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ EVzFileMode;}
+\DoxyCodeLine{01845\ }
+\DoxyCodeLine{01847\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01848\ \{}
+\DoxyCodeLine{01849\ \ \ \ \ kePointAfterProcTypeInvalid\ =\ -\/1,}
+\DoxyCodeLine{01850\ \ \ \ \ kePointAfterProcType\_DepthMap,\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 深度图}}
+\DoxyCodeLine{01851\ \ \ \ \ kePointAfterProcType\_GrayPic,\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 灰度图}}
+\DoxyCodeLine{01852\ \ \ \ \ kePointAfterProcType\_Intensity,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 光强图}}
+\DoxyCodeLine{01853\ \}\ EVzPointAfterProcType;}
+\DoxyCodeLine{01854\ }
+\DoxyCodeLine{01855\ \textcolor{comment}{/*}}
+\DoxyCodeLine{01856\ \textcolor{comment}{\ *\ 机械臂点数据结构定义}}
+\DoxyCodeLine{01857\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{01858\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01859\ \{}
+\DoxyCodeLine{01860\ \ \ \ \ \textcolor{keywordtype}{float}\ x;}
+\DoxyCodeLine{01861\ \ \ \ \ \textcolor{keywordtype}{float}\ y;}
+\DoxyCodeLine{01862\ \ \ \ \ \textcolor{keywordtype}{float}\ z;}
+\DoxyCodeLine{01863\ \ \ \ \ \textcolor{keywordtype}{float}\ roll;}
+\DoxyCodeLine{01864\ \ \ \ \ \textcolor{keywordtype}{float}\ pitch;}
+\DoxyCodeLine{01865\ \ \ \ \ \textcolor{keywordtype}{float}\ yaw;}
+\DoxyCodeLine{01866\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_robot_point_f}{SVzNLRobotPointF}};}
+\DoxyCodeLine{01867\ }
+\DoxyCodeLine{01868\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01869\ \{}
+\DoxyCodeLine{01870\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l_robot_point_f}{SVzNLRobotPointF}}\ sPoint;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系内的点坐标}}
+\DoxyCodeLine{01871\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ sRX;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ X方向}}
+\DoxyCodeLine{01872\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ sRY;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ Y方向}}
+\DoxyCodeLine{01873\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ sRZ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ Z方向}}
+\DoxyCodeLine{01874\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l_robot_point_with_pose_f}{SVzNLRobotPointWithPoseF}};}
+\DoxyCodeLine{01875\ }
+\DoxyCodeLine{01876\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01877\ \{}
+\DoxyCodeLine{01878\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ sPoint;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系内的点坐标}}
+\DoxyCodeLine{01879\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ sRX;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ X方向}}
+\DoxyCodeLine{01880\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ sRY;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ Y方向}}
+\DoxyCodeLine{01881\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ sRZ;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 坐标系\ Z方向}}
+\DoxyCodeLine{01882\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_pose_point_f}{SVzNL3DPosePointF}};}
+\DoxyCodeLine{01883\ }
+\DoxyCodeLine{01884\ \textcolor{comment}{//}}
+\DoxyCodeLine{01885\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01886\ \{}
+\DoxyCodeLine{01887\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ sPoint;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 点位置}}
+\DoxyCodeLine{01888\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_point_f}{SVzNL3DPointF}}\ \ \ \ sNormal;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 法向量}}
+\DoxyCodeLine{01889\ \}\ \doxymbox{\hyperlink{struct_s_vz_n_l3_d_trace_point_f}{SVzNL3DTracePointF}};}
+\DoxyCodeLine{01890\ }
+\DoxyCodeLine{01892\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{01893\ \{}
+\DoxyCodeLine{01894\ \ \ \ \ \doxymbox{\hyperlink{struct_s_vz_laser_line_data}{SVzLaserLineData}}\ \ \ \ sLineData;}
+\DoxyCodeLine{01895\ }
+\DoxyCodeLine{01896\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nLeftPointCount;}
+\DoxyCodeLine{01897\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nRightPointCount;}
+\DoxyCodeLine{01898\ }
+\DoxyCodeLine{01899\ \ \ \ \ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z}{SVzNLPointXYZ}}*\ \ \ \ \ \ pLeftTearData;}
+\DoxyCodeLine{01900\ \ \ \ \ \doxymbox{\hyperlink{union_s_vz_n_l_point_x_y_z}{SVzNLPointXYZ}}*\ \ \ \ \ \ pRightTearData;}
+\DoxyCodeLine{01901\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nLeftTearPointCount;}
+\DoxyCodeLine{01902\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nRightTearPointCount;}
+\DoxyCodeLine{01903\ \}\ \doxymbox{\hyperlink{struct_s_vz_laser_tear_data_ex}{SVzLaserTearDataEx}};}
+\DoxyCodeLine{01904\ }
+\DoxyCodeLine{01906\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01907\ \{}
+\DoxyCodeLine{01908\ \ \ \ \ keLaserObjectDetectPresetProfile\_Custom\ =\ -\/1,}
+\DoxyCodeLine{01909\ \ \ \ \ keLaserObjectDetectPresetProfile\_General,\ \ \ \ \ \ \ \textcolor{comment}{//<\ \ 通用}}
+\DoxyCodeLine{01910\ \ \ \ \ keLaserObjectDetectPresetProfile\_ThinWire,\ \ \ \ \ \ \textcolor{comment}{//<\ \ 细铁丝}}
+\DoxyCodeLine{01911\ \ \ \ \ keLaserObjectDetectPresetProfile\_BigSence,\ \ \ \ \ \ \textcolor{comment}{//<\ \ 大景深}}
+\DoxyCodeLine{01912\ \ \ \ \ keLaserObjectDetectPresetProfile\_ReBar,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ \ 钢筋计数}}
+\DoxyCodeLine{01913\ \ \ \ \ keLaserObjectDetectPresetProfileLast}
+\DoxyCodeLine{01914\ \}\ EVzLaserObjectDetectPresetProfile;}
+\DoxyCodeLine{01915\ }
+\DoxyCodeLine{01916\ }
+\DoxyCodeLine{01919\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{01920\ \{}
+\DoxyCodeLine{01921\ \ \ \ \ keLaserFileParamStart\ =\ 0,}
+\DoxyCodeLine{01922\ \ \ \ \ keLaserFileParam\_Speed\ =\ keLaserFileParamStart,\ \textcolor{comment}{//<\ 速度值\ 类型\ double\ 当前用于\ binarydata\ 和\ txt\ 两种文件存储}}
+\DoxyCodeLine{01923\ \ \ \ \ keLaserFileParam\_DataType,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 数据类型\ \ \ \ 类型\ unsigned\ int\ 当值为\ 0时表示Ascii模式，当为1时表示Binary模式，目前用于pcd的配置}}
+\DoxyCodeLine{01924\ \ \ \ \ keLaserFileParam\_SavePointCnt,\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 是否存储point个数\ 类型\ unsigned\ int\ ,当值为0时表示不存储，为1表示存储，目前用于pure\ txt的配置}}
+\DoxyCodeLine{01925\ \ \ \ \ keLaserFileParam\_SaveSwingAngle,}
+\DoxyCodeLine{01926\ \ \ \ \ keLaserFileParamLast}
+\DoxyCodeLine{01927\ \}\ EVzLaserFileParam;}
+\DoxyCodeLine{01928\ }
+\DoxyCodeLine{01931\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ }
+\DoxyCodeLine{01932\ \{}
+\DoxyCodeLine{01933\ \ \ \ \ keStrobeTriggerOutMode\_None\ =\ 0,\ \ \ \ \textcolor{comment}{//<\ 不控制触发输出\ ：\ 默认}}
+\DoxyCodeLine{01934\ \ \ \ \ keStrobeTriggerOutMode\_CameraLink,\ \ \textcolor{comment}{//<\ 跟随主模式输出}}
+\DoxyCodeLine{01935\ \ \ \ \ keStrobeTriggerOutMode\_UserControl,\ \textcolor{comment}{//<\ 用户控制}}
+\DoxyCodeLine{01936\ \ \ \ \ keStrobeTriggerOutMode\_LoopBack,\ \ \ \ \textcolor{comment}{//<\ 回环控制}}
+\DoxyCodeLine{01937\ \ \ \ \ keStrobeTriggerOutMode\_ServoControl,\textcolor{comment}{//<\ 舵机控制}}
+\DoxyCodeLine{01938\ \}\ EVzStrobeTriggerOutMode;}
+\DoxyCodeLine{01939\ }
+\DoxyCodeLine{01942\ \textcolor{keyword}{enum}\ EVzSensorLenType}
+\DoxyCodeLine{01943\ \{}
+\DoxyCodeLine{01944\ \ \ \ \ keSensorLenType\_Invalid\ =\ 0,}
+\DoxyCodeLine{01945\ \ \ \ \ keSensorLenType\_3mm,}
+\DoxyCodeLine{01946\ \ \ \ \ keSensorLenType\_6mm,}
+\DoxyCodeLine{01947\ \};}
+\DoxyCodeLine{01948\ }
+\DoxyCodeLine{01951\ \textcolor{keyword}{enum}\ EVzServoStatusType}
+\DoxyCodeLine{01952\ \{}
+\DoxyCodeLine{01953\ \ \ \ \ keServoStatusType\_Invalid\ =\ -\/1,}
+\DoxyCodeLine{01954\ \ \ \ \ keServoStatusType\_Cover,}
+\DoxyCodeLine{01955\ \ \ \ \ keServoStatusType\_UnCover,}
+\DoxyCodeLine{01956\ \};}
+\DoxyCodeLine{01957\ }
+\DoxyCodeLine{01960\ \textcolor{keyword}{enum}\ EVzEncodeParamType}
+\DoxyCodeLine{01961\ \{}
+\DoxyCodeLine{01962\ \ \ \ \ keEncodeParamType\_RollerResolution\ =\ 0,\ \ \ \ \ \textcolor{comment}{//<\ 使用\ 编码器分辨率\ +\ 编码器半径参数\ 模式}}
+\DoxyCodeLine{01963\ \ \ \ \ keEncodeParamType\_DistancePerPulse,\ \ \ \ \ \ \ \ \ \textcolor{comment}{//<\ 使用\ 编码器每两个脉冲的间距}}
+\DoxyCodeLine{01964\ \};}
+\DoxyCodeLine{01965\ }
+\DoxyCodeLine{01968\ \textcolor{keyword}{enum}\ EVzMultiDevWorkMode}
+\DoxyCodeLine{01969\ \{}
+\DoxyCodeLine{01970\ \ \ \ \ keMultiDevWorkMode\_MasterSlave\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 0,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01971\ \ \ \ \ keMultiDevWorkMode\_Ext\_FallingEdge\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ 1,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01972\ \ \ \ \ keMultiDevWorkMode\_Ext\_HighFrequenceFallingEdge\ =\ 2,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01973\ \};}
+\DoxyCodeLine{01974\ }
+\DoxyCodeLine{01977\ \textcolor{keyword}{enum}\ EVzMultiDevType}
+\DoxyCodeLine{01978\ \{}
+\DoxyCodeLine{01979\ \ \ \ \ keMultiDev\_Dynanmic\ =\ 0,\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01980\ \ \ \ \ keMultiDev\_Static\ =\ 1,\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01981\ \};}
+\DoxyCodeLine{01982\ }
+\DoxyCodeLine{01985\ \textcolor{keyword}{enum}\ EVzMultiStaticDevScanMode}
+\DoxyCodeLine{01986\ \{}
+\DoxyCodeLine{01987\ \ \ \ \ keMultiStaticDevScanMode\_OneByOne\ =\ 0,\ \ \ \ \ \ }
+\DoxyCodeLine{01988\ \ \ \ \ keMultiStaticDevScanMode\_SameTime\ =\ 1,\ \ \ \ \ \ }
+\DoxyCodeLine{01989\ \};}
+\DoxyCodeLine{01990\ }
+\DoxyCodeLine{01993\ \textcolor{keyword}{enum}\ EVzEncoderRollingDirection}
+\DoxyCodeLine{01994\ \{}
+\DoxyCodeLine{01995\ \ \ \ \ keEncoderRollingDirection\_Forward\ =\ 0,}
+\DoxyCodeLine{01996\ \ \ \ \ keEncoderRollingDirection\_Backward}
+\DoxyCodeLine{01997\ \};}
+\DoxyCodeLine{01998\ }
+\DoxyCodeLine{01999\ }
+\DoxyCodeLine{02002\ \textcolor{keyword}{enum}\ EVzImageRotateType}
+\DoxyCodeLine{02003\ \{}
+\DoxyCodeLine{02004\ \ \ \ \ keImageRotateType\_Invalid\ =\ -\/1,}
+\DoxyCodeLine{02005\ \ \ \ \ keImageRotateType\_FlipY\_Rotate\ =\ 0,}
+\DoxyCodeLine{02006\ \ \ \ \ keImageRotateType\_ClockWise\ =\ 1,}
+\DoxyCodeLine{02007\ \ \ \ \ keImageRotateType\_CounterClockWise\ =\ 2,}
+\DoxyCodeLine{02008\ \ \ \ \ keImageRotateType\_90ClockWise\ =\ 3,}
+\DoxyCodeLine{02009\ \ \ \ \ keImageRotateType\_FlipX\ =\ 4,}
+\DoxyCodeLine{02010\ \};}
+\DoxyCodeLine{02011\ }
+\DoxyCodeLine{02012\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02013\ \{}
+\DoxyCodeLine{02014\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nEncodeNo[2];}
+\DoxyCodeLine{02015\ \ \ \ \ EVzEncoderRollingDirection\ eDirection;}
+\DoxyCodeLine{02016\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nFrequency[2];}
+\DoxyCodeLine{02017\ \}\ \doxymbox{\hyperlink{struct_s_vz_encoder_data}{SVzEncoderData}};}
+\DoxyCodeLine{02018\ }
+\DoxyCodeLine{02019\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02020\ \{}
+\DoxyCodeLine{02021\ \ \ \ \ keEmulationDetectType\_AutoDetect\ =\ 0,}
+\DoxyCodeLine{02022\ \ \ \ \ keEmulationDetectType\_Detect,}
+\DoxyCodeLine{02023\ \};}
+\DoxyCodeLine{02024\ \textcolor{keyword}{using\ }EVzEmulationDetectType\ =\ \textcolor{keywordtype}{unsigned}\ int;}
+\DoxyCodeLine{02025\ }
+\DoxyCodeLine{02028\ \textcolor{keyword}{enum}\ EVzDustCoverConfigType}
+\DoxyCodeLine{02029\ \{}
+\DoxyCodeLine{02030\ \ \ \ \ keDustCoverConfigType\_Large\ =\ 0,}
+\DoxyCodeLine{02031\ \ \ \ \ keDustCoverConfigType\_Medium,}
+\DoxyCodeLine{02032\ \ \ \ \ keDustCoverConfigType\_Small,}
+\DoxyCodeLine{02033\ \};}
+\DoxyCodeLine{02034\ }
+\DoxyCodeLine{02036\ \textcolor{comment}{//环境类型}}
+\DoxyCodeLine{02037\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02038\ \{}
+\DoxyCodeLine{02039\ \ \ \ \ keEnvType\_Invalid\ =\ -\/1,}
+\DoxyCodeLine{02040\ \ \ \ \ keEnvType\_InDoor\ =\ 0,}
+\DoxyCodeLine{02041\ \ \ \ \ keEnvType\_OutDoor\ =\ 1,}
+\DoxyCodeLine{02042\ \}\ EVzEnvType;}
+\DoxyCodeLine{02043\ }
+\DoxyCodeLine{02045\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02046\ \{}
+\DoxyCodeLine{02047\ \ \ \ \ EVzEnvType\ eEnvType;}
+\DoxyCodeLine{02048\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nLevel;}
+\DoxyCodeLine{02049\ \}\ \doxymbox{\hyperlink{struct_s_vz_env_level}{SVzEnvLevel}};}
+\DoxyCodeLine{02050\ }
+\DoxyCodeLine{02052\ \textcolor{comment}{//抗反光增益}}
+\DoxyCodeLine{02053\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02054\ \{}
+\DoxyCodeLine{02055\ \ \ \ \ keAntiReflectGainType\_Close\ =\ 1,}
+\DoxyCodeLine{02056\ \ \ \ \ keAntiReflectGainType\_Double\ =\ 2,}
+\DoxyCodeLine{02057\ \ \ \ \ keAntiReflectGainType\_Quadruple\ =\ 4,}
+\DoxyCodeLine{02058\ \ \ \ \ keAntiReflectGainType\_Sextuple\ =\ 6,}
+\DoxyCodeLine{02059\ \ \ \ \ keAntiReflectGainType\_Octuple\ =\ 8,}
+\DoxyCodeLine{02060\ \}\ EVzAntiReflectGainType;}
+\DoxyCodeLine{02061\ }
+\DoxyCodeLine{02062\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02063\ \{}
+\DoxyCodeLine{02064\ \ \ \ \ keAntiReflectCmpsDirType\_LeftToRight\ =\ 0,}
+\DoxyCodeLine{02065\ \ \ \ \ keAntiReflectCmpsDirType\_RightToLeft\ =\ 1,}
+\DoxyCodeLine{02066\ \}\ EVzAntiReflectCmpsDirType;}
+\DoxyCodeLine{02067\ }
+\DoxyCodeLine{02068\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02069\ \{}
+\DoxyCodeLine{02070\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ m\_nCheckTimeInterval;}
+\DoxyCodeLine{02071\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ m\_nCheckTimeOut;}
+\DoxyCodeLine{02072\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ m\_nCheckExposeRatio;}
+\DoxyCodeLine{02073\ \}\doxymbox{\hyperlink{struct_s_vz_auto_cover_control_param}{SVzAutoCoverControlParam}};}
+\DoxyCodeLine{02074\ }
+\DoxyCodeLine{02075\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02076\ \{}
+\DoxyCodeLine{02077\ \ \ \ \ \textcolor{keywordtype}{char}\ chIP[VZNL\_SDK\_NETWORK\_IPv4\_LENGTH];}
+\DoxyCodeLine{02078\ \}\doxymbox{\hyperlink{struct_s_vz_n_l_device_ip}{SVzNLDeviceIp}};}
+\DoxyCodeLine{02079\ }
+\DoxyCodeLine{02080\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02081\ \{}
+\DoxyCodeLine{02082\ \ \ \ \ keLRSensorType\_Gray\ =\ 0,}
+\DoxyCodeLine{02083\ \ \ \ \ keLRSensorType\_Color\ =\ 1,}
+\DoxyCodeLine{02084\ \}\ EVzLRSensorType;}
+\DoxyCodeLine{02085\ }
+\DoxyCodeLine{02086\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02087\ \{}
+\DoxyCodeLine{02088\ \ \ \ \ keRGBOutputChannelType\_R\ =\ 0,}
+\DoxyCodeLine{02089\ \ \ \ \ keRGBOutputChannelType\_G\ =\ 1,}
+\DoxyCodeLine{02090\ \ \ \ \ keRGBOutputChannelType\_B\ =\ 2,}
+\DoxyCodeLine{02091\ \ \ \ \ keRGBOutputChannelType\_All\ =\ 3,}
+\DoxyCodeLine{02092\ \}\ EVzRGBOutputChannelType;}
+\DoxyCodeLine{02093\ }
+\DoxyCodeLine{02095\ \textcolor{comment}{//\ 多相机融合时各子设备融合配置参数}}
+\DoxyCodeLine{02096\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02097\ \{}
+\DoxyCodeLine{02098\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nDevIdx;\ \ \ \ \ \ \ \textcolor{comment}{//\ 融合索引：0：主设备；>0：从设备；}}
+\DoxyCodeLine{02099\ \ \ \ \ \textcolor{keywordtype}{double}\ dFusionMatrix[3][4];\ \textcolor{comment}{//\ 融合矩阵}}
+\DoxyCodeLine{02100\ \ \ \ \ \textcolor{keywordtype}{double}\ dYRange[2];\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 当前设备融合时Y轴过滤范围}}
+\DoxyCodeLine{02101\ \}\doxymbox{\hyperlink{struct_s_vz_n_l_device_fusion_data}{SVzNLDeviceFusionData}};}
+\DoxyCodeLine{02102\ }
+\DoxyCodeLine{02103\ \textcolor{comment}{//\ RGBHDR\ 背景图叠加方法}}
+\DoxyCodeLine{02104\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02105\ \{}
+\DoxyCodeLine{02106\ \ \ \ \ keRGBHDRBGOverlayMehtod\_DivSum\ =\ 0,\ \ \ \ \ \textcolor{comment}{//\ 先除权再叠加}}
+\DoxyCodeLine{02107\ \ \ \ \ keRGBHDRBGOverlayMehtod\_SumDiv\ =\ 1,\ \ \ \ \ \textcolor{comment}{//\ 先叠加再除权}}
+\DoxyCodeLine{02108\ \ \ \ \ keRGBHDRBGOverlayMehtod\_Num\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 方法个数}}
+\DoxyCodeLine{02109\ \}\ EVzRGBHDRBGOverlayMethod;}
+\DoxyCodeLine{02110\ }
+\DoxyCodeLine{02111\ \textcolor{comment}{//\ RGBHDR\ 出图模式}}
+\DoxyCodeLine{02112\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02113\ \{}
+\DoxyCodeLine{02114\ \ \ \ \ keRGBHDROutImageMode\_Ori\ =\ 0,\ \ \ \ \ \ \ \textcolor{comment}{//\ 输出原始图像：背景图\ +\ 熔池图}}
+\DoxyCodeLine{02115\ \ \ \ \ keRGBHDROutImageMode\_HDR\ =\ 1,\ \ \ \ \ \ \ \textcolor{comment}{//\ 输出HDR\ 叠加后的图像：HDR图}}
+\DoxyCodeLine{02116\ \ \ \ \ keRGBHDROutImageMode\_MPool\ =\ 2,\ \ \ \ \ \textcolor{comment}{//\ 只输出熔池图像}}
+\DoxyCodeLine{02117\ \ \ \ \ keRGBHDROutImageMode\_BG\ =\ 3,\ \ \ \ \ \ \ \ \textcolor{comment}{//\ 只输出背景图}}
+\DoxyCodeLine{02118\ \ \ \ \ keRGBHDROutImageMode\_Num\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 模式个数}}
+\DoxyCodeLine{02119\ \}\ EVzRGBHDROutImageMode;}
+\DoxyCodeLine{02120\ }
+\DoxyCodeLine{02124\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct}}
+\DoxyCodeLine{02125\ \{}
+\DoxyCodeLine{02126\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nEdgeMargin;}
+\DoxyCodeLine{02127\ \ \ \ \ \textcolor{keywordtype}{double}\ d3DXMin\ =\ 0,\ d3DXMax\ =\ 0;}
+\DoxyCodeLine{02128\ \ \ \ \ \textcolor{keywordtype}{double}\ d3DYMin\ =\ 0,\ d3DYMax\ =\ 0;}
+\DoxyCodeLine{02129\ \ \ \ \ \textcolor{keywordtype}{double}\ dPixelResolution;}
+\DoxyCodeLine{02130\ \}\doxymbox{\hyperlink{struct_s_vz_p_color_image_convert_info}{SVzPColorImageConvertInfo}};}
+\DoxyCodeLine{02131\ }
+\DoxyCodeLine{02135\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}}
+\DoxyCodeLine{02136\ \{}
+\DoxyCodeLine{02137\ \ \ \ \ kePColorImageTo3DPoint\_NearestPoint\ =\ 0,\ \ \ \ \textcolor{comment}{//\ 输出距离回算点X/Y\ 最近的原始点云3D\ 点坐标。}}
+\DoxyCodeLine{02138\ \ \ \ \ kePColorImageTo3DPoint\_RealPoint\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 输出实际回算点X/Y坐标\ +\ 最邻近原始点的Z坐标。}}
+\DoxyCodeLine{02139\ \}SVzPColorImageTo3DPointMethod;}
+\DoxyCodeLine{02140\ }
+\DoxyCodeLine{02141\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_VIZUM\_TYPES\_HEADER\_}}
+
+\end{DoxyCode}

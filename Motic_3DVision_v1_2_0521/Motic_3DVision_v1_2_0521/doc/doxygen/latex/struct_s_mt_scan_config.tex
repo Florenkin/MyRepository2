@@ -1,0 +1,39 @@
+\doxysection{SMt\+Scan\+Config Struct Reference}
+\hypertarget{struct_s_mt_scan_config}{}\label{struct_s_mt_scan_config}\index{SMtScanConfig@{SMtScanConfig}}
+
+
+Configuration parameters for laser scanning operations.  
+
+
+
+
+{\ttfamily \+\#include $<$mtblc.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_s_mt_scan_config_ac4bae451149ea86587e456138fae1706}\label{struct_s_mt_scan_config_ac4bae451149ea86587e456138fae1706} 
+double {\bfseries speed\+\_\+scan} =10
+\begin{DoxyCompactList}\small\item\em Scanning speed in units per second. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_scan_config_a837485650e524b50fbaafec59fb5f096}\label{struct_s_mt_scan_config_a837485650e524b50fbaafec59fb5f096} 
+double {\bfseries range\+\_\+deg} =50
+\begin{DoxyCompactList}\small\item\em Scanning range in degrees. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_scan_config_a9dcbea70cdd7b578f1e86d0f21fe886c}\label{struct_s_mt_scan_config_a9dcbea70cdd7b578f1e86d0f21fe886c} 
+uint16\+\_\+t {\bfseries exposure\+\_\+time\+\_\+us} =100
+\begin{DoxyCompactList}\small\item\em Camera exposure time in microseconds. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_scan_config_a1386d81f7000ba1c8162c0e9fe3418e6}\label{struct_s_mt_scan_config_a1386d81f7000ba1c8162c0e9fe3418e6} 
+uint8\+\_\+t {\bfseries laserpower} =200
+\begin{DoxyCompactList}\small\item\em Laser power level \+[1,250]\+. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_scan_config_a926c5ad31ec766a890ac7a6a929aec3c}\label{struct_s_mt_scan_config_a926c5ad31ec766a890ac7a6a929aec3c} 
+bool {\bfseries color\+\_\+camera} =true
+\begin{DoxyCompactList}\small\item\em Whether to capture color information with the point cloud. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration parameters for laser scanning operations. 
+
+This structure contains all the parameters needed to configure a laser scan, including motor speed, scanning range, exposure settings, and laser power. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{mtblc_8h}{mtblc.\+h}}\end{DoxyCompactItemize}

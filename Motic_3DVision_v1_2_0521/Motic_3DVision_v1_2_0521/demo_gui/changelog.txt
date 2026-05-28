@@ -1,0 +1,5 @@
+Changes in v1.2.0521
+
+1. Allowed loading calibAB.yaml and calibAC.yaml from the device.
+2. Calibration procedure now requires one more step of saving the yamls to the device. See the [Calibration of the color camera] section in res/gui_manual.txt for detailed descriptions.
+3. Generates test_output/daq/summary.txt after the aging test (--gtest_filter=*RepeatedDaq).

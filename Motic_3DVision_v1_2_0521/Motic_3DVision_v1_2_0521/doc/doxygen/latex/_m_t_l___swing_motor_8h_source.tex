@@ -1,0 +1,70 @@
+\doxysection{MTL\+\_\+\+Swing\+Motor.\+h}
+\hypertarget{_m_t_l___swing_motor_8h_source}{}\label{_m_t_l___swing_motor_8h_source}\index{MTL\_SwingMotor.h@{MTL\_SwingMotor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_MOTIC\_SWING\_MOTOR\_HEADER\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_MOTIC\_SWING\_MOTOR\_HEADER\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}MTL\_Export.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}MTL\_Types.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ MTLAPI\ MtBool\ MtL\_IsSupportSwingMotor(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00024\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingMotorWorkRange(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dNearDistance,\ \textcolor{keywordtype}{double}\ dFarDistance);}
+\DoxyCodeLine{00025\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingMotorWorkRange(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}*\ pdNearDistance,\ \textcolor{keywordtype}{double}*\ pdFarDistance);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00034\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableSwingMotor(MTLHANDLE\ hDevice,\ MtBool\ bEnable);}
+\DoxyCodeLine{00035\ MTLAPI\ MtBool\ MtL\_IsEnableSwingMotor(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00045\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableLaser(MTLHANDLE\ hDevice,\ MtBool\ bEnable);}
+\DoxyCodeLine{00046\ MTLAPI\ MtBool\ MtL\_IsEnableLaserLight(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00056\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetLaserPower(MTLHANDLE\ hDevice,\ uint8\_t\ nPower);}
+\DoxyCodeLine{00057\ MTLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ MtL\_GetLaserLight(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00067\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingAngleSpeed(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nAngleSpeed);}
+\DoxyCodeLine{00068\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingAngleSpeed(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnAngleSpeed);}
+\DoxyCodeLine{00069\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingAngleSpeedRange(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnMinAngleSpeed,\ \textcolor{keywordtype}{int}*\ pnMaxAngleSpeed);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingMotorAngle(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nStartPos,\ \textcolor{keywordtype}{int}\ nEndPos);}
+\DoxyCodeLine{00080\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingMotorAngle(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnStartPos,\ \textcolor{keywordtype}{int}*\ pnEndPos);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingCurPosToMotorStartPos(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00090\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingCurPosToMotorEndPos(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00100\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_RotateSwing(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{float}\ fAngle);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00109\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_RotateSwingToStartPos(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00119\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingScanMode(MTLHANDLE\ hDevice,\ EMtSwingMotorScanMode\ eScanMode);}
+\DoxyCodeLine{00120\ MTLAPI\ EMtSwingMotorScanMode\ MtL\_GetSwingScanMode(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00129\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingMotorInfo(MTLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_mt_swing_motor_dev_info}{SMtSwingMotorDevInfo}}*\ psSwingMotorInfo);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00138\ MTLAPI\ \textcolor{keywordtype}{float}\ MtL\_GetSwingCurAngle(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingStopTime(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nMillionSecond);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SwingMoveLeft(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SwingMoveRight(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00176\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingRotateDirect(MTLHANDLE\ hDevice,\ EMtSwingRotateDirect\ eRotateDirect);}
+\DoxyCodeLine{00177\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingRotateDirect(MTLHANDLE\ hDevice,\ EMtSwingRotateDirect*\ peRotateDirect);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ MTLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ MtL\_GetSwingVersionCode(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00195\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingStopAngle(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nAngle);}
+\DoxyCodeLine{00196\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetSwingStopAngle(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00206\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetSwingEndAngleThres(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{float}\ fAngle);}
+\DoxyCodeLine{00207\ MTLAPI\ \textcolor{keywordtype}{float}\ MtL\_GetSwingEndAngleThres(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00216\ MTLAPI\ MtBool\ MtL\_IsSupportEndAngleThres(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00219\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_RebootSwing(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

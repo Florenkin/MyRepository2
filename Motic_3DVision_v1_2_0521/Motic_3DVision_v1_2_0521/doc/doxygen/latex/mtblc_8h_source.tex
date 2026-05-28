@@ -1,0 +1,80 @@
+\doxysection{mtblc.\+h}
+\hypertarget{mtblc_8h_source}{}\label{mtblc_8h_source}\index{mtblc.h@{mtblc.h}}
+\doxymbox{\hyperlink{mtblc_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ MOTICSDK\_EXPORTS}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#pragma\ warning(\ disable\ :\ 4201\ )\ }\textcolor{comment}{//disable\ warning\ on\ nameless\ struct/union\ because\ they\ are\ used\ widely\ in\ vizum\ headers,\ which\ we\ have\ to\ simulate\ here}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}inc/MTL\_Export.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{typedef}\ \textcolor{keywordtype}{int}\ MTLHANDLE;}
+\DoxyCodeLine{00019\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_____s_mt_point3f}{\_\_SMtPoint3f}}\ \{\ \textcolor{keywordtype}{float}\ x;\ \textcolor{keywordtype}{float}\ y;\ \textcolor{keywordtype}{float}\ z;\ \}\ SMtPoint3f;}
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_____s_mt_l_config_param}{\_\_SMtLConfigParam}}\{\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ nDeviceTimeOut=65535;\ \ \}\ \ \ \ SMtLConfigParam;}
+\DoxyCodeLine{00021\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_____s_mt_l_eye_c_b_info}{\_\_SMtLEyeCBInfo}}\ \{\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ nSize;\ \textcolor{keywordtype}{char}\ byServerIP[128];\}\ SMtLEyeCBInfo;}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#pragma\ warning(\ default\ :\ 4201\ )}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_mt_scan_config}{SMtScanConfig}}}
+\DoxyCodeLine{00031\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_s_mt_scan_config_ac4bae451149ea86587e456138fae1706}{speed\_scan}}=10;\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{double}\ \doxymbox{\hyperlink{struct_s_mt_scan_config_a837485650e524b50fbaafec59fb5f096}{range\_deg}}=50;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ uint16\_t\ \doxymbox{\hyperlink{struct_s_mt_scan_config_a9dcbea70cdd7b578f1e86d0f21fe886c}{exposure\_time\_us}}=100;\ }
+\DoxyCodeLine{00035\ \ \ \ \ uint8\_t\ \doxymbox{\hyperlink{struct_s_mt_scan_config_a1386d81f7000ba1c8162c0e9fe3418e6}{laserpower}}=200;\ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{struct_s_mt_scan_config_a926c5ad31ec766a890ac7a6a929aec3c}{color\_camera}}=\textcolor{keyword}{true};\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ SMtPoint3f*\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_a9bacee5c7cb070fc226659c785d1cec0}{coords}}=\textcolor{keyword}{nullptr};\ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_ad5aa862975150087060f79215b7c9bce}{num\_points}}=0;\ \ \ }
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMtPointAttachment}}}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_s_mt_point_attachment_a3cd6e1b72b57665b85d61968d0f32db9}{timestamp}};\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{struct_s_mt_point_attachment_a02de41c7cd71845eb9e0c4957d11d396}{frameid}};\ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ r,g,\doxymbox{\hyperlink{struct_s_mt_point_attachment_af1d8c40cabd1bc788fcff9a35217b18f}{b}};\ \ \ \ }
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00066\ \textcolor{keyword}{struct\ }\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMtPointcloudAttachment}}}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMtPointAttachment}}*\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment_aceb8223fe110af9b54e16f1a0fff9609}{data}}=\textcolor{keyword}{nullptr};\ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment_a867875f3c6031f4cc20a94f71f1d7a61}{num\_points}}=0;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment_a0eff741bd17c0539b4cef3a130e8f6ec}{number\_of\_bytes\_per\_attachment}}=\textcolor{keyword}{sizeof}(\doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMtPointAttachment}});\ }
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00077\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_adf3aa3f389704a250e62993d2ffa2d0e}{MtL\_Init}}(\textcolor{keyword}{const}\ SMtLConfigParam*\ pConfigParam);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00083\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a53cf1daeae719f7c2b274edd1ca71ab9}{MtL\_SearchDevices}}();\ }
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00092\ MTLAPI\ MTLHANDLE\ \doxymbox{\hyperlink{mtblc_8h_af30fb9ce1127f43f41eb583eb824ad6c}{MtL\_OpenDevice}}(\textcolor{keywordtype}{int}\ device\_id);}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00099\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a5aec330ddc380f5660e330d56f3de092}{MtL\_CloseDevice}}(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00107\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a7c753f826ed5f445f48557f25cf5d9fb}{MtL\_GetDeviceInfo}}(MTLHANDLE\ hDevice,\ SMtLEyeCBInfo*\ pInfo);}
+\DoxyCodeLine{00120\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a9d1a0f75d6f56726c2f09fa9024bf769}{MtL\_GetFilteredPointcloud}}(\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud\_in,\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud\_out);}
+\DoxyCodeLine{00133\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_aa3f9dd9dbd121ebdb6dc35f326a26ddf}{MtL\_DestroyPointcloud}}(\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00147\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_aa28bda34ff6061ed4603bd28e6761498}{MtL\_DestroyPointcloudAttachment}}(\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMtPointcloudAttachment}}*\ pPointcloudAttachment);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00161\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a7b3453fe8a7493c436da708578844bbd}{MtL\_Lidflip}}(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00179\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_aa7f96e52527d94261fc24592b0420b72}{MtL\_Scan}}(MTLHANDLE\ hDevice,\doxymbox{\hyperlink{struct_s_mt_scan_config}{SMtScanConfig}}*\ pScanConfig,\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud,\ \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMtPointcloudAttachment}}*\ pPointcloudAttachment=\textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00197\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_ac133fae87e569184c1aa119956b58b70}{MtL\_ScanAsyncStart}}(MTLHANDLE\ hDevice,\doxymbox{\hyperlink{struct_s_mt_scan_config}{SMtScanConfig}}*\ pScanConfig,\textcolor{keywordtype}{bool}*\ pCtrlFlag,\textcolor{keywordtype}{void}(*pScanCB)(\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud,\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMtPointcloudAttachment}}*\ pAttachment,\ \textcolor{keywordtype}{void}*\ ctx),\ \textcolor{keywordtype}{void}*\ userContext);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00212\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_aa0021711831c5b9c352c377f56ef4344}{MtL\_ScanAsyncStop}}(MTLHANDLE\ hDevice,\textcolor{keywordtype}{bool}*\ pCtrlFlag);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00223\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a57ec59e399b11cf5ae27808dd246ba80}{MtL\_MapTexture}}(MTLHANDLE\ hDevice,\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path\_calibAB,\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ path\_calibAC,\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMtPointcloud}}*\ pPointcloud,\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMtPointcloudAttachment}}*\ pPointcloudAttachment);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00233\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a0bfa8f83fd988ddaea4f3f3cd701b8fd}{MtL\_GetMotorPosition}}(MTLHANDLE\ hDevice,\textcolor{keywordtype}{double}*\ pPosition);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00243\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a18cbbe91ac1425306e0ef5e711b1b062}{MtL\_EnableLaser}}(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{bool}\ bEnable);}
+\DoxyCodeLine{00244\ MTLAPI\ \textcolor{keywordtype}{char}*\ MtL\_GetLastErrorMessage();}
+\DoxyCodeLine{00245\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00246\ \textcolor{comment}{*\ @brief\ Get\ error\ information\ corresponding\ to\ an\ error\ code.\ This\ function\ can\ be\ used\ to\ convert\ an\ error\ code\ returned\ by\ other\ functions\ into\ a\ human-\/readable\ error\ message\ for\ debugging\ or\ logging\ purposes.}}
+\DoxyCodeLine{00247\ \textcolor{comment}{*\ @param\ [in]\ nErrorCode\ error\ code\ returned\ by\ a\ function\ in\ case\ of\ failure}}
+\DoxyCodeLine{00248\ \textcolor{comment}{*\ @param\ [out]\ szError\ \ textual\ description\ of\ the\ error\ corresponding\ to\ the\ error\ code,\ stored\ in\ a\ character\ array\ of\ size\ 256.\ The\ caller\ should\ ensure\ that\ the\ array\ is\ allocated\ and\ has\ enough\ space\ to\ hold\ the\ error\ message.}}
+\DoxyCodeLine{00249\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00250\ MTLAPI\ \textcolor{keywordtype}{void}\ MtL\_GetErrorInfo(\textcolor{keywordtype}{int}\ nErrorCode,\ \textcolor{keywordtype}{char}\ szError[256]);}
+\DoxyCodeLine{00254\ MTLAPI\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mtblc_8h_a0fa324c49e1bb3f000236d45c8d000d1}{MtL\_Destroy}}();}
+
+\end{DoxyCode}

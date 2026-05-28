@@ -1,0 +1,482 @@
+\doxysection{mtblc.\+h File Reference}
+\hypertarget{mtblc_8h}{}\label{mtblc_8h}\index{mtblc.h@{mtblc.h}}
+
+
+Motic SDK common definitions and APIs.  
+
+
+{\ttfamily \+\#include "{}inc/\+\+MTL\+\_\+\+Export.\+h"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \doxymbox{\hyperlink{struct_____s_mt_point3f}{\+\_\+\+\_\+\+SMt\+Point3f}}
+\item 
+struct \doxymbox{\hyperlink{struct_____s_mt_l_config_param}{\+\_\+\+\_\+\+SMt\+LConfig\+Param}}
+\item 
+struct \doxymbox{\hyperlink{struct_____s_mt_l_eye_c_b_info}{\+\_\+\+\_\+\+SMt\+LEye\+CBInfo}}
+\item 
+struct \doxymbox{\hyperlink{struct_s_mt_scan_config}{SMt\+Scan\+Config}}
+\begin{DoxyCompactList}\small\item\em Configuration parameters for laser scanning operations. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}}
+\begin{DoxyCompactList}\small\item\em Store point cloud data. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMt\+Point\+Attachment}}
+\begin{DoxyCompactList}\small\item\em Attachment data for individual points in a point cloud. \end{DoxyCompactList}\item 
+struct \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}}
+\begin{DoxyCompactList}\small\item\em Collection of attachment data for all points in a point cloud. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{mtblc_8h_a142addfa919dafea8e51a584d3b12f34}\label{mtblc_8h_a142addfa919dafea8e51a584d3b12f34} 
+typedef int {\bfseries MTLHANDLE}
+\item 
+\Hypertarget{mtblc_8h_ac84d165965ba833e6a3e3287a2fc0d7f}\label{mtblc_8h_ac84d165965ba833e6a3e3287a2fc0d7f} 
+typedef struct \doxymbox{\hyperlink{struct_____s_mt_point3f}{\+\_\+\+\_\+\+SMt\+Point3f}} {\bfseries SMt\+Point3f}
+\item 
+\Hypertarget{mtblc_8h_a9601c23f99ec350b815fdc4e94f812b5}\label{mtblc_8h_a9601c23f99ec350b815fdc4e94f812b5} 
+typedef struct \doxymbox{\hyperlink{struct_____s_mt_l_config_param}{\+\_\+\+\_\+\+SMt\+LConfig\+Param}} {\bfseries SMt\+LConfig\+Param}
+\item 
+\Hypertarget{mtblc_8h_af9df46e38e2dc9c21cd846b95390323f}\label{mtblc_8h_af9df46e38e2dc9c21cd846b95390323f} 
+typedef struct \doxymbox{\hyperlink{struct_____s_mt_l_eye_c_b_info}{\+\_\+\+\_\+\+SMt\+LEye\+CBInfo}} {\bfseries SMt\+LEye\+CBInfo}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_adf3aa3f389704a250e62993d2ffa2d0e}{Mt\+L\+\_\+\+Init}} (const SMt\+LConfig\+Param \texorpdfstring{$\ast$}{*}p\+Config\+Param)
+\begin{DoxyCompactList}\small\item\em Initialize the Motic laser scanning library. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a53cf1daeae719f7c2b274edd1ca71ab9}{Mt\+L\+\_\+\+Search\+Devices}} ()
+\begin{DoxyCompactList}\small\item\em Search for devices. \end{DoxyCompactList}\item 
+MTLAPI MTLHANDLE \doxymbox{\hyperlink{mtblc_8h_af30fb9ce1127f43f41eb583eb824ad6c}{Mt\+L\+\_\+\+Open\+Device}} (int device\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Open device. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a5aec330ddc380f5660e330d56f3de092}{Mt\+L\+\_\+\+Close\+Device}} (MTLHANDLE h\+Device)
+\begin{DoxyCompactList}\small\item\em Close device. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a7c753f826ed5f445f48557f25cf5d9fb}{Mt\+L\+\_\+\+Get\+Device\+Info}} (MTLHANDLE h\+Device, SMt\+LEye\+CBInfo \texorpdfstring{$\ast$}{*}p\+Info)
+\begin{DoxyCompactList}\small\item\em Get device information. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a9d1a0f75d6f56726c2f09fa9024bf769}{Mt\+L\+\_\+\+Get\+Filtered\+Pointcloud}} (\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud\+\_\+in, \doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud\+\_\+out)
+\begin{DoxyCompactList}\small\item\em Get a filtered version of a point cloud. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_aa3f9dd9dbd121ebdb6dc35f326a26ddf}{Mt\+L\+\_\+\+Destroy\+Pointcloud}} (\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud)
+\begin{DoxyCompactList}\small\item\em Destroy and free memory allocated for a point cloud structure. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_aa28bda34ff6061ed4603bd28e6761498}{Mt\+L\+\_\+\+Destroy\+Pointcloud\+Attachment}} (\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}p\+Pointcloud\+Attachment)
+\begin{DoxyCompactList}\small\item\em Destroy and free memory allocated for point cloud attachment data. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a7b3453fe8a7493c436da708578844bbd}{Mt\+L\+\_\+\+Lidflip}} (MTLHANDLE h\+Device)
+\begin{DoxyCompactList}\small\item\em Flip or toggle the laser scanning device lid. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_aa7f96e52527d94261fc24592b0420b72}{Mt\+L\+\_\+\+Scan}} (MTLHANDLE h\+Device, \doxymbox{\hyperlink{struct_s_mt_scan_config}{SMt\+Scan\+Config}} \texorpdfstring{$\ast$}{*}p\+Scan\+Config, \doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud, \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}p\+Pointcloud\+Attachment=nullptr)
+\begin{DoxyCompactList}\small\item\em Perform a synchronous laser scan operation. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_ac133fae87e569184c1aa119956b58b70}{Mt\+L\+\_\+\+Scan\+Async\+Start}} (MTLHANDLE h\+Device, \doxymbox{\hyperlink{struct_s_mt_scan_config}{SMt\+Scan\+Config}} \texorpdfstring{$\ast$}{*}p\+Scan\+Config, bool \texorpdfstring{$\ast$}{*}p\+Ctrl\+Flag, void(\texorpdfstring{$\ast$}{*}p\+Scan\+CB)(\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud, \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}p\+Attachment, void \texorpdfstring{$\ast$}{*}ctx), void \texorpdfstring{$\ast$}{*}user\+Context)
+\begin{DoxyCompactList}\small\item\em Start an asynchronous laser scan operation. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_aa0021711831c5b9c352c377f56ef4344}{Mt\+L\+\_\+\+Scan\+Async\+Stop}} (MTLHANDLE h\+Device, bool \texorpdfstring{$\ast$}{*}p\+Ctrl\+Flag)
+\begin{DoxyCompactList}\small\item\em Stop an ongoing asynchronous laser scan operation. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a57ec59e399b11cf5ae27808dd246ba80}{Mt\+L\+\_\+\+Map\+Texture}} (MTLHANDLE h\+Device, const char \texorpdfstring{$\ast$}{*}path\+\_\+calib\+AB, const char \texorpdfstring{$\ast$}{*}path\+\_\+calib\+AC, \doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud, \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}p\+Pointcloud\+Attachment)
+\begin{DoxyCompactList}\small\item\em Map texture from the color camera (C) onto a point cloud. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a0bfa8f83fd988ddaea4f3f3cd701b8fd}{Mt\+L\+\_\+\+Get\+Motor\+Position}} (MTLHANDLE h\+Device, double \texorpdfstring{$\ast$}{*}p\+Position)
+\begin{DoxyCompactList}\small\item\em Obtain the current position of the motor in degrees. The position is measured in degrees, where 0 degrees corresponds to the zero position of the motor, and positive values indicate rotation in the forward direction. This function can be used to monitor the motor\textquotesingle{}s position during scanning or to verify that the motor has reached a specific position after a move command. \end{DoxyCompactList}\item 
+MTLAPI int \doxymbox{\hyperlink{mtblc_8h_a18cbbe91ac1425306e0ef5e711b1b062}{Mt\+L\+\_\+\+Enable\+Laser}} (MTLHANDLE h\+Device, bool b\+Enable)
+\begin{DoxyCompactList}\small\item\em Enable or disable the laser. Enabling the laser will turn it on if the motor is moving, and keep it on until the motor stops. Disabling the laser will turn it off immediately. This function can be used to control whether the laser is on during motor scanning, or to manually turn on the laser for other purposes (e.\+g. for visual inspection) without starting a scan. \end{DoxyCompactList}\item 
+\Hypertarget{mtblc_8h_a24d4f71b4d82441e26e4e62c61b9933c}\label{mtblc_8h_a24d4f71b4d82441e26e4e62c61b9933c} 
+MTLAPI char \texorpdfstring{$\ast$}{*} {\bfseries Mt\+L\+\_\+\+Get\+Last\+Error\+Message} ()
+\item 
+\Hypertarget{mtblc_8h_adcd6f066b293952bf9698d1168d76d2a}\label{mtblc_8h_adcd6f066b293952bf9698d1168d76d2a} 
+MTLAPI void {\bfseries Mt\+L\+\_\+\+Get\+Error\+Info} (int n\+Error\+Code, char sz\+Error\+[256]\+)
+\item 
+\Hypertarget{mtblc_8h_a0fa324c49e1bb3f000236d45c8d000d1}\label{mtblc_8h_a0fa324c49e1bb3f000236d45c8d000d1} 
+MTLAPI void {\bfseries Mt\+L\+\_\+\+Destroy} ()
+\begin{DoxyCompactList}\small\item\em Destroy and cleanup the SDK. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Motic SDK common definitions and APIs. 
+
+This file includes data structures and functions of Motic SDK for laser scanning
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{MtL\_Init();}
+\DoxyCodeLine{\textcolor{comment}{//\ ...\ your\ code\ here\ ...}}
+\DoxyCodeLine{\doxymbox{\hyperlink{mtblc_8h_a0fa324c49e1bb3f000236d45c8d000d1}{MtL\_Destroy}}();}
+
+\end{DoxyCode}
+ \begin{DoxyDate}{Date}
+
+\end{DoxyDate}
+
+
+\label{doc-func-members}
+\Hypertarget{mtblc_8h_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{mtblc_8h_a5aec330ddc380f5660e330d56f3de092}\index{mtblc.h@{mtblc.h}!MtL\_CloseDevice@{MtL\_CloseDevice}}
+\index{MtL\_CloseDevice@{MtL\_CloseDevice}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_CloseDevice()}{MtL\_CloseDevice()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a5aec330ddc380f5660e330d56f3de092} 
+MTLAPI int Mt\+L\+\_\+\+Close\+Device (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{}\end{DoxyParamCaption})}
+
+
+
+Close device. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 on successful close, otherwise error code 
+\end{DoxyReturn}
+\Hypertarget{mtblc_8h_aa3f9dd9dbd121ebdb6dc35f326a26ddf}\index{mtblc.h@{mtblc.h}!MtL\_DestroyPointcloud@{MtL\_DestroyPointcloud}}
+\index{MtL\_DestroyPointcloud@{MtL\_DestroyPointcloud}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_DestroyPointcloud()}{MtL\_DestroyPointcloud()}}
+{\footnotesize\ttfamily \label{mtblc_8h_aa3f9dd9dbd121ebdb6dc35f326a26ddf} 
+MTLAPI int Mt\+L\+\_\+\+Destroy\+Pointcloud (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud}{}\end{DoxyParamCaption})}
+
+
+
+Destroy and free memory allocated for a point cloud structure. 
+
+This function releases all memory associated with a point cloud, including the coordinate array. After calling this function, the point cloud structure should not be used until it is re-\/initialized.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in,out}}  & {\em p\+Pointcloud} & Pointer to the point cloud structure to destroy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_aa28bda34ff6061ed4603bd28e6761498}\index{mtblc.h@{mtblc.h}!MtL\_DestroyPointcloudAttachment@{MtL\_DestroyPointcloudAttachment}}
+\index{MtL\_DestroyPointcloudAttachment@{MtL\_DestroyPointcloudAttachment}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_DestroyPointcloudAttachment()}{MtL\_DestroyPointcloudAttachment()}}
+{\footnotesize\ttfamily \label{mtblc_8h_aa28bda34ff6061ed4603bd28e6761498} 
+MTLAPI int Mt\+L\+\_\+\+Destroy\+Pointcloud\+Attachment (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud\+Attachment}{}\end{DoxyParamCaption})}
+
+
+
+Destroy and free memory allocated for point cloud attachment data. 
+
+This function releases all memory associated with point cloud attachment data, including the attachment array. After calling this function, the attachment structure should not be used until it is re-\/initialized.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in,out}}  & {\em p\+Pointcloud\+Attachement} & Pointer to the point cloud attachment structure to destroy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_a18cbbe91ac1425306e0ef5e711b1b062}\index{mtblc.h@{mtblc.h}!MtL\_EnableLaser@{MtL\_EnableLaser}}
+\index{MtL\_EnableLaser@{MtL\_EnableLaser}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_EnableLaser()}{MtL\_EnableLaser()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a18cbbe91ac1425306e0ef5e711b1b062} 
+MTLAPI int Mt\+L\+\_\+\+Enable\+Laser (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{bool}]{b\+Enable}{}\end{DoxyParamCaption})}
+
+
+
+Enable or disable the laser. Enabling the laser will turn it on if the motor is moving, and keep it on until the motor stops. Disabling the laser will turn it off immediately. This function can be used to control whether the laser is on during motor scanning, or to manually turn on the laser for other purposes (e.\+g. for visual inspection) without starting a scan. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle \\
+\hline
+\doxymbox{\texttt{in}}  & {\em b\+Enable} & Enable or disable the laser \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure. In case of failure, you can use the Mt\+L\+\_\+\+Get\+Error\+Info function to get more information about the error. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_a7c753f826ed5f445f48557f25cf5d9fb}\index{mtblc.h@{mtblc.h}!MtL\_GetDeviceInfo@{MtL\_GetDeviceInfo}}
+\index{MtL\_GetDeviceInfo@{MtL\_GetDeviceInfo}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_GetDeviceInfo()}{MtL\_GetDeviceInfo()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a7c753f826ed5f445f48557f25cf5d9fb} 
+MTLAPI int Mt\+L\+\_\+\+Get\+Device\+Info (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{SMt\+LEye\+CBInfo \texorpdfstring{$\ast$}{*}}]{p\+Info}{}\end{DoxyParamCaption})}
+
+
+
+Get device information. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle \\
+\hline
+\doxymbox{\texttt{in}}  & {\em p\+Info} & Device information \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 on success, otherwise error code 
+\end{DoxyReturn}
+\Hypertarget{mtblc_8h_a9d1a0f75d6f56726c2f09fa9024bf769}\index{mtblc.h@{mtblc.h}!MtL\_GetFilteredPointcloud@{MtL\_GetFilteredPointcloud}}
+\index{MtL\_GetFilteredPointcloud@{MtL\_GetFilteredPointcloud}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_GetFilteredPointcloud()}{MtL\_GetFilteredPointcloud()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a9d1a0f75d6f56726c2f09fa9024bf769} 
+MTLAPI int Mt\+L\+\_\+\+Get\+Filtered\+Pointcloud (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud\+\_\+in}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud\+\_\+out}{}\end{DoxyParamCaption})}
+
+
+
+Get a filtered version of a point cloud. 
+
+This function applies a filtering algorithm to the input point cloud and produces a new point cloud containing only the filtered points.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em p\+Pointcloud\+\_\+in} & Pointer to the input point cloud \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Pointcloud\+\_\+out} & Pointer to the output point cloud that will receive the filtered points \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_a0bfa8f83fd988ddaea4f3f3cd701b8fd}\index{mtblc.h@{mtblc.h}!MtL\_GetMotorPosition@{MtL\_GetMotorPosition}}
+\index{MtL\_GetMotorPosition@{MtL\_GetMotorPosition}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_GetMotorPosition()}{MtL\_GetMotorPosition()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a0bfa8f83fd988ddaea4f3f3cd701b8fd} 
+MTLAPI int Mt\+L\+\_\+\+Get\+Motor\+Position (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{p\+Position}{}\end{DoxyParamCaption})}
+
+
+
+Obtain the current position of the motor in degrees. The position is measured in degrees, where 0 degrees corresponds to the zero position of the motor, and positive values indicate rotation in the forward direction. This function can be used to monitor the motor\textquotesingle{}s position during scanning or to verify that the motor has reached a specific position after a move command. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Position} & Pointer to a double where the current motor position in degrees will be stored \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure. In case of failure, you can use the Mt\+L\+\_\+\+Get\+Error\+Info function to get more information about the error. 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_adf3aa3f389704a250e62993d2ffa2d0e}\index{mtblc.h@{mtblc.h}!MtL\_Init@{MtL\_Init}}
+\index{MtL\_Init@{MtL\_Init}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_Init()}{MtL\_Init()}}
+{\footnotesize\ttfamily \label{mtblc_8h_adf3aa3f389704a250e62993d2ffa2d0e} 
+MTLAPI int Mt\+L\+\_\+\+Init (\begin{DoxyParamCaption}\item[{const SMt\+LConfig\+Param \texorpdfstring{$\ast$}{*}}]{p\+Config\+Param}{}\end{DoxyParamCaption})}
+
+
+
+Initialize the Motic laser scanning library. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em p\+Config\+Param} & Configuration parameters for initializing the library. If nullptr, default parameters will be used. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+\Hypertarget{mtblc_8h_a7b3453fe8a7493c436da708578844bbd}\index{mtblc.h@{mtblc.h}!MtL\_Lidflip@{MtL\_Lidflip}}
+\index{MtL\_Lidflip@{MtL\_Lidflip}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_Lidflip()}{MtL\_Lidflip()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a7b3453fe8a7493c436da708578844bbd} 
+MTLAPI int Mt\+L\+\_\+\+Lidflip (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{}\end{DoxyParamCaption})}
+
+
+
+Flip or toggle the laser scanning device lid. 
+
+This function controls the mechanical lid of the laser scanning device, typically used to open or close the scanning chamber for sample placement or removal.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle for the laser scanning device \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_a57ec59e399b11cf5ae27808dd246ba80}\index{mtblc.h@{mtblc.h}!MtL\_MapTexture@{MtL\_MapTexture}}
+\index{MtL\_MapTexture@{MtL\_MapTexture}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_MapTexture()}{MtL\_MapTexture()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a57ec59e399b11cf5ae27808dd246ba80} 
+MTLAPI int Mt\+L\+\_\+\+Map\+Texture (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path\+\_\+calib\+AB}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path\+\_\+calib\+AC}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud\+Attachment}{}\end{DoxyParamCaption})}
+
+
+
+Map texture from the color camera (C) onto a point cloud. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em calib\+\_\+\+AB} & path to calibration file for monochrome cameras \\
+\hline
+\doxymbox{\texttt{in}}  & {\em calib\+\_\+\+AC} & path to calibration file for the color camera (with respect to the first monochrome camera) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em p\+Pointcloud} & point cloud obtained from a previous scan \\
+\hline
+\doxymbox{\texttt{in,out}}  & {\em p\+Pointcloud\+Attachments} & additional point cloud data or attachments \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_af30fb9ce1127f43f41eb583eb824ad6c}\index{mtblc.h@{mtblc.h}!MtL\_OpenDevice@{MtL\_OpenDevice}}
+\index{MtL\_OpenDevice@{MtL\_OpenDevice}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_OpenDevice()}{MtL\_OpenDevice()}}
+{\footnotesize\ttfamily \label{mtblc_8h_af30fb9ce1127f43f41eb583eb824ad6c} 
+MTLAPI MTLHANDLE Mt\+L\+\_\+\+Open\+Device (\begin{DoxyParamCaption}\item[{int}]{device\+\_\+id}{}\end{DoxyParamCaption})}
+
+
+
+Open device. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Open\+Device\+Param} & Device open information \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Error\+Code} & Returns error code, does not return when NULL \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns 0 on success, otherwise error code 
+\end{DoxyReturn}
+\Hypertarget{mtblc_8h_aa7f96e52527d94261fc24592b0420b72}\index{mtblc.h@{mtblc.h}!MtL\_Scan@{MtL\_Scan}}
+\index{MtL\_Scan@{MtL\_Scan}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_Scan()}{MtL\_Scan()}}
+{\footnotesize\ttfamily \label{mtblc_8h_aa7f96e52527d94261fc24592b0420b72} 
+MTLAPI int Mt\+L\+\_\+\+Scan (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_scan_config}{SMt\+Scan\+Config}} \texorpdfstring{$\ast$}{*}}]{p\+Scan\+Config}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}}]{p\+Pointcloud\+Attachment}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
+
+
+
+Perform a synchronous laser scan operation. 
+
+This function executes a complete laser scan using the specified configuration parameters and returns the resulting point cloud data. The function blocks until the scan is complete. Optionally, attachment data with additional metadata can also be retrieved.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle for the laser scanning device \\
+\hline
+\doxymbox{\texttt{in}}  & {\em p\+Scan\+Config} & Pointer to scan configuration parameters \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Pointcloud} & Pointer to structure that will receive the point cloud data \\
+\hline
+\doxymbox{\texttt{out}}  & {\em p\+Pointcloud\+Attachment} & Optional pointer to structure that will receive attachment data (can be nullptr) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_ac133fae87e569184c1aa119956b58b70}\index{mtblc.h@{mtblc.h}!MtL\_ScanAsyncStart@{MtL\_ScanAsyncStart}}
+\index{MtL\_ScanAsyncStart@{MtL\_ScanAsyncStart}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_ScanAsyncStart()}{MtL\_ScanAsyncStart()}}
+{\footnotesize\ttfamily \label{mtblc_8h_ac133fae87e569184c1aa119956b58b70} 
+MTLAPI int Mt\+L\+\_\+\+Scan\+Async\+Start (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{\doxymbox{\hyperlink{struct_s_mt_scan_config}{SMt\+Scan\+Config}} \texorpdfstring{$\ast$}{*}}]{p\+Scan\+Config}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{p\+Ctrl\+Flag}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{p\+Scan\+CB~}{)(\doxymbox{\hyperlink{struct_s_mt_pointcloud}{SMt\+Pointcloud}} \texorpdfstring{$\ast$}{*}p\+Pointcloud, \doxymbox{\hyperlink{struct_s_mt_pointcloud_attachment}{SMt\+Pointcloud\+Attachment}} \texorpdfstring{$\ast$}{*}p\+Attachment, void \texorpdfstring{$\ast$}{*}ctx), }\item[{void \texorpdfstring{$\ast$}{*}}]{user\+Context}{}\end{DoxyParamCaption})}
+
+
+
+Start an asynchronous laser scan operation. 
+
+This function initiates a non-\/blocking laser scan that runs in the background. Point cloud data is delivered through a callback function as it becomes available. The scan continues until stopped via Mt\+L\+\_\+\+Scan\+Async\+Stop or the control flag is set to false.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle for the laser scanning device \\
+\hline
+\doxymbox{\texttt{in}}  & {\em p\+Scan\+Config} & Pointer to scan configuration parameters \\
+\hline
+\doxymbox{\texttt{in,out}}  & {\em p\+Ctrl\+Flag} & Pointer to boolean flag for controlling scan execution (set to false to stop) \\
+\hline
+\doxymbox{\texttt{in}}  & {\em p\+Scan\+CB} & Callback function that receives point cloud data as it\textquotesingle{}s generated \\
+\hline
+\doxymbox{\texttt{in}}  & {\em user\+Context} & User-\/defined context pointer passed to the callback function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_aa0021711831c5b9c352c377f56ef4344}\index{mtblc.h@{mtblc.h}!MtL\_ScanAsyncStop@{MtL\_ScanAsyncStop}}
+\index{MtL\_ScanAsyncStop@{MtL\_ScanAsyncStop}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_ScanAsyncStop()}{MtL\_ScanAsyncStop()}}
+{\footnotesize\ttfamily \label{mtblc_8h_aa0021711831c5b9c352c377f56ef4344} 
+MTLAPI int Mt\+L\+\_\+\+Scan\+Async\+Stop (\begin{DoxyParamCaption}\item[{MTLHANDLE}]{h\+Device}{, }\item[{bool \texorpdfstring{$\ast$}{*}}]{p\+Ctrl\+Flag}{}\end{DoxyParamCaption})}
+
+
+
+Stop an ongoing asynchronous laser scan operation. 
+
+This function terminates an active asynchronous scan that was started with Mt\+L\+\_\+\+Scan\+Async\+Start. It sets the control flag to false and waits for the scan thread to complete gracefully.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\doxymbox{\texttt{in}}  & {\em h\+Device} & Device handle for the laser scanning device \\
+\hline
+\doxymbox{\texttt{in,out}}  & {\em p\+Ctrl\+Flag} & Pointer to the same control flag used in Mt\+L\+\_\+\+Scan\+Async\+Start \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An integer error code. 0 indicates success, while non-\/zero indicates failure 
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & Indicates success \\
+\hline
+{\em Non-\/zero} & Indicates failure, you can use Mt\+L\+\_\+\+Get\+Error\+Info to get more information \\
+\hline
+\end{DoxyRetVals}
+\Hypertarget{mtblc_8h_a53cf1daeae719f7c2b274edd1ca71ab9}\index{mtblc.h@{mtblc.h}!MtL\_SearchDevices@{MtL\_SearchDevices}}
+\index{MtL\_SearchDevices@{MtL\_SearchDevices}!mtblc.h@{mtblc.h}}
+\doxysubsubsection{\texorpdfstring{MtL\_SearchDevices()}{MtL\_SearchDevices()}}
+{\footnotesize\ttfamily \label{mtblc_8h_a53cf1daeae719f7c2b274edd1ca71ab9} 
+MTLAPI int Mt\+L\+\_\+\+Search\+Devices (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Search for devices. 
+
+\begin{DoxyReturn}{Returns}
+number of devices found 
+\end{DoxyReturn}

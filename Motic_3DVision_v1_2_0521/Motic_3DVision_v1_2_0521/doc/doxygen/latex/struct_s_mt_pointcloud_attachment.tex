@@ -1,0 +1,33 @@
+\doxysection{SMt\+Pointcloud\+Attachment Struct Reference}
+\hypertarget{struct_s_mt_pointcloud_attachment}{}\label{struct_s_mt_pointcloud_attachment}\index{SMtPointcloudAttachment@{SMtPointcloudAttachment}}
+
+
+Collection of attachment data for all points in a point cloud.  
+
+
+
+
+{\ttfamily \+\#include $<$mtblc.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_s_mt_pointcloud_attachment_aceb8223fe110af9b54e16f1a0fff9609}\label{struct_s_mt_pointcloud_attachment_aceb8223fe110af9b54e16f1a0fff9609} 
+\doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMt\+Point\+Attachment}} \texorpdfstring{$\ast$}{*} {\bfseries data} =nullptr
+\begin{DoxyCompactList}\small\item\em Array of attachment data for each point. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_pointcloud_attachment_a867875f3c6031f4cc20a94f71f1d7a61}\label{struct_s_mt_pointcloud_attachment_a867875f3c6031f4cc20a94f71f1d7a61} 
+size\+\_\+t {\bfseries num\+\_\+points} =0
+\begin{DoxyCompactList}\small\item\em Number of attachment entries. \end{DoxyCompactList}\item 
+\Hypertarget{struct_s_mt_pointcloud_attachment_a0eff741bd17c0539b4cef3a130e8f6ec}\label{struct_s_mt_pointcloud_attachment_a0eff741bd17c0539b4cef3a130e8f6ec} 
+size\+\_\+t {\bfseries number\+\_\+of\+\_\+bytes\+\_\+per\+\_\+attachment} =sizeof(\doxymbox{\hyperlink{struct_s_mt_point_attachment}{SMt\+Point\+Attachment}})
+\begin{DoxyCompactList}\small\item\em Size of each attachment entry for future extensibility and version verification. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Collection of attachment data for all points in a point cloud. 
+
+Contains an array of attachment data corresponding to points in the point cloud, along with size information for verification and extensibility. 
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{mtblc_8h}{mtblc.\+h}}\end{DoxyCompactItemize}

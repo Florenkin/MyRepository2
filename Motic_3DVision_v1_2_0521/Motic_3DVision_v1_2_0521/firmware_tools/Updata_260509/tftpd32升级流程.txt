@@ -1,0 +1,14 @@
+1.运行tftpd32.exe
+
+2.将更新文件放到跟tftpd32.exe同一个目录
+
+3.
+cd /media/sd-mmcblk0p1/
+
+4.
+tftp -g -r <filename> <host>
+
+5.
+sync
+
+注：如果第4步显示文件busy，请从top中找到对应pid，先执行kill <pid>

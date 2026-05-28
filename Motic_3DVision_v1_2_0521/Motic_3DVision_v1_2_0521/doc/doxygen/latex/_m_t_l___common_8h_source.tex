@@ -1,0 +1,129 @@
+\doxysection{MTL\+\_\+\+Common.\+h}
+\hypertarget{_m_t_l___common_8h_source}{}\label{_m_t_l___common_8h_source}\index{MTL\_Common.h@{MTL\_Common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Header:\ MtL\_Common.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Description:\ Motic\ SDK\ common\ definitions\ and\ APIs.\ This\ file\ includes\ the\ basic\ types,\ callback\ function\ definitions,\ and\ core\ APIs\ for\ initializing\ the\ SDK,\ searching\ for\ devices,\ opening\ devices,\ and\ getting\ device\ information.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Sample:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ MtL\_Init();}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ xxxxxxxxxxx}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ MtL\_Destroy();}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Author:\ }}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ Date:\ \ \ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_\_MOTIC\_COMMON\_HEADER\_\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_\_MOTIC\_COMMON\_HEADER\_\_}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}MTL\_Export.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}MTL\_Types.h"{}}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{typedef}\ void(*MtL\_OutputImageCB)(\doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}*\ pLeftImage,\ \doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}*\ pRightImage,\ \doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}*\ pCenterImage,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_mt_output_frame_props}{SMtOutputFrameProps}}*\ pFrameProps,\ \textcolor{keywordtype}{void}*\ pParam);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{typedef}\ void(*MtL\_OnMulDevNotifyStatusCB)(EMtMulDevWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{typedef}\ void(*MtL\_OnNotifyStatusCB)(EMtDeviceWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ void(*MtL\_OnNotifyStatusCBEx)(EMtDeviceWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pExtData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nDataLength,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_Init(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_mt_l_config_param}{SMtLConfigParam}}*\ pConfigParam);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00058\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetDeviceIpList(\doxymbox{\hyperlink{struct_s_mt_l_device_ip}{SMtLDeviceIp}}*\ pDeviceList,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nCount);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00064\ MTLAPI\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{mtblc_8h_a53cf1daeae719f7c2b274edd1ca71ab9}{MtL\_SearchDevices}}();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00072\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetEyeCBDeviceInfo(\doxymbox{\hyperlink{struct_s_mt_l_eye_c_b_info}{SMtLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnCount);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00080\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetAllOpenDevice(\doxymbox{\hyperlink{struct_s_mt_l_eye_c_b_info}{SMtLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnCount);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00089\ MTLAPI\ MtBool\ MtL\_IsDeviceInUse(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_mt_l_eye_c_b_info}{SMtLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00098\ MTLAPI\ MTLHANDLE\ MtL\_OpenDevice(\textcolor{keywordtype}{int}\ device\_id);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00106\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetVersion(MTLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_mt_l_version_info}{SMtLVersionInfo}}*\ pVersionInfo);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00114\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetDeviceInfo(MTLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_mt_l_eye_c_b_info}{SMtLEyeCBInfo}}*\ pInfo);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00120\ MTLAPI\ \textcolor{keywordtype}{void}\ MtL\_SetOutputImageFormat(EMtLImageType\ eOutputImageType);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00131\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetEyeImage(MTLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}**\ ppLeftEye,\ \doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}**\ ppRightEye,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nTimeOut);}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00138\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_ReleaseImage(\doxymbox{\hyperlink{struct_s_mt_l_image_data}{SMtLImageData}}**\ ppImageData);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00147\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_StartCapture(MTLHANDLE\ hDevice,\ MtL\_OutputImageCB\ pImageCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00154\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_StopCapture(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00162\ MTLAPI\ MtBool\ MtL\_IsCapturing(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00169\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_CloseDevice(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00175\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SysIdleProc();}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00183\ MTLAPI\ \textcolor{keywordtype}{void}\ MtL\_SetLogLevel(EMtLLogLevel\ eLevel,\ EMtLLogType\ eLogType);}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00190\ MTLAPI\ \textcolor{keywordtype}{void}\ MtL\_GetErrorInfo(\textcolor{keywordtype}{int}\ nErrorCode,\ \textcolor{keywordtype}{char}\ szError[256]);}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00199\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetDeviceStatusNotify(MTLHANDLE\ hDevice,\ MtL\_OnNotifyStatusCB\ pNotifyCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00200\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_SetDeviceStatusNotifyEx(MTLHANDLE\ hDevice,\ MtL\_OnNotifyStatusCBEx\ pNotifyCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00207\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_ReConnectDevice(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00212\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_RebootDevice(MTLHANDLE\ hDevice);}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00218\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetImageCalibMatrix(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dQMatrixData[16]);}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00224\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetFixDisparity(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pFixDisparity);}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00229\ MTLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ MtL\_GetUsingMemorySize(\textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00237\ MTLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ MtL\_GetPupilDistance(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00245\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableQuickMode(MTLHANDLE\ hDevice,\ MtBool\ bEnableQuickMode);}
+\DoxyCodeLine{00246\ MTLAPI\ MtBool\ MtL\_IsEnableQuickMode(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00254\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_GetResolution(MTLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_mt_video_resolution}{SMtVideoResolution}}*\ psVideoRes);}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00262\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableLeftEyeOrigin(MTLHANDLE\ hDevice,\ MtBool\ bEnable);}
+\DoxyCodeLine{00263\ MTLAPI\ MtBool\ MtL\_IsEnableLeftEyeOrigin(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00272\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_QueryLeftEyeCalibData(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[14]);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00280\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_QueryLeftEye2StereoMatrix(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[16]);}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00288\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_QueryStereo2LeftEyeMatrix(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[16]);}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00298\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_ConfigDetectEnvLevel(MTLHANDLE\ hDevice,\ EMtEnvType\ eEnvType,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nLevel);}
+\DoxyCodeLine{00299\ MTLAPI\ \doxymbox{\hyperlink{struct_s_mt_env_level}{SMtEnvLevel}}\ MtL\_GetConfigDetectEnvLevel(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00307\ MTLAPI\ \doxymbox{\hyperlink{struct_s_mt_l_range}{SMtLRange}}\ MtL\_GetDetectEnvLevelRange(MTLHANDLE\ hDevice,\ EMtEnvType\ eEnvType,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00311\ \textcolor{comment}{\ *\ @brief\ 获取温度信息}}
+\DoxyCodeLine{00312\ \textcolor{comment}{\ *\ @param\ hDevice\ [in]\ 设备句柄}}
+\DoxyCodeLine{00313\ \textcolor{comment}{\ *\ @param\ eChipInfo\ [in]\ 芯片信息}}
+\DoxyCodeLine{00314\ \textcolor{comment}{\ *\ @param\ pfMin\ [out]\ 最低温度}}
+\DoxyCodeLine{00315\ \textcolor{comment}{\ *\ @param\ pfMax\ [out]\ 最高温度}}
+\DoxyCodeLine{00316\ \textcolor{comment}{\ *\ @param\ pfCur\ [out]\ 当前温度}}
+\DoxyCodeLine{00317\ \textcolor{comment}{\ *\ @return\ 失败返回非0}}
+\DoxyCodeLine{00318\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00319\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_QueryChipInfo(MTLHANDLE\ hDevice,\ EMtDevChipInfo\ eChipInfo,\ \textcolor{keywordtype}{float}*\ pfMin,\ \textcolor{keywordtype}{float}*\ pfMax,\ \textcolor{keywordtype}{float}*\ pfCur);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00327\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableFreeFrameRate(MTLHANDLE\ hDevice,\ MtBool\ bEnable);}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00333\ MTLAPI\ \textcolor{keywordtype}{void}\ MtL\_SetOutputROIImage(MtBool\ bOutputROI);}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00341\ MTLAPI\ \textcolor{keywordtype}{int}\ MtL\_EnableLocalMapDataLoad(MTLHANDLE\ hDevice,\ MtBool\ bEnable);}
+\DoxyCodeLine{00342\ MTLAPI\ MtBool\ MtL\_IsEnableLocalMapDataLoad(MTLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00348\ MTLAPI\ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{mtblc_8h_a0fa324c49e1bb3f000236d45c8d000d1}{MtL\_Destroy}}();}
+\DoxyCodeLine{00349\ }
+\DoxyCodeLine{00350\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_MOTIC\_COMMON\_HEADER\_\_}}
+
+\end{DoxyCode}

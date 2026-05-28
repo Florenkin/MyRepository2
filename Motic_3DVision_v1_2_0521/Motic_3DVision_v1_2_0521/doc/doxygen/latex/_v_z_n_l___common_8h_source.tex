@@ -1,0 +1,130 @@
+\doxysection{VZNL\+\_\+\+Common.\+h}
+\hypertarget{_v_z_n_l___common_8h_source}{}\label{_v_z_n_l___common_8h_source}\index{VZNL\_Common.h@{VZNL\_Common.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Header:\ VzNL\_Common.h}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Description:当前文件为伟景智能(Vizum)所研发的EyeCB板提供公用函数接口。在使用此套SDK时必须调用VzNL\_Init接口，}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ 在不需要的时候调用VzNL\_Destroy接口进行销毁。}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Sample:}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ VzNL\_Init();}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ xxxxxxxxxxx}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ VzNL\_Destroy();}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ Author:\ Mjw}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Date:\ \ \ 2018/08/28}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ \_\_VIZUM\_COMMON\_HEADER\_\_}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ \_\_VIZUM\_COMMON\_HEADER\_\_}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}VZNL\_Export.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}VZNL\_Types.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00027\ \textcolor{keyword}{typedef}\ void(*VzNL\_OutputImageCB)(\doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ pLeftImage,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ pRightImage,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}*\ pCenterImage,\ \textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_vz_output_frame_props}{SVzOutputFrameProps}}*\ pFrameProps,\ \textcolor{keywordtype}{void}*\ pParam);}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{typedef}\ void(*VzNL\_OnMulDevNotifyStatusCB)(EVzMulDevWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{typedef}\ void(*VzNL\_OnNotifyStatusCB)(EVzDeviceWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00044\ \textcolor{keyword}{typedef}\ void(*VzNL\_OnNotifyStatusCBEx)(EVzDeviceWorkStatus\ eStatus,\ \textcolor{keywordtype}{void}*\ pExtData,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nDataLength,\ \textcolor{keywordtype}{void}*\ pInfoParam);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00051\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_Init(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_vz_n_l_config_param}{SVzNLConfigParam}}*\ pConfigParam);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00059\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetDeviceIpList(\doxymbox{\hyperlink{struct_s_vz_n_l_device_ip}{SVzNLDeviceIp}}*\ pDeviceList,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nCount);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00072\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_ResearchDevice(EVzSearchDeviceFlag\ nFindDevFlag);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00080\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetEyeCBDeviceInfo(\doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnCount);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00088\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetAllOpenDevice(\doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnCount);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00097\ VZNLAPI\ VzBool\ VzNL\_IsDeviceInUse(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}*\ pInfo,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00106\ VZNLAPI\ VZNLHANDLE\ VzNL\_OpenDevice(\textcolor{keyword}{const}\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}*\ pInfo,\ \textcolor{keyword}{const}\ SVzNLOpenDeviceParam*\ pOpenDeviceParam,\ \textcolor{keywordtype}{int}*\ pErrorCode);}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00114\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetVersion(VZNLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_vz_n_l_version_info}{SVzNLVersionInfo}}*\ pVersionInfo);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00122\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetDeviceInfo(VZNLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_vz_n_l_eye_c_b_info}{SVzNLEyeCBInfo}}*\ pInfo);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00128\ VZNLAPI\ \textcolor{keywordtype}{void}\ VzNL\_SetOutputImageFormat(EVzNLImageType\ eOutputImageType);}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00139\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetEyeImage(VZNLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}**\ ppLeftEye,\ \doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}**\ ppRightEye,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nTimeOut);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00146\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_ReleaseImage(\doxymbox{\hyperlink{struct_s_vz_n_l_image_data}{SVzNLImageData}}**\ ppImageData);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00155\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_StartCapture(VZNLHANDLE\ hDevice,\ VzNL\_OutputImageCB\ pImageCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00162\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_StopCapture(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00170\ VZNLAPI\ VzBool\ VzNL\_IsCapturing(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00177\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_CloseDevice(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00183\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SysIdleProc();}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00191\ VZNLAPI\ \textcolor{keywordtype}{void}\ VzNL\_SetLogLevel(EVzNLLogLevel\ eLevel,\ EVzNLLogType\ eLogType);}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00199\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetErrorInfo(\textcolor{keywordtype}{int}\ nErrorCode,\ \textcolor{keywordtype}{char}\ szError[256]);}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00208\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetDeviceStatusNotify(VZNLHANDLE\ hDevice,\ VzNL\_OnNotifyStatusCB\ pNotifyCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00209\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetDeviceStatusNotifyEx(VZNLHANDLE\ hDevice,\ VzNL\_OnNotifyStatusCBEx\ pNotifyCB,\ \textcolor{keywordtype}{void}*\ pCBParam);}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00216\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_ReConnectDevice(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00221\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_RebootDevice(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00227\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetImageCalibMatrix(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dQMatrixData[16]);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00233\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetFixDisparity(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pFixDisparity);}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00238\ VZNLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ VzNL\_GetUsingMemorySize(\textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00239\ }
+\DoxyCodeLine{00246\ VZNLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ VzNL\_GetPupilDistance(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00254\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableQuickMode(VZNLHANDLE\ hDevice,\ VzBool\ bEnableQuickMode);}
+\DoxyCodeLine{00255\ VZNLAPI\ VzBool\ VzNL\_IsEnableQuickMode(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00263\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetResolution(VZNLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_vz_video_resolution}{SVzVideoResolution}}*\ psVideoRes);}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00271\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableLeftEyeOrigin(VZNLHANDLE\ hDevice,\ VzBool\ bEnable);}
+\DoxyCodeLine{00272\ VZNLAPI\ VzBool\ VzNL\_IsEnableLeftEyeOrigin(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00281\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_QueryLeftEyeCalibData(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[14]);}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00289\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_QueryLeftEye2StereoMatrix(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[16]);}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00297\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_QueryStereo2LeftEyeMatrix(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dMatrix[16]);}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ }
+\DoxyCodeLine{00307\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_ConfigDetectEnvLevel(VZNLHANDLE\ hDevice,\ EVzEnvType\ eEnvType,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nLevel);}
+\DoxyCodeLine{00308\ VZNLAPI\ \doxymbox{\hyperlink{struct_s_vz_env_level}{SVzEnvLevel}}\ VzNL\_GetConfigDetectEnvLevel(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00316\ VZNLAPI\ \doxymbox{\hyperlink{struct_s_vz_n_l_range}{SVzNLRange}}\ VzNL\_GetDetectEnvLevelRange(VZNLHANDLE\ hDevice,\ EVzEnvType\ eEnvType,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ *\ @brief\ 获取温度信息}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ *\ @param\ hDevice\ [in]\ 设备句柄}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ *\ @param\ eChipInfo\ [in]\ 芯片信息}}
+\DoxyCodeLine{00323\ \textcolor{comment}{\ *\ @param\ pfMin\ [out]\ 最低温度}}
+\DoxyCodeLine{00324\ \textcolor{comment}{\ *\ @param\ pfMax\ [out]\ 最高温度}}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ *\ @param\ pfCur\ [out]\ 当前温度}}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ *\ @return\ 失败返回非0}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00328\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_QueryChipInfo(VZNLHANDLE\ hDevice,\ EVzDevChipInfo\ eChipInfo,\ \textcolor{keywordtype}{float}*\ pfMin,\ \textcolor{keywordtype}{float}*\ pfMax,\ \textcolor{keywordtype}{float}*\ pfCur);}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00336\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableFreeFrameRate(VZNLHANDLE\ hDevice,\ VzBool\ bEnable);}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00342\ VZNLAPI\ \textcolor{keywordtype}{void}\ VzNL\_SetOutputROIImage(VzBool\ bOutputROI);}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00350\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableLocalMapDataLoad(VZNLHANDLE\ hDevice,\ VzBool\ bEnable);}
+\DoxyCodeLine{00351\ VZNLAPI\ VzBool\ VzNL\_IsEnableLocalMapDataLoad(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00357\ VZNLAPI\ \textcolor{keywordtype}{void}\ VzNL\_Destroy();}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_VIZUM\_COMMON\_HEADER\_\_}}
+
+\end{DoxyCode}

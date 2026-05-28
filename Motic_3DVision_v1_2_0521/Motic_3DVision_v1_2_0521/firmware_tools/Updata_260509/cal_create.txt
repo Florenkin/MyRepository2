@@ -1,0 +1,306 @@
+# -*- conding: utf-8 _*_
+
+import cv2
+import numpy as np
+from PIL import Image
+import math
+import matplotlib.pyplot as plt
+from PIL import Image
+import sys
+import json
+#***************************************calib start*****************************************# 
+#***************************************calib start*****************************************# 
+fs = cv2.FileStorage('calibAB.yaml',cv2.FileStorage_READ)
+
+x0 = (fs.getNode("mapX0"))
+y0 = (fs.getNode("mapY0"))
+x1 = (fs.getNode("mapX1"))
+y1 = (fs.getNode("mapY1"))
+Q = (fs.getNode("Q"))
+
+height,width = x0.mat().shape
+
+print("height: %d, width: %d" % (height, width))
+
+# 映射表x/y
+limit_x0 = np.zeros((x0.mat().shape),dtype=np.float32)
+limit_y0 = np.zeros((y0.mat().shape),dtype=np.float32)
+limit_x1 = np.zeros((x1.mat().shape),dtype=np.float32)
+limit_y1 = np.zeros((y1.mat().shape),dtype=np.float32)
+np.clip(x0.mat(), 0, 1023, out = limit_x0)
+np.clip(y0.mat(), 0, 2047, out = limit_y0)
+np.clip(x1.mat(), 0, 1023, out = limit_x1)
+np.clip(y1.mat(), 0, 2047, out = limit_y1)
+
+limit_x0_limit = limit_x0.copy()
+limit_x1_limit = limit_x1.copy()
+for i in range(1024):
+    line_min_0 = limit_x0[:,i].min()
+    line_min_1 = limit_x1[:,i].min()
+    limit_x0_limit[:,i] = np.clip(limit_x0[:,i],line_min_0,line_min_0+25)
+    limit_x1_limit[:,i] = np.clip(limit_x1[:,i],line_min_1,line_min_1+25)
+    # limit_x0_limit[:,i] = np.clip(limit_x0[:,i],line_min_0,line_min_0+127)
+    # limit_x1_limit[:,i] = np.clip(limit_x1[:,i],line_min_1,line_min_1+127)
+
+limit_x0 = limit_x0_limit.copy()
+limit_x1 = limit_x1_limit.copy()
+
+limit_x0_limit = limit_x0.copy()
+limit_x1_limit = limit_x1.copy()
+for i in range(1024-2,-1,-1):
+    line_max_0 = limit_x0_limit[:,i+1].max()
+    line_max_1 = limit_x1_limit[:,i+1].max()
+    limit_x0_limit[:,i] = np.clip(limit_x0[:,i],0,line_max_0)
+    limit_x1_limit[:,i] = np.clip(limit_x1[:,i],0,line_max_1)
+
+limit_x0 = limit_x0_limit.copy()
+limit_x1 = limit_x1_limit.copy()
+
+x0_diff_flip = limit_x0.copy()
+for i in range(height):
+    x0_diff_flip[i,:] = limit_x0[2047-i,:]
+
+y0_diff = limit_y0.copy()
+y0_diff = 2047-limit_y0
+y0_diff_flip = y0_diff.copy()
+for i in range(height):
+    y0_diff_flip[i,:] = y0_diff[2047-i,:]
+
+x1_diff = limit_x1.copy()
+x1_diff = 1023-limit_x1
+x1_diff_flip = x1_diff.copy()
+for i in range(width):
+    x1_diff_flip[:,i] = x1_diff[:,1023-i]
+
+y1_diff_flip = limit_y1.copy()
+for i in range(width):
+    y1_diff_flip[:,i] = limit_y1[:,1023-i]
+
+# limit_x0 = x0_diff_flip.copy()
+# limit_y0 = y0_diff_flip.copy()
+# limit_x1 = x1_diff_flip.copy()
+# limit_y1 = y1_diff_flip.copy()
+np.clip(x0_diff_flip, 0, 1022, out = limit_x0)
+np.clip(y0_diff_flip, 0, 2046, out = limit_y0)
+np.clip(x1_diff_flip, 0, 1022, out = limit_x1)
+np.clip(y1_diff_flip, 0, 2046, out = limit_y1)
+
+
+width,height = 2048,1024
+
+mapx_0 = np.zeros((height,width*2),dtype=np.uint16)
+mapy_0 = np.zeros((height,width*2),dtype=np.uint16)
+mapx_0_index = np.zeros((height,width*2))
+mapy_0_index = np.zeros((height,width*2))
+for i in range(height):
+    for j in range(8,width*2-8):
+        if (j//4)%2==0:    
+            mapy_0[i][j] = ((((31-int((limit_x0[((j//4)//2)*4+(j%4)][i]-int(limit_x0[((j//4)//2)*4+(j%4)][i]))/(1/32)))&0x1f))<<11)+\
+                           (int(limit_x0[((j//4)//2)*4+(j%4)][i])&0x7ff)
+            mapx_0[i][j] = ((((int(31-((limit_y0[((j//4)//2)*4+(j%4)][i]-(limit_y0[((j//4)//2)*4+(j%4)][i]))/(1/32))))&0x1f))<<11)+\
+                           (int((limit_y0[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+            mapy_0_index[i][j] = (int((limit_x0[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+            mapx_0_index[i][j] = (int((limit_y0[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+        else:
+            mapy_0[i][j] = ((((31-int((limit_x1[((j//4)//2)*4+(j%4)][i]-int(limit_x1[((j//4)//2)*4+(j%4)][i]))/(1/32)))&0x1f))<<11)+\
+                           (int(limit_x1[((j//4)//2)*4+(j%4)][i])&0x7ff)
+            mapx_0[i][j] = ((((int(31-((limit_y1[((j//4)//2)*4+(j%4)][i]-(limit_y1[((j//4)//2)*4+(j%4)][i]))/(1/32)))&0x1f)))<<11)+\
+                           (int((limit_y1[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+            mapy_0_index[i][j] = (int((limit_x1[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+            mapx_0_index[i][j] = (int((limit_y1[((j//4)//2)*4+(j%4)][i]))&0x7ff)
+
+
+# 映射表y每行的最大值
+locy_0 = np.zeros((height*2))
+locy_0 = np.array(locy_0,dtype=np.uint16)
+for i in range(height*2):
+    if i%2==0:
+        locy_0[i] = np.clip(limit_x0[:,i//2].max(), 0, 1022)
+    else:
+        locy_0[i] = np.clip(limit_x1[:,i//2].max(), 0, 1022)
+
+# #自身映射
+# mapx_0 = np.zeros((height,width*2),dtype=np.uint16)
+# mapy_0 = np.zeros((height,width*2),dtype=np.uint16)
+# for i in range(height):
+#     for j in range(width*2):
+#         if (j//4)%2==0:    
+#             mapx_0[i][j] = (31<<11)+(((j//4)*2)+(j%4))&0x7ff
+#             mapy_0[i][j] = i
+#         else:
+#             mapx_0[i][j] = (31<<11)+((((j-4)//4)*2)+(j%4))&0x7ff
+#             mapy_0[i][j] = i
+
+# #映射表y每行的最大值
+# locy_0 = np.zeros((height*2))
+# locy_0 = np.array(locy_0,dtype=np.uint16)
+# for i in range(height*2):
+#     locy_0[i] = i//2
+
+# 2变倍
+# mapy_0 = np.zeros((height,width*2),dtype=np.uint16)
+# for i in range(height):
+#     for j in range(width*2):
+#         if i<height//4:
+#             if j<width:
+#                 if (j//4)%2==0:    
+#                     mapy_0[i][j] = i*2
+#                 else:
+#                     mapy_0[i][j] = i*2
+#             else:
+#                 if (j//4)%2==0:    
+#                     mapy_0[i][j] = i*2+1
+#                 else:
+#                     mapy_0[i][j] = i*2+1
+
+Q_mat = Q.mat().T
+Q_mat[2,3] = Q_mat[2,3]*32/(1024*1000)
+Q_mat[0,:] = Q_mat[0,:]*32/1024
+
+# Q_mat   = np.array([[1,0,0,0],
+#                     [0,1,0,0],
+#                     [0,0,1,0],
+#                     [0,0,0,1]],dtype=np.float32)
+
+#Q变换矩阵的下发，整数部和小数部
+q_int_temp = np.zeros((4,4),dtype=np.int16)
+q_dec_temp = np.zeros((4,4),dtype=np.int8)
+for i in range(Q.mat().shape[0]):
+    for j in range(Q.mat().shape[1]):
+        q_int_temp[i][j] = int(np.floor(Q.mat()[i][j]))
+        q_dec_temp[i][j] = int((Q.mat()[i][j]-np.floor(Q.mat()[i][j]))/(1/32))
+
+q_int = np.array([[q_int_temp[0][0],q_int_temp[0][1],q_int_temp[0][2],q_int_temp[0][3]],
+                  [q_int_temp[1][0],q_int_temp[1][1],q_int_temp[1][2],q_int_temp[1][3]],
+                  [q_int_temp[2][0],q_int_temp[2][1],q_int_temp[2][2],q_int_temp[2][3]],
+                  [q_int_temp[3][0],q_int_temp[3][1],q_int_temp[3][2],q_int_temp[3][3]]])
+q_dec = np.array([[q_dec_temp[0][0],q_dec_temp[0][1],q_dec_temp[0][2],q_dec_temp[0][3]],
+                  [q_dec_temp[1][0],q_dec_temp[1][1],q_dec_temp[1][2],q_dec_temp[1][3]],
+                  [q_dec_temp[2][0],q_dec_temp[2][1],q_dec_temp[2][2],q_dec_temp[2][3]],
+                  [q_dec_temp[3][0],q_dec_temp[3][1],q_dec_temp[3][2],q_dec_temp[3][3]]])
+
+#***************************************calib end*****************************************#
+        
+#***************************************bilater_kernel start*****************************************#    
+np.set_printoptions(suppress=True)
+
+val_kernel = np.zeros((256))
+#sigma参数
+sigma_r = 20
+# for i in range(256):
+#     val_kernel[i] = (np.exp(-((i**2)/(2*(sigma_r**2)))))*256
+#     val_kernel[i] = np.clip(0,255,val_kernel[i])
+#     if i<8:
+#     # if i<4:
+#         val_kernel[i] = 255
+val_kernel[0] = 255
+# val_kernel[1] = 255
+
+bilater_start = 64
+
+# val_kernel[bilater_start] = 0
+# val_kernel[bilater_start+1] = 255
+
+val_kernel[bilater_start] = 255
+# val_kernel[bilater_start+1] = 255
+# val_kernel[bilater_start+2] = 255
+# val_kernel[bilater_start+3] = 255
+# val_kernel[bilater_start+4] = 255
+# val_kernel[bilater_start+5] = 255
+# val_kernel[bilater_start+6] = 255
+# val_kernel[bilater_start+7] = 255
+val_kernel[bilater_start+8] = 0
+val_kernel[bilater_start+9] = 0
+val_kernel[bilater_start+10] = 0
+
+# val_kernel[bilater_start+32] = 255
+# val_kernel[bilater_start+33] = 255
+val_kernel[bilater_start+34] = 255
+# val_kernel[bilater_start+35] = 255
+# val_kernel[bilater_start+36] = 255
+
+
+val_kernel = np.array(val_kernel,dtype=np.uint16)
+
+dis_kernel = np.zeros((8))
+#sigma参数
+sigma_r = 1
+# for i in range(7):
+#     # dis_kernel[i] = (np.exp(-((i**2)/(2*(sigma_r**2)))))*256
+#     # dis_kernel[i] = np.clip(0,255,dis_kernel[i])
+#     dis_kernel[i] = 255
+dis_kernel[0] = 4
+dis_kernel[1] = 2
+# dis_kernel[2] = 255
+# dis_kernel[3] = 255
+# dis_kernel[4] = 255
+dis_kernel = np.array(dis_kernel,dtype=np.uint16)
+dis_kernel[7] = dis_kernel[1:7].sum()*2+dis_kernel[0]
+#***************************************bilater_kernel end*****************************************#  
+
+#***************************************gauss_kernel start*****************************************# 
+np.set_printoptions(suppress=True)
+
+kernel_size = 13
+sigma = 7
+kernel_1d = cv2.getGaussianKernel(kernel_size,sigma)
+kernel_2d = np.outer(kernel_1d,kernel_1d.T)
+
+kernel_2d = np.round(kernel_2d*1024,2)
+
+kernel_2d = np.array(kernel_2d,dtype=np.uint16)
+
+kernel_2d.sum()
+
+kernel_2d = np.array(kernel_2d,dtype=np.uint16)
+
+size = ((kernel_size//2)+1)*((kernel_size//2)+1+1)//2
+kernel = np.zeros((size+1))
+# for i in range(1,(kernel_size//2)+2):
+#     for j in range(1,i+1):
+#         kernel[(i)*(i-1)//2+j-1] = kernel_2d[kernel_size//2-i+1][kernel_size//2+j-1]
+kernel[0] = 255
+# kernel[1] = 128
+# kernel[3] = 64
+# kernel[6] = 32
+# kernel[10] = 16
+
+kernel[-1] = kernel[0]+(kernel[1]+kernel[3]+kernel[6]+kernel[10]+kernel[15]+kernel[21])*2
+kernel = np.clip(0,1023,kernel)
+kernel = np.array(kernel,dtype=np.uint16)
+
+#topKcols local gauss
+#0:size 1 1:size 5 2:size7 3:size9
+kernel = np.append(kernel,3)
+
+#2d gauss
+kernel = np.append(kernel,165)
+kernel = np.append(kernel,100)
+kernel = np.append(kernel,61)
+kernel = np.append(kernel,22)
+kernel = np.append(kernel,13)
+kernel = np.append(kernel,3)
+
+#***************************************gauss_kernel end*****************************************# 
+
+
+jsonData = {
+    "width": width,
+    "height": height,
+    "sigma_r": sigma_r,
+    "mapx_0": mapx_0.tolist(),#无符号两字节  width*height*2数组   畸形矫正映射表更新
+    "mapy_0": mapy_0.tolist(),#无符号两字节  width*height*2数组
+    "locy_0": locy_0.tolist(),#无符号两字节  height*2             locy更新
+	"Q_mat": Q_mat.tolist(),#float(4字节)  4*4数组              变换矩阵更新
+    "val_kernel": val_kernel.tolist(),#无符号两字节  256        双边滤波值域核更新
+    "dis_kernel": dis_kernel.tolist(),#无符号两字节  8          双边滤波空域核更新
+    "kernel": kernel.tolist()#无符号两字节  36                  高斯滤波卷积核更新
+}
+
+with open("cal.json", "w", encoding="utf-8") as file:
+    json.dump(jsonData, file)
+
+#检查短边方向偏移值，必须小于25（不可等于25）
+for i in range(1024):
+    print(limit_x0[:,i].max()-limit_x0[:,i].min())
+    print(limit_x1[:,i].max()-limit_x1[:,i].min())

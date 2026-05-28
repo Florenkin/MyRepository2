@@ -1,0 +1,94 @@
+---
+General:
+  opmode:
+    description: "operating mode: FR for free running, or CIC for calibration image collection"
+    type: "string"
+    default: "FR"
+Hardware:
+  camera:
+    description: "rztopk, rzraw, rzcloud,rzcamac, or sim. 'rzcamac' is only used for collecting calibration images for camera A and camera C"
+    type: "string"
+    default: "rzcloud"
+  exposure:
+    description: "Exposure time (in microseconds)"
+    type: "int"
+    default: 50
+  roi_offset:
+    description: "Horizontal offset of ROI"
+    type: "int"
+    default: 0
+  roi_width:
+    description: "Width of ROI"
+    type: "int"
+    default: 1024
+  exposure_camC:
+    description: "Exposure time of color camera (in microseconds)"
+    type: "int"
+    default: 5000
+  power:
+    description: "Output power of laser. An integer in [0,250]"
+    type: "int"
+    default: 250
+  motor_query_interval_ms:
+    description: "Time interval for checking motor position. A positive integer"
+    type: "int"
+    default: 200
+  scan_speed:
+    description: "Scanning speed in degrees per second"
+    type: "double"
+    default: 10.0
+  scan_angle:
+    description: "Scanning angle in degrees"
+    type: "double"
+    default: 50.0
+  blocking:
+    description: "If set to true, then the scanning command 'M' will block the UI until scanning is completed"
+    type: "bool"
+    default: false
+Reconstruction:
+  scale_factor:
+    description: "Interpolation factor for locating laser points"
+    type: "int"
+    default: 1
+  theta:
+    description: "Brightness threshold for laser point detection"
+    type: "float"
+    default: 10.0
+  sigma:
+    description: "Sigma for Gaussian blur (on scaled images)"
+    type: "int"
+    default: 1
+  num_recon_threads:
+    description: "Number of reconstruction threads"
+    type: "int"
+    default: 8
+  pointmap_enabled:
+    description: "Whether use a pointmap to reduce output num.pts."
+    type: "bool"
+    default: false
+Denoising:
+  denoising_radius:
+    description: "radius of the denoising filter"
+    type: "float"
+    default: 0.002
+  denoising_nneigbors:
+    description: "required number of neighboring points for denoising. A point with fewer neighboring points will be ignored"
+    type: "int"
+    default: 3
+Calibration:
+  square_size:
+    description: "Size of the square in meter for calibration"
+    type: "float"
+    default: 0.015
+  num_corners_x:
+    description: "number of inner corners in the x direction"
+    type: "int"
+    default: 11
+  num_corners_y:
+    description: "number of inner corners in the y direction"
+    type: "int"
+    default: 8
+  xoffset_initial_guess:
+    description: "initial guess of x offset (translation from cam1 to cam0) in meters. -0.08 for the Balser config, -0.018 for RealSense config, -0.1 for Rz camera"
+    type: "double"
+    default: -0.08

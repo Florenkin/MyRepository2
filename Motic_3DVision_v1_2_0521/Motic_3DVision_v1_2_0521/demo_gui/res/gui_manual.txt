@@ -1,0 +1,59 @@
+[Reference position of Motor (zero position)]
+
+The reference position (zero position) need to be set for the motor. This can be done by manually rotating the laser module to the middle position and use the "Set to zero" command in lasv.exe. The setting will not be lost after power-off.
+
+When the reference position is set, the motor can be moved to it by using command "Move to zero". Such movement can be inspected visually by enabling the laser first.
+
+
+[Point cloud acquisition]
+
+0. Before starting, please ensure that the Zero position of the motor has been set.
+1. Open lasv.exe in the Release directory. If special ROI is needed, adjust the values of roi_width and roi_offset and then click the 'Update ROI' button.
+2. Click the 'Scan' button or Press 'M' key.
+3. Check the point cloud in the window. 
+4. Save the point cloud to disk (cloud.txt) by using 'save' command if necessary.
+
+Optionally, you can use raw image from FPGA and run 3d reconstruction algorithm on computer. This is much slower but sometimes provides better results. Run lasv.exe with arguments:
+	./lasv.exe --camera=rzraw --scan_speed=0.5
+
+In case of unstable network, use the 'Device reset' command to re-establish data connection when needed.
+
+
+[Measurement]
+
+Given a point cloud, you can hold the Ctrl key and click a point to create an anchor point. Creating two or three anchor points and the distance or angle will be shown. Plane-fitting results will be available with three or more anchor points.
+
+Anchor points can be copied to clipboard, save to disk or load from disk (anchors.txt).
+
+
+
+[Calibration of stereo cameras]
+
+Procedures:
+1. Edit 'res/parameters.yaml' and change the following values to fit your calibration board: square_size (in meters), num_corners_x, num_corners_y.
+2. Remove the folder 'res/cal' and the file 'res/calibAB.yaml'.
+3. Run lasve.exe in calibration mode, for example, 
+	./lasv.exe --opmode=CIC --square_size=0.01 --num_corners_x=8 --num_corners_y=11
+4. In the lasv.exe application, use the button "Capture" to collect a pair of image, which will be stored in 'res/cal'. Try to collect at least ten pairs of images from various angles and distance.
+5. Use the button "Update" to generate the calibration file calibAB.yaml.
+
+Notes:
+* The program will analyze the images from both cameras. An image from a camera will be saved in directory cal/intrXXXX if all internal corners on the chessboard are detected.  Moreover, a pair of images will be saved in cal/extr_YYYY if corners are detected from both cameras simultaneously. 
+* Vibration should be avoided whenever possible. Try not to hold the chessboard by hand when images are being captured.
+* Try to let the chessboard pattern cover a large portion of an image. Overlap of chessboard in different images in a directory is allowed, as long as the exact locations of corners are different. 
+* There need to be 10 or more images in each of cal/intrXXXX directories, and the corners should cover the views as uniformly as possible. Also, there should be at least 3 pairs of images in cal/extr_YYYY.
+* After creation of calibAB.yaml, check the images named rect/xxxx_rectified.png. Ensure that all physically-straight lines remain straight in those rectified images. 
+
+
+[Calibration of the color camera]
+
+Calibration of the color camera is required if color texture is needed. The procedure is mostly the same to the procedure above, except that the parameter "--camera=rzcamac" should be added to the command line, and the calibration file is named calibAC.yaml. After calibration, the files calibAC.yaml and calibAB.yaml should both be saved to FPGA using TFTPD32, Winscp or scp , in the same path containing the FPGA programs.
+
+On a computer connecting to FPGA using lasv.exe or SDK, these two files will be downloaded automatically if they are not found in the res directory. However, existing files in the res directory will NOT be overwritten by the files from the FPGA; this is to prevent newly created calibration files from being overwritten accidentally by old data on FPGA.
+
+
+[Automatic Tests]
+In PowerShell or Bash, change to the Release directory. Run ./test_mtblc.exe for all API-related tests, or use "--gtest_filter" to select tests. For example, run
+./test_mtblc.exe --gtest_filter=*DeviceInfo
+to list the devices
+

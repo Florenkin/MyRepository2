@@ -1,0 +1,70 @@
+\doxysection{VZNL\+\_\+\+Swing\+Motor.\+h}
+\hypertarget{_v_z_n_l___swing_motor_8h_source}{}\label{_v_z_n_l___swing_motor_8h_source}\index{VZNL\_SwingMotor.h@{VZNL\_SwingMotor.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_\_VIZUM\_SWING\_MOTOR\_HEADER\_\_}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_\_VIZUM\_SWING\_MOTOR\_HEADER\_\_}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}VZNL\_Export.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}VZNL\_Types.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00013\ VZNLAPI\ VzBool\ VzNL\_IsSupportSwingMotor(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00024\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingMotorWorkRange(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}\ dNearDistance,\ \textcolor{keywordtype}{double}\ dFarDistance);}
+\DoxyCodeLine{00025\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingMotorWorkRange(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{double}*\ pdNearDistance,\ \textcolor{keywordtype}{double}*\ pdFarDistance);}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00034\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableSwingMotor(VZNLHANDLE\ hDevice,\ VzBool\ bEnable);}
+\DoxyCodeLine{00035\ VZNLAPI\ VzBool\ VzNL\_IsEnableSwingMotor(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00045\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_EnableLaserLight(VZNLHANDLE\ hDevice,\ VzBool\ bEnable);}
+\DoxyCodeLine{00046\ VZNLAPI\ VzBool\ VzNL\_IsEnableLaserLight(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00056\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetLaserLight(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nLight);}
+\DoxyCodeLine{00057\ VZNLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ VzNL\_GetLaserLight(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00067\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingAngleSpeed(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nAngleSpeed);}
+\DoxyCodeLine{00068\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingAngleSpeed(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnAngleSpeed);}
+\DoxyCodeLine{00069\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingAngleSpeedRange(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnMinAngleSpeed,\ \textcolor{keywordtype}{int}*\ pnMaxAngleSpeed);}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00079\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingMotorAngle(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nStartPos,\ \textcolor{keywordtype}{int}\ nEndPos);}
+\DoxyCodeLine{00080\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingMotorAngle(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnStartPos,\ \textcolor{keywordtype}{int}*\ pnEndPos);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00089\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingCurPosToMotorStartPos(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00090\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingCurPosToMotorEndPos(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00100\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_RotateSwing(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{float}\ fAngle);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00109\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_RotateSwingToStartPos(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00119\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingScanMode(VZNLHANDLE\ hDevice,\ EVzSwingMotorScanMode\ eScanMode);}
+\DoxyCodeLine{00120\ VZNLAPI\ EVzSwingMotorScanMode\ VzNL\_GetSwingScanMode(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00129\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingMotorInfo(VZNLHANDLE\ hDevice,\ \doxymbox{\hyperlink{struct_s_vz_swing_motor_dev_info}{SVzSwingMotorDevInfo}}*\ psSwingMotorInfo);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00138\ VZNLAPI\ \textcolor{keywordtype}{float}\ VzNL\_GetSwingCurAngle(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00148\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingStopTime(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ nMillionSecond);}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00157\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SwingMoveLeft(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00166\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SwingMoveRight(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00176\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingRotateDirect(VZNLHANDLE\ hDevice,\ EVzSwingRotateDirect\ eRotateDirect);}
+\DoxyCodeLine{00177\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingRotateDirect(VZNLHANDLE\ hDevice,\ EVzSwingRotateDirect*\ peRotateDirect);}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00185\ VZNLAPI\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingVersionCode(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00195\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingStopAngle(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}\ nAngle);}
+\DoxyCodeLine{00196\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_GetSwingStopAngle(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00206\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_SetSwingEndAngleThres(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{float}\ fAngle);}
+\DoxyCodeLine{00207\ VZNLAPI\ \textcolor{keywordtype}{float}\ VzNL\_GetSwingEndAngleThres(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00216\ VZNLAPI\ VzBool\ VzNL\_IsSupportEndAngleThres(VZNLHANDLE\ hDevice,\ \textcolor{keywordtype}{int}*\ pnErrorCode);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00219\ VZNLAPI\ \textcolor{keywordtype}{int}\ VzNL\_RebootSwing(VZNLHANDLE\ hDevice);}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
