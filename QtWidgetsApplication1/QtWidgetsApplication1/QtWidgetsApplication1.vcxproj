@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>D:\library\opencv3.4.16\build\include;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\globaldata\include\globaldata;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\inc;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\imaging\include\imaging;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\code\QtWidgetsApplication1\QtWidgetsApplication1\reconstruction3d;D:\library\opencv3.4.16\build\include;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\globaldata\include\globaldata;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\inc;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\imaging\include\imaging;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>D:\library\opencv3.4.16\build\x64\vc15\lib;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\globaldata\lib\win\x64;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\libs;D:\code\QtWidgetsApplication1\QtWidgetsApplication1\imaging\lib\win\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

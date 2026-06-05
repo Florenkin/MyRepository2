@@ -50,8 +50,7 @@
 
 #include <imaging_global.h>
 #include <GlobalData.h>
-//#include <common/point_cloud/point_cloud.hpp>
-#include <pcl/point_cloud.h>
+#include <common/point_cloud/point_cloud.hpp>
 
 #ifdef USE_MULTIPROJECTORS
 	#define TILTEDPROJECTORIDPRENAME 	"TiltedProjID_"
