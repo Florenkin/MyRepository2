@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include <iostream>
+#include <imaging.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindowClass())
