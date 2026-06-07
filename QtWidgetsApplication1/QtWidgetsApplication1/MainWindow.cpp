@@ -17,14 +17,14 @@ MainWindow::MainWindow(QWidget *parent)
     //std::cout << "blueBright:" << blueBright << std::endl;
     IMGING::Imaging* m_imagingControl = new IMGING::Imaging;
     bool ret = m_imagingControl->OpenCamAndProj();
-    if (ret)
-    {
-        std::cout << "OpenCamAndProj success" << std::endl;
-    }
-    else
-    {
-        std::cout << "OpenCamAndProj failed" << std::endl;
-    }
+    //if (ret)
+    //{
+    //    std::cout << "OpenCamAndProj success" << std::endl;
+    //}
+    //else
+    //{
+    //    std::cout << "OpenCamAndProj failed" << std::endl;
+    //}
 }
 
 MainWindow::~MainWindow()
