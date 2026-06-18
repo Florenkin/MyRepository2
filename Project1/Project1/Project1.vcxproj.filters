@@ -36,6 +36,12 @@
     <ClCompile Include="DlpUsbI2cTransport.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DlpProjectorScanner.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HikCameraController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlpc_common.h">
@@ -63,6 +69,33 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="DlpUsbI2cTransport.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DlpProjectorScanner.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="HikCameraController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\CameraParams.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\MvCameraControl.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\MvErrorDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\MvISPErrorDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\MvObsoleteInterfaces.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\ObsoleteCamParams.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MVS\PixelType.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

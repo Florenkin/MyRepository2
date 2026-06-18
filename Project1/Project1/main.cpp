@@ -1,396 +1,309 @@
+ï»¿#include <cstdio>
 #include <cstdint>
-#include <cstdio>
-#include <thread>
-#include <chrono>
-//#define WIN32
-#include "DlpUsbI2cTransport.h"
-#define DLP_SCAN_TEST_MAIN
-extern "C" {
+#include <string>
+#include <vector>
 
-#include "dlpc_common.h"
-#include "dlpc34xx.h"
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+#include <Windows.h>
+
+#include "DlpProjectorScanner.h"
+#include "HikCameraController.h"
+
+#define CAMERA_DLP_SCAN_TEST_MAIN
+
+/**
+ * @brief ä¸€æ¬¡æ‰«æéœ€è¦é‡‡é›†çš„æ¡çº¹æ•°é‡ã€‚
+ *
+ * å‚æ•°å«ä¹‰ï¼šå…‰æœºæ’­æ”¾ 35 å¼ æ¡çº¹å›¾ï¼Œ4 ä¸ªç°åº¦ç›¸æœºå¯¹åº”é‡‡é›† 35 æ¬¡ã€‚
+ */
+static const uint32_t kScanPatternCount = 35;
+
+/**
+ * @brief åˆ›å»ºä¸€ä»½é»˜è®¤æ‰«æå‚æ•°ã€‚
+ *
+ * @return è¿”å›ä¸€ä»½å¯ç›´æ¥ç”¨äºæµ‹è¯•çš„ DlpScanConfigã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šæŠŠå…‰æœºæ‰«æå‚æ•°é›†ä¸­åœ¨ä¸€ä¸ªåœ°æ–¹ï¼ŒQt ä¸­ä¹Ÿå¯ä»¥ç…§è¿™ä¸ªå‡½æ•°ç»„è£…è‡ªå·±çš„ DlpScanConfigã€‚
+ */
+DlpScanConfig CreateDefaultScanConfig()
+{
+    DlpInternalPatternConfig stripePattern;
+    stripePattern.patternSetIndex = 0;
+    stripePattern.patternEntryIndex = 0;
+    stripePattern.numberOfPatternsToDisplay = static_cast<uint8_t>(kScanPatternCount);
+    stripePattern.invertPatterns = false;
+    stripePattern.redLed = DLPC34XX_IE_DISABLE;
+    stripePattern.greenLed = DLPC34XX_IE_DISABLE;
+    stripePattern.blueLed = DLPC34XX_IE_ENABLE;
+    stripePattern.illuminationTimeUs = 10000;
+    stripePattern.preIlluminationDarkTimeUs = 1000;
+    stripePattern.postIlluminationDarkTimeUs = 1000;
+
+    DlpScanConfig scanConfig;
+    scanConfig.sequenceType = DLPC34XX_ST_ONE_BIT_MONO;
+    scanConfig.numberOfPatternsInSet = static_cast<uint8_t>(kScanPatternCount);
+    scanConfig.writePatternConfiguration = true;
+    scanConfig.writePatternOrderTable = true;
+    scanConfig.writeInternalPatternDisplayConfiguration = false;
+    scanConfig.dmdBlockStart = 0;
+    scanConfig.dmdBlockCount = 0;
+    scanConfig.writeTriggerOut1 = false;
+    scanConfig.writeTriggerOut2 = true;
+    scanConfig.triggerOut1Inversion = DLPC34XX_TI_NOT_INVERTED;
+    scanConfig.triggerOut2Inversion = DLPC34XX_TI_NOT_INVERTED;
+    scanConfig.triggerOut1Delay = 0;
+    scanConfig.triggerOut2Delay = 0;
+    scanConfig.repeatCount = 1;
+    scanConfig.internalPatterns.push_back(stripePattern);
+
+    return scanConfig;
 }
 
-// ======================================================
-// 1. DLPC ÃüÁî¿â»º³åÇø
-// ======================================================
-
-static uint8_t g_writeBuffer[4096];
-static uint8_t g_readBuffer[4096];
-
-
-// ======================================================
-// 2. Cypress USB-I2C Í¨ĞÅ¶ÔÏó
-// ======================================================
-
-static DlpUsbI2cTransport g_transport;
-
-
-// ======================================================
-// 3. Éè±¸²ÎÊı£¬ĞèÒªÄã¸ù¾İÉè±¸¹ÜÀíÆ÷ĞŞ¸Ä
-// ======================================================
-
-// Cypress ³£¼û VID£¬¾ßÌåÒÔÉè±¸¹ÜÀíÆ÷Îª×¼
-static constexpr uint16_t CYPRESS_VID = 0x04B4;
-
-// TODO£º±ØĞë¸Ä³ÉÄãÉè±¸¹ÜÀíÆ÷ÀïµÄÕæÊµ PID
-static constexpr uint16_t CYPRESS_PID = 0x000A;
-
-// DLPC µÄ 7-bit I2C µØÖ·¡£
-// Èç¹û×ÊÁÏĞ´ 0x36/0x37£¬Ò»°ãÕâÀïÌî 0x1B¡£
-static constexpr uint8_t DLPC_I2C_ADDR = 0x1B;
-
-
-// ======================================================
-// 4. Á¬½Ó USB-I2C ¹â»ú
-// ======================================================
-
-bool ConnectProjector()
+/**
+ * @brief åˆ›å»ºä¸€ä»½é»˜è®¤äº”ç›¸æœºå‚æ•°ã€‚
+ *
+ * @return è¿”å›ä¸€ä»½å¯ä¼ ç»™ HikCameraController çš„ HikCameraSystemConfigã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šé›†ä¸­é…ç½® 1 ä¸ªå½©è‰²ç½‘å£ç›¸æœºå’Œ 4 ä¸ª CXP ç°åº¦ç›¸æœºçš„é»˜è®¤å‚æ•°ã€‚
+ * æ³¨æ„ï¼šdeviceIndex éœ€è¦æŒ‰ç°åœº MV_CC_EnumDevices() æšä¸¾é¡ºåºè°ƒæ•´ã€‚
+ */
+HikCameraSystemConfig CreateDefaultCameraSystemConfig()
 {
-    if (g_transport.isOpen())
+    HikCameraSystemConfig cameraConfig;
+
+    cameraConfig.colorCamera.name = "ColorGigECamera";
+    cameraConfig.colorCamera.cameraType = HikCameraType::Color;
+    cameraConfig.colorCamera.deviceIndex = 0;
+    cameraConfig.colorCamera.exposureTimeUs = 3000.0f;
+    cameraConfig.colorCamera.triggerMode = HikTriggerMode::On;
+    cameraConfig.colorCamera.triggerSource = HikTriggerSource::Software;
+    cameraConfig.colorCamera.frameTimeoutMs = 3000;
+
+    cameraConfig.monoCameras.resize(4);
+    for (uint32_t index = 0; index < 4; ++index)
     {
-        return true;
+        HikCameraConfig monoCamera;
+        monoCamera.name = "MonoCxpCamera" + std::to_string(index + 1);
+        monoCamera.cameraType = HikCameraType::Mono;
+        monoCamera.deviceIndex = index + 1;
+        monoCamera.exposureTimeUs = 2500.0f;
+        monoCamera.triggerMode = HikTriggerMode::On;
+        monoCamera.triggerSource = HikTriggerSource::LinkTrigger0;
+        monoCamera.frameTimeoutMs = 3000;
+
+        cameraConfig.monoCameras[index] = monoCamera;
     }
 
-    bool ok = g_transport.open(
-        CYPRESS_VID,
-        CYPRESS_PID,
-        DLPC_I2C_ADDR
-    );
-
-    if (!ok)
-    {
-        printf("[DLP USB ERROR] %s\n", g_transport.lastError().c_str());
-        return false;
-    }
-
-    printf("[DLP USB OK] Projector connected\n");
-    return true;
+    return cameraConfig;
 }
 
-void DisconnectProjector()
+/**
+ * @brief ä¿å­˜å½©è‰²ç›¸æœºå›¾åƒã€‚
+ *
+ * @param cameraController ç›¸æœºæ§åˆ¶å¯¹è±¡ã€‚
+ * @param frame å½©è‰²ç›¸æœºå›¾åƒã€‚
+ * @return true è¡¨ç¤ºä¿å­˜æˆåŠŸï¼›false è¡¨ç¤ºä¿å­˜å¤±è´¥ã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šå½©è‰²ç›¸æœºåªè½¯è§¦å‘æ‹æ‘„ä¸€å¼ ï¼Œå¹¶ä¿å­˜åˆ° camera_output ç›®å½•ã€‚
+ */
+bool SaveColorCameraFrame(HikCameraController& cameraController, const HikCameraFrame& frame)
 {
-    g_transport.close();
-    printf("[DLP USB OK] Projector disconnected\n");
+    CreateDirectoryA("camera_output", nullptr);
+    return cameraController.saveFrameAsPng(0, frame, "camera_output\\color_camera.png");
 }
 
-
-// ======================================================
-// 5. ÕæÊµ¹â»úĞ´½Ó¿Ú
-// ======================================================
-
-bool YourDlpTransport_Write(uint8_t* data, uint16_t length)
+/**
+ * @brief ä¿å­˜ä¸€è½®ç°åº¦ç›¸æœºå›¾åƒã€‚
+ *
+ * @param cameraController ç›¸æœºæ§åˆ¶å¯¹è±¡ã€‚
+ * @param frames å››ä¸ªç°åº¦ç›¸æœºçš„å›¾åƒã€‚
+ * @param patternIndex å½“å‰æ¡çº¹åºå·ã€‚
+ * @return true è¡¨ç¤ºæœ¬è½®æ‰€æœ‰å›¾åƒä¿å­˜æˆåŠŸï¼›false è¡¨ç¤ºè‡³å°‘ä¸€å¼ å›¾ä¿å­˜å¤±è´¥ã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šæŠŠä¸€æ¬¡ DLP æ¡çº¹è§¦å‘å¾—åˆ°çš„ 4 ä¸ªç°åº¦ç›¸æœºå›¾åƒåˆ†åˆ«ä¿å­˜åˆ° camera_output ç›®å½•ã€‚
+ */
+bool SaveMonoCameraFrames(
+    HikCameraController& cameraController,
+    const std::vector<HikCameraFrame>& frames,
+    uint32_t patternIndex)
 {
-    if (!g_transport.isOpen())
+    CreateDirectoryA("camera_output", nullptr);
+
+    for (uint32_t cameraIndex = 0; cameraIndex < frames.size(); ++cameraIndex)
     {
-        printf("[DLP WRITE ERROR] transport not open\n");
-        return false;
-    }
+        char filePath[256] = {};
+        sprintf_s(
+            filePath,
+            "camera_output\\pattern_%02u_mono_%u.png",
+            patternIndex,
+            cameraIndex + 1);
 
-    bool ok = g_transport.write(data, length);
-
-    if (!ok)
-    {
-        printf("[DLP WRITE ERROR] %s\n", g_transport.lastError().c_str());
-        return false;
-    }
-
-    return true;
-}
-
-
-// ======================================================
-// 6. ÕæÊµ¹â»ú¶Á½Ó¿Ú
-// ======================================================
-
-bool YourDlpTransport_Read(
-    uint8_t* writeData,
-    uint16_t writeLength,
-    uint8_t* readData,
-    uint16_t readLength)
-{
-    if (!g_transport.isOpen())
-    {
-        printf("[DLP READ ERROR] transport not open\n");
-        return false;
-    }
-
-    bool ok = g_transport.read(
-        writeData,
-        writeLength,
-        readData,
-        readLength
-    );
-
-    if (!ok)
-    {
-        printf("[DLP READ ERROR] %s\n", g_transport.lastError().c_str());
-        return false;
-    }
-
-    return true;
-}
-
-
-// ======================================================
-// 7. DLPC_COMMON »Øµ÷
-// ======================================================
-
-uint32_t DlpWriteCommandCallback(
-    uint16_t writeLength,
-    uint8_t* writeBuffer,
-    DLPC_COMMON_CommandProtocolData_s* protocolData)
-{
-    (void)protocolData;
-
-    bool ok = YourDlpTransport_Write(writeBuffer, writeLength);
-    return ok ? DLPC_SUCCESS : FAIL;
-}
-
-uint32_t DlpReadCommandCallback(
-    uint16_t writeLength,
-    uint8_t* writeBuffer,
-    uint16_t readLength,
-    uint8_t* readBuffer,
-    DLPC_COMMON_CommandProtocolData_s* protocolData)
-{
-    bool ok = YourDlpTransport_Read(
-        writeBuffer,
-        writeLength,
-        readBuffer,
-        readLength
-    );
-
-    if (ok && protocolData)
-    {
-        protocolData->BytesRead = readLength;
-    }
-
-    return ok ? DLPC_SUCCESS : FAIL;
-}
-
-
-// ======================================================
-// 8. ¹¤¾ßº¯Êı
-// ======================================================
-
-bool CheckStatus(uint32_t status, const char* msg)
-{
-    if (status != DLPC_SUCCESS)
-    {
-        printf("[DLP ERROR] %s failed, status = %u\n", msg, status);
-
-        if (!g_transport.lastError().empty())
+        if (!cameraController.saveFrameAsPng(cameraIndex + 1, frames[cameraIndex], filePath))
         {
-            printf("[DLP TRANSPORT ERROR] %s\n", g_transport.lastError().c_str());
+            printf("[CAMERA TEST] save failed: %s, %s\n", filePath, cameraController.lastError().c_str());
+            return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * @brief æ‰§è¡Œä¸€æ¬¡å…‰æœºå’Œäº”ç›¸æœºåŒæ­¥æ‰«ææµ‹è¯•ã€‚
+ *
+ * @return true è¡¨ç¤ºå®Œæ•´æµç¨‹æˆåŠŸï¼›false è¡¨ç¤ºç›¸æœºæˆ–å…‰æœºæµç¨‹å¤±è´¥ã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šå½©è‰²ç›¸æœºæŒ‰ç½‘å£æšä¸¾å¹¶è½¯è§¦å‘æ‹æ‘„ 1 å¼ ï¼›4 ä¸ªç°åº¦ç›¸æœºæŒ‰ CXP é‡‡é›†å¡æšä¸¾ï¼Œ
+ * å¯åŠ¨å–æµåç”± DLP æ¡çº¹è§¦å‘é‡‡é›† 35 è½®ç°åº¦å›¾åƒã€‚
+ */
+bool RunCameraDlpScanTest()
+{
+    HikCameraSystemConfig cameraConfig = CreateDefaultCameraSystemConfig();
+    HikCameraController cameraController(cameraConfig);
+
+    const unsigned int cameraTransportLayer = MV_GIGE_DEVICE | MV_GENTL_CXP_DEVICE;
+    if (!cameraController.enumerateDevices(cameraTransportLayer))
+    {
+        printf("[CAMERA TEST] enumerate failed: %s\n", cameraController.lastError().c_str());
+        return false;
+    }
+
+    printf("[CAMERA TEST] found %u camera devices\n", cameraController.deviceCount());
+    if (cameraController.deviceCount() < 5)
+    {
+        printf("[CAMERA TEST] need 5 devices: 1 GigE color camera + 4 CXP mono cameras\n");
+        return false;
+    }
+
+    if (!cameraController.openAllCameras())
+    {
+        printf("[CAMERA TEST] open failed: %s\n", cameraController.lastError().c_str());
+        return false;
+    }
+
+    if (!cameraController.applyAllCameraSettings())
+    {
+        printf("[CAMERA TEST] apply settings failed: %s\n", cameraController.lastError().c_str());
+        return false;
+    }
+
+    if (!cameraController.startGrabbing())
+    {
+        printf("[CAMERA TEST] start grabbing failed: %s\n", cameraController.lastError().c_str());
+        return false;
+    }
+
+    if (!cameraController.executeSoftwareTrigger(0))
+    {
+        printf("[CAMERA TEST] color software trigger failed: %s\n", cameraController.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    HikCameraFrame colorFrame;
+    if (!cameraController.getOneFrame(0, &colorFrame))
+    {
+        printf("[CAMERA TEST] get color frame failed: %s\n", cameraController.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    if (!SaveColorCameraFrame(cameraController, colorFrame))
+    {
+        printf("[CAMERA TEST] save color frame failed: %s\n", cameraController.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    printf("[CAMERA TEST] saved one color camera frame\n");
+
+    DlpDeviceConfig deviceConfig;
+    deviceConfig.cypressVid = 0x04B4;
+    deviceConfig.cypressPid = 0x000A;
+    deviceConfig.dlpcI2cAddress = 0x1B;
+
+    DlpScanConfig scanConfig = CreateDefaultScanConfig();
+    DlpProjectorScanner scanner(deviceConfig);
+
+    if (!scanner.connectProjector())
+    {
+        printf("[DLP TEST] connect failed: %s\n", scanner.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    if (!scanner.initializeCommandLibrary())
+    {
+        printf("[DLP TEST] initialize failed: %s\n", scanner.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    if (!scanner.prepareScan(scanConfig))
+    {
+        printf("[DLP TEST] prepare failed: %s\n", scanner.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    if (!scanner.startScan(scanConfig))
+    {
+        printf("[DLP TEST] start failed: %s\n", scanner.lastError().c_str());
+        cameraController.stopGrabbing();
+        return false;
+    }
+
+    for (uint32_t patternIndex = 0; patternIndex < kScanPatternCount; ++patternIndex)
+    {
+        std::vector<HikCameraFrame> monoFrames(4);
+        for (uint32_t monoIndex = 0; monoIndex < 4; ++monoIndex)
+        {
+            const uint32_t cameraIndex = monoIndex + 1;
+            if (!cameraController.getOneFrame(cameraIndex, &monoFrames[monoIndex]))
+            {
+                printf("[CAMERA TEST] get mono frame failed: %s\n", cameraController.lastError().c_str());
+                scanner.stopScan();
+                cameraController.stopGrabbing();
+                return false;
+            }
         }
 
-        return false;
+        if (!SaveMonoCameraFrames(cameraController, monoFrames, patternIndex))
+        {
+            scanner.stopScan();
+            cameraController.stopGrabbing();
+            return false;
+        }
+
+        printf("[CAMERA TEST] saved pattern %u mono frames\n", patternIndex);
     }
 
-    printf("[DLP OK] %s\n", msg);
+    scanner.stopScan();
+    cameraController.stopGrabbing();
+    cameraController.closeAllCameras();
+
+    printf("[CAMERA TEST] scan success, saved one color PNG and %u groups of mono PNG images\n", kScanPatternCount);
     return true;
 }
 
+#ifdef CAMERA_DLP_SCAN_TEST_MAIN
 
-// ======================================================
-// 9. ³õÊ¼»¯ DLPC ÃüÁî¿â
-// ======================================================
-
-bool InitDlpCommandLibrary()
-{
-    DLPC_COMMON_InitCommandLibrary(
-        g_writeBuffer,
-        sizeof(g_writeBuffer),
-        g_readBuffer,
-        sizeof(g_readBuffer),
-        DlpWriteCommandCallback,
-        DlpReadCommandCallback
-    );
-
-    printf("[DLP OK] DLPC command library initialized\n");
-    return true;
-}
-
-
-// ======================================================
-// 10. ²»ÅäÖÃ²ÎÊı£¬Ö±½Ó×¼±¸É¨Ãè
-// ======================================================
-
-bool PrepareDlpScanWithoutConfig()
-{
-    uint32_t status = 0;
-
-    // 1. Í£Ö¹ÉÏÒ»´Î¿ÉÄÜ²ĞÁôµÄ²¥·Å
-    status = DLPC34XX_WriteInternalPatternControl(
-        DLPC34XX_PC_STOP,
-        0
-    );
-
-    // µÚÒ»´Îµ÷ÓÃ¿ÉÄÜ±¾À´¾ÍÃ»²¥·Å£¬Ê§°Ü²»Ò»¶¨Ö±½ÓÍË³ö
-    CheckStatus(status, "Stop previous internal pattern");
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
-
-    // 2. Reset Pattern ×´Ì¬
-    //status = DLPC34XX_WriteInternalPatternControl(
-    //    DLPC34XX_PC_RESET,
-    //    0
-    //);
-
-    if (!CheckStatus(status, "Reset internal pattern"))
-    {
-        return false;
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
-
-    // 3. ÇĞ»»µ½ Internal Pattern Streaming Ä£Ê½
-    status = DLPC34XX_WriteOperatingModeSelect(
-        DLPC34XX_OM_SENS_INTERNAL_PATTERN
-    );
-
-    if (!CheckStatus(status, "Set internal pattern mode"))
-    {
-        return false;
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    // 4. ¶ÁÈ¡ Pattern ×´Ì¬
-    DLPC34XX_InternalPatternStatus_s patternStatus = {};
-    status = DLPC34XX_ReadInternalPatternStatus(&patternStatus);
-
-    if (!CheckStatus(status, "Read internal pattern status"))
-    {
-        return false;
-    }
-
-    printf("[DLP INFO] PatternReadyStatus = %d\n",
-        static_cast<int>(patternStatus.PatternReadyStatus));
-
-    printf("[DLP INFO] CurrentPatOrderEntryIndex = %d\n",
-        static_cast<int>(patternStatus.CurrentPatOrderEntryIndex));
-
-    printf("[DLP INFO] CurrentPatSetIndex = %d\n",
-        static_cast<int>(patternStatus.CurrentPatSetIndex));
-
-    printf("[DLP INFO] NumPatInCurrentPatSet = %d\n",
-        static_cast<int>(patternStatus.NumPatInCurrentPatSet));
-
-    printf("[DLP INFO] NumPatDisplayedFromPatSet = %d\n",
-        static_cast<int>(patternStatus.NumPatDisplayedFromPatSet));
-
-    if (patternStatus.PatternReadyStatus != DLPC34XX_PRS_READY)
-    {
-        printf("[DLP ERROR] Pattern not ready. Flash ÄÚ¿ÉÄÜÃ»ÓĞÉÕÂ¼ Pattern Êı¾İ¡£\n");
-        return false;
-    }
-    printf("[DLP OK] Pattern ready\n");
-    return true;
-}
-
-
-// ======================================================
-// 11. Ö±½Ó¿ªÊ¼É¨Ãè
-// ======================================================
-
-bool StartDlpScanWithoutConfig()
-{
-    uint32_t status = DLPC34XX_WriteInternalPatternControl(
-        DLPC34XX_PC_START,
-        0
-    );
-
-
-    return CheckStatus(status, "Start internal pattern");
-}
-
-
-// ======================================================
-// 12. Í£Ö¹É¨Ãè
-// ======================================================
-
-bool StopDlpScan()
-{
-    uint32_t status = DLPC34XX_WriteInternalPatternControl(
-        DLPC34XX_PC_STOP,
-        0
-    );
-
-    return CheckStatus(status, "Stop internal pattern");
-}
-
-
-// ======================================================
-// 13. Ò»´ÎÍêÕûµ÷ÓÃ
-// ======================================================
-
-bool RunDlpScanOnceWithoutConfig()
-{
-    // 1. ´ò¿ª USB-I2C ¹â»ú
-    if (!ConnectProjector())
-    {
-        return false;
-    }
-
-    // 2. ³õÊ¼»¯ DLPC ÃüÁî¿â
-    InitDlpCommandLibrary();
-
-    // 3. ²»ÅäÖÃ Pattern£¬Ö»×¼±¸É¨Ãè
-    if (!PrepareDlpScanWithoutConfig())
-    {
-        return false;
-    }
-
-    // 4. ×óÓÒÏà»úÏÈ½øÈëÓ²´¥·¢²É¼¯
-    // cameraLeft->startHardwareTrigger();
-    // cameraRight->startHardwareTrigger();
-
-    // 5. Æô¶¯¹â»ú Pattern
-    if (!StartDlpScanWithoutConfig())
-    {
-        return false;
-    }
-
-    // 6. ÕâÀïµÈ´ıÏà»ú²É¼¯Íê³É
-    // ½¨Òé²»ÒªÓÃ¹Ì¶¨ sleep£¬×îºÃµÈ×óÓÒÏà»ú²Éµ½Ö¸¶¨ÕÅÊı¡£
-    //
-    // while (cameraLeft->imageCount() < patternCount ||
-    //        cameraRight->imageCount() < patternCount)
-    // {
-    //     std::this_thread::sleep_for(std::chrono::milliseconds(5));
-    // }
-
-    // ÁÙÊ±²âÊÔ£ºÖ»ÈÃ¹â»ú²¥·Å 2 Ãë
-    std::this_thread::sleep_for(std::chrono::seconds(2));
-
-    // 7. Í£Ö¹¹â»ú
-    StopDlpScan();
-
-    return true;
-}
-
-
-// ======================================================
-// 14. ¿ØÖÆÌ¨²âÊÔ main£¬¿ÉÑ¡
-// ======================================================
-
-#ifdef DLP_SCAN_TEST_MAIN
-
+/**
+ * @brief æ§åˆ¶å°æµ‹è¯•å…¥å£ã€‚
+ *
+ * @return 0 è¡¨ç¤ºæµ‹è¯•æˆåŠŸï¼›-1 è¡¨ç¤ºæµ‹è¯•å¤±è´¥ã€‚
+ *
+ * æ–¹æ³•ä½œç”¨ï¼šåœ¨é Qt ç¯å¢ƒä¸‹å¿«é€ŸéªŒè¯å½©è‰²ç½‘å£ç›¸æœºã€CXP ç°åº¦ç›¸æœºå’Œ DLP æ‰«ææµç¨‹ã€‚
+ */
 int main()
 {
-    bool ok = RunDlpScanOnceWithoutConfig();
-
-    if (!ok)
+    if (!RunCameraDlpScanTest())
     {
-        printf("[DLP TEST] scan failed\n");
-        DisconnectProjector();
         return -1;
     }
 
-    printf("[DLP TEST] scan success\n");
-    DisconnectProjector();
     return 0;
 }
 
