@@ -106,12 +106,13 @@ HikCameraSystemConfig CreateDefaultCameraSystemConfig()
  * @param frame 彩色相机图像。
  * @return true 表示保存成功；false 表示保存失败。
  *
- * 方法作用：彩色相机只软触发拍摄一张，并保存到 camera_output 目录。
+ * 方法作用：彩色相机只软触发拍摄一张，并保存到 camera_output\color 目录。
  */
 bool SaveColorCameraFrame(HikCameraController& cameraController, const HikCameraFrame& frame)
 {
     CreateDirectoryA("camera_output", nullptr);
-    return cameraController.saveFrameAsBmp(0, frame, "camera_output\\color_camera.bmp");
+    CreateDirectoryA("camera_output\\color", nullptr);
+    return cameraController.saveFrameAsBmp(0, frame, "camera_output\\color\\color_camera.bmp");
 }
 
 /**
@@ -122,7 +123,7 @@ bool SaveColorCameraFrame(HikCameraController& cameraController, const HikCamera
  * @param patternIndex 当前条纹序号。
  * @return true 表示本轮所有图像保存成功；false 表示至少一张图保存失败。
  *
- * 方法作用：把一次 DLP 条纹触发得到的 4 个灰度相机图像分别保存到 camera_output 目录。
+ * 方法作用：把一次 DLP 条纹触发得到的 4 个灰度相机图像分别保存到各自的 mono 目录。
  */
 bool SaveMonoCameraFrames(
     HikCameraController& cameraController,
@@ -133,12 +134,19 @@ bool SaveMonoCameraFrames(
 
     for (uint32_t cameraIndex = 0; cameraIndex < frames.size(); ++cameraIndex)
     {
+        char folderPath[256] = {};
+        sprintf_s(
+            folderPath,
+            "camera_output\\mono_%u",
+            cameraIndex + 1);
+        CreateDirectoryA(folderPath, nullptr);
+
         char filePath[256] = {};
         sprintf_s(
             filePath,
-            "camera_output\\pattern_%02u_mono_%u.bmp",
-            patternIndex,
-            cameraIndex + 1);
+            "%s\\pattern_%02u.bmp",
+            folderPath,
+            patternIndex);
 
         if (!cameraController.saveFrameAsBmp(cameraIndex + 1, frames[cameraIndex], filePath))
         {
