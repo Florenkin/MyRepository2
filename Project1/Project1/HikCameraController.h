@@ -310,16 +310,16 @@ public:
     bool getOneFrameFromAll(std::vector<HikCameraFrame>* frames);
 
     /**
-     * @brief 将指定相机的一帧图像保存为 PNG 文件。
+     * @brief 将指定相机的一帧图像保存为 BMP 文件。
      *
      * @param cameraIndex 相机索引。0 表示彩色相机，1 到 4 表示第 1 到第 4 个灰度相机。
      * @param frame 要保存的图像帧。
-     * @param filePath 输出 PNG 文件路径。
+     * @param filePath 输出 BMP 文件路径。
      * @return true 表示保存成功；false 表示索引错误、相机未打开或 SDK 保存失败。
      *
-     * 方法作用：使用海康 MVS 的 MV_CC_SaveImageToFileEx() 把原始帧数据转换并保存为 PNG。
+     * 方法作用：使用海康 MVS 的 MV_CC_SaveImageToFileEx() 把原始帧数据转换并保存为 BMP。
      */
-    bool saveFrameAsPng(
+    bool saveFrameAsBmp(
         uint32_t cameraIndex,
         const HikCameraFrame& frame,
         const std::string& filePath);

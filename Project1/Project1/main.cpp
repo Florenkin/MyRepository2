@@ -111,7 +111,7 @@ HikCameraSystemConfig CreateDefaultCameraSystemConfig()
 bool SaveColorCameraFrame(HikCameraController& cameraController, const HikCameraFrame& frame)
 {
     CreateDirectoryA("camera_output", nullptr);
-    return cameraController.saveFrameAsPng(0, frame, "camera_output\\color_camera.png");
+    return cameraController.saveFrameAsBmp(0, frame, "camera_output\\color_camera.bmp");
 }
 
 /**
@@ -136,11 +136,11 @@ bool SaveMonoCameraFrames(
         char filePath[256] = {};
         sprintf_s(
             filePath,
-            "camera_output\\pattern_%02u_mono_%u.png",
+            "camera_output\\pattern_%02u_mono_%u.bmp",
             patternIndex,
             cameraIndex + 1);
 
-        if (!cameraController.saveFrameAsPng(cameraIndex + 1, frames[cameraIndex], filePath))
+        if (!cameraController.saveFrameAsBmp(cameraIndex + 1, frames[cameraIndex], filePath))
         {
             printf("[CAMERA TEST] save failed: %s, %s\n", filePath, cameraController.lastError().c_str());
             return false;
@@ -156,7 +156,8 @@ bool SaveMonoCameraFrames(
  * @return true 表示完整流程成功；false 表示相机或光机流程失败。
  *
  * 方法作用：彩色相机按网口枚举并软触发拍摄 1 张；4 个灰度相机按 CXP 采集卡枚举，
- * 启动取流后由 DLP 条纹触发采集 35 轮灰度图像。
+ * 启动取流后由 DLP 条纹触发采集 35 轮灰度图像；每轮取图后立即阻塞保存 BMP，
+ * 所有照片保存完成后本函数才返回成功。
  */
 bool RunCameraDlpScanTest()
 {
@@ -284,7 +285,7 @@ bool RunCameraDlpScanTest()
     cameraController.stopGrabbing();
     cameraController.closeAllCameras();
 
-    printf("[CAMERA TEST] scan success, saved one color PNG and %u groups of mono PNG images\n", kScanPatternCount);
+    printf("[CAMERA TEST] scan success, saved one color BMP and %u groups of mono BMP images\n", kScanPatternCount);
     return true;
 }
 

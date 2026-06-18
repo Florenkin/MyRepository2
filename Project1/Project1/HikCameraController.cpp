@@ -457,7 +457,7 @@ bool HikCameraController::getOneFrameFromAll(std::vector<HikCameraFrame>* frames
     return true;
 }
 
-bool HikCameraController::saveFrameAsPng(
+bool HikCameraController::saveFrameAsBmp(
     uint32_t cameraIndex,
     const HikCameraFrame& frame,
     const std::string& filePath)
@@ -465,19 +465,19 @@ bool HikCameraController::saveFrameAsPng(
     CameraHandle* cameraHandle = cameraAt(cameraIndex);
     if (cameraHandle == nullptr)
     {
-        setLastError("保存 PNG 失败：相机索引超出范围。");
+        setLastError("保存 BMP 失败：相机索引超出范围。");
         return false;
     }
 
     if (!cameraHandle->opened)
     {
-        setLastError(cameraHandle->config.name + " 未打开，无法保存 PNG。");
+        setLastError(cameraHandle->config.name + " 未打开，无法保存 BMP。");
         return false;
     }
 
     if (frame.data.empty())
     {
-        setLastError("保存 PNG 失败：图像数据为空。");
+        setLastError("保存 BMP 失败：图像数据为空。");
         return false;
     }
 
@@ -490,7 +490,7 @@ bool HikCameraController::saveFrameAsPng(
     saveParam.enPixelType = frame.frameInfo.enPixelType;
     saveParam.pData = const_cast<unsigned char*>(frame.data.data());
     saveParam.nDataLen = static_cast<unsigned int>(frame.data.size());
-    saveParam.enImageType = MV_Image_Png;
+    saveParam.enImageType = MV_Image_Bmp;
     saveParam.pcImagePath = writablePath.data();
     saveParam.nQuality = 90;
     saveParam.iMethodValue = 1;
@@ -498,7 +498,7 @@ bool HikCameraController::saveFrameAsPng(
     int status = hikMvsApi().saveImageToFileEx(cameraHandle->handle, &saveParam);
     if (status != MV_OK)
     {
-        setLastErrorWithCode(cameraHandle->config.name + " 保存 PNG 失败", status);
+        setLastErrorWithCode(cameraHandle->config.name + " 保存 BMP 失败", status);
         return false;
     }
 
